@@ -1,4 +1,5 @@
-class EmployeesController < ApplicationController
+class EmployeesController < Accounts::BaseController
+  before_action :authenticate_user!
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
 
   # Uncomment to enforce Pundit authorization
