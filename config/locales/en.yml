@@ -172,7 +172,7 @@ en:
 
   dashboard:
     show:
-      title: "Dashboard"
+      greeting: "Welcome, "
 
   payments:
     success: "Thanks for subscribing!"
