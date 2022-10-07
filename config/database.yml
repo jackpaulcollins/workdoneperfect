@@ -29,7 +29,7 @@ default: &default
 
 development:
   <<: *default
-  database: lighthouse_development
+  database: litethouse_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -63,7 +63,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: lighthouse_test
+  database: litehouse_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -86,6 +86,6 @@ test:
 #
 production:
   <<: *default
-  database: lighthouse_production
-  username: lighthouse
+  database: litehouse_production
+  username: litehouse
   password: <%= ENV['JUMPSTART_DATABASE_PASSWORD'] %>

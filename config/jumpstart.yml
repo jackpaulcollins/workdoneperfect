@@ -1,6 +1,6 @@
 --- !ruby/object:Jumpstart::Configuration
-application_name: Lighthouse
-business_name: Lighthouse Company, LLC
+application_name: Litehouse
+business_name: Litehouse Company, LLC
 domain: example.com
 support_email: support@lighthouse.com
 default_from_email: Jumpstart <support@example.com>
