@@ -1,0 +1,10 @@
+<%= form_for @employee, url: "/employees/#{@employee.id}/set_attributes/", method: :post do |form| %>
+  <% @employee.employee_template.template_attributes.each do |attribute| %>
+    <div>
+     <%= form.label attribute.to_s %>
+     <input multiple="multiple" class="form-control" type="text" name="employee[template_attributes][<%=attribute%>]"  />
+    </div>
+  <% end %>
+
+  <%= form.button button_text("save"), class: "btn btn-primary" %>
+<% end %>

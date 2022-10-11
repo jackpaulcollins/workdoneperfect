@@ -1,18 +1,22 @@
 <div id="<%= dom_id employee %>">
   <div class="mb-4">
     <p class="text-sm font-medium text-gray-500">Name</p>
-    <%= employee.name %>
+    <%= employee.first_name + " " + employee.last_name %>
   </div>
   <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Position</p>
-    <%= employee.position %>
+    <p class="text-sm font-medium text-gray-500">Title</p>
+    <%= employee.title %>
   </div>
   <div class="mb-4">
     <p class="text-sm font-medium text-gray-500">Start date</p>
     <%= employee.start_date %>
   </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Driver</p>
-    <%= employee.driver %>
+
+  <div class="flex flex-col">
+    <% employee.template_attributes.each_pair do |k, v| %>
+      <div>
+        <strong><%= k %></strong>: <%= v %>
+      </div>
+    <% end %>
   </div>
 </div>
