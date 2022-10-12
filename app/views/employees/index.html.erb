@@ -15,6 +15,8 @@
       </div>
     </div>
 
+    <%= link_to "Templates", employee_templates_path, class: "btn btn-white" %>
+    <%= link_to t("shared.scaffold.new.title", model: "Employee Template"), new_employee_template_path, class: "btn btn-white" %>
     <%= link_to t("shared.scaffold.new.title", model: "Employee"), new_employee_path, class: "btn btn-white" %>
   </div>
 
