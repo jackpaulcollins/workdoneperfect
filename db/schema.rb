@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_11_024604) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_11_063710) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -132,6 +132,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_024604) do
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "account_id"
+    t.index ["account_id"], name: "index_customers_on_account_id"
+  end
+
   create_table "employee_templates", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "user_id", null: false
@@ -157,6 +168,24 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_024604) do
     t.jsonb "template_attributes"
     t.index ["account_id"], name: "index_employees_on_account_id"
     t.index ["employee_template_id"], name: "index_employees_on_employee_template_id"
+  end
+
+  create_table "employees_jobs", id: false, force: :cascade do |t|
+    t.bigint "employee_id", null: false
+    t.bigint "job_id", null: false
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.bigint "customer_id", null: false
+    t.datetime "date"
+    t.integer "estimated_hours"
+    t.integer "compeleted_hours"
+    t.integer "revenue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "account_id"
+    t.index ["account_id"], name: "index_jobs_on_account_id"
+    t.index ["customer_id"], name: "index_jobs_on_customer_id"
   end
 
   create_table "notification_tokens", force: :cascade do |t|
@@ -338,6 +367,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_024604) do
   add_foreign_key "employee_templates", "accounts"
   add_foreign_key "employee_templates", "users"
   add_foreign_key "employees", "accounts"
+  add_foreign_key "jobs", "customers"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"

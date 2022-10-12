@@ -28,16 +28,14 @@ class Employee < ApplicationRecord
   acts_as_tenant :account
   belongs_to :account
   belongs_to :employee_template
+  has_many :jobs
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit  -> { broadcast_prepend_later_to :employees, partial: "employees/index", locals: { employee: self } }
   after_update_commit  -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :employees, target: dom_id(self, :index) }
-end
 
-#<div data-controller="employee">
-#<%= form.label :template%>
-#<div data-action="change->employee#select">
-  #<%= form.collection_select(:employee_template_id, EmployeeTemplate.all, :id, :title) %>
-#</div>
-#</div>
+  def first_and_last_name
+    first_name + " " + last_name
+  end
+end
