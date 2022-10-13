@@ -17,7 +17,7 @@ class AttributeAnswersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create attribute_answer" do
     assert_difference("AttributeAnswer.count") do
-      post attribute_answers_url, params: {attribute_answer: {answer: @attribute_answer.answer, employee_id: @attribute_answer.employee_id, employee_template_id: @attribute_answer.employee_template_id}}
+      post attribute_answers_url, params: {attribute_answer: {answer: @attribute_answer.answer, employee_id: @attribute_answer.employee_id, employee_template_id: employee_templates(:two).id}}
     end
 
     assert_redirected_to attribute_answer_url(AttributeAnswer.last)

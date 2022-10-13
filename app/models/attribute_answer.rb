@@ -11,8 +11,9 @@
 #
 # Indexes
 #
-#  index_attribute_answers_on_employee_id           (employee_id)
-#  index_attribute_answers_on_employee_template_id  (employee_template_id)
+#  index_attribute_answers_on_employee_id                           (employee_id)
+#  index_attribute_answers_on_employee_id_and_employee_template_id  (employee_id,employee_template_id) UNIQUE
+#  index_attribute_answers_on_employee_template_id                  (employee_template_id)
 #
 # Foreign Keys
 #
@@ -23,6 +24,7 @@ class AttributeAnswer < ApplicationRecord
   belongs_to :employee_template
   belongs_to :employee
 
+  validates :employee_template, uniqueness: {scope: :employee_id}
   validates :answer, presence: true
 
   # Broadcast changes in realtime with Hotwire

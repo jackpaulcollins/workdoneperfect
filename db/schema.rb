@@ -138,6 +138,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_040611) do
     t.string "answer", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["employee_id", "employee_template_id"], name: "index_attribute_answers_on_employee_id_and_employee_template_id", unique: true
     t.index ["employee_id"], name: "index_attribute_answers_on_employee_id"
     t.index ["employee_template_id"], name: "index_attribute_answers_on_employee_template_id"
   end
