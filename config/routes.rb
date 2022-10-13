@@ -1,6 +1,6 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  resources :customers
+  resources :employee_templates
   post "employee_templates/append_attribute", to: "employee_templates#append_template_attribute"
   post "/employee_templates/:id/append_attribute", to: "employee_templates#append_template_attribute"
   post "employees/set-template", to: "employees#set_template"
@@ -37,7 +37,7 @@ Rails.application.routes.draw do
       resources :account_users
       resources :plans
       namespace :pay do
-              resources :charges
+        resources :charges
         resources :payment_methods
         resources :subscriptions
       end
