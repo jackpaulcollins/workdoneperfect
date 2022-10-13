@@ -17,7 +17,7 @@ class EmployeeTemplatesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create employee_template" do
     assert_difference("EmployeeTemplate.count") do
-      post employee_templates_url, params: {employee_template: {account_id: @employee_template.account_id, title: @employee_template.title}}
+      post employee_templates_url, params: {employee_template: {account_id: @employee_template.account_id, title: "Unique Title"}}
     end
 
     assert_redirected_to employee_template_url(EmployeeTemplate.last)
