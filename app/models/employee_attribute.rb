@@ -21,6 +21,8 @@
 #  fk_rails_...  (employee_template_id => employee_templates.id)
 #
 class EmployeeAttribute < ApplicationRecord
+  acts_as_tenant :account
+  belongs_to :account
   belongs_to :employee_template
 
   validates :name, presence: true
