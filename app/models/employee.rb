@@ -25,6 +25,7 @@
 class Employee < ApplicationRecord
   has_person_name
 
+  acts_as_tenant :account
   belongs_to :account
   belongs_to :employee_template
   has_many :attribute_answers, dependent: :destroy
