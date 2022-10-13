@@ -1,5 +1,6 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+  resources :employees
   resources :employee_templates
   post "employee_templates/append_attribute", to: "employee_templates#append_template_attribute"
   post "/employee_templates/:id/append_attribute", to: "employee_templates#append_template_attribute"
