@@ -39,15 +39,6 @@ class EmployeeTemplatesController < ApplicationController
   def create
     @employee_template = EmployeeTemplate.new(employee_template_params)
 
-    # make concern if we like this
-    attributes = params[:employee_template][:template_attributes].split("|")
-
-    attributes.each do |arr|
-      next if arr.empty?
-      # TODO make sure required gets passed as "false" so don't throw nilclass
-      @employee_template.employee_attributes.build(name: arr[0], data_type: arr[1], required: arr[2])
-    end
-
     # Uncomment to authorize with Pundit
     # authorize @employee_template
 
@@ -98,7 +89,7 @@ class EmployeeTemplatesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def employee_template_params
-    params.require(:employee_template).permit(:account_id, :title)
+    params.require(:employee_template).permit(:account_id, :title, employee_attributes_attributes: [:name, :data_type, :required, :_destroy])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:employee_template).permit(policy(@employee_template).permitted_attributes)

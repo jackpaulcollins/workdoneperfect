@@ -25,6 +25,8 @@ class EmployeeTemplate < ApplicationRecord
 
   validates :title, presence: true
 
+  accepts_nested_attributes_for :employee_attributes, reject_if: proc { |attributes| attributes.values.any?(&:empty?) } # make sure all values are provided
+
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :employee_templates, partial: "employee_templates/index", locals: {employee_template: self} }
   after_update_commit -> { broadcast_replace_later_to self }
