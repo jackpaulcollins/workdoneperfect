@@ -24,8 +24,8 @@ class EmployeeAttribute < ApplicationRecord
   acts_as_tenant :account
   belongs_to :account
   belongs_to :employee_template
-
   validates :name, presence: true
+  validates :employee_template, presence: true
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :employee_attributes, partial: "employee_attributes/index", locals: {employee_attribute: self} }
