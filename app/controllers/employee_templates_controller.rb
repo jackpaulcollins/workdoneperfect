@@ -39,6 +39,15 @@ class EmployeeTemplatesController < ApplicationController
   def create
     @employee_template = EmployeeTemplate.new(employee_template_params)
 
+    # make concern if we like this
+    attributes = params[:employee_template][:template_attributes].split("|")
+
+    attributes.each do |arr|
+      next if arr.empty?
+      # TODO make sure required gets passed as "false" so don't throw nilclass
+      @employee_template.employee_attributes.build(name: arr[0], data_type: arr[1], required: arr[2])
+    end
+
     # Uncomment to authorize with Pundit
     # authorize @employee_template
 
