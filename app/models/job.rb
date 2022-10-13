@@ -25,6 +25,8 @@
 class Job < ApplicationRecord
   belongs_to :account
   belongs_to :customer
+  has_many :employee_jobs, dependent: :destroy
+  has_many :employees, through: :employee_jobs
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :jobs, partial: "jobs/index", locals: {job: self} }

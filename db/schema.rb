@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_034838) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_040611) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -159,6 +159,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_034838) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_template_id"], name: "index_employee_attributes_on_employee_template_id"
+  end
+
+  create_table "employee_jobs", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "employee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_employee_jobs_on_employee_id"
+    t.index ["job_id"], name: "index_employee_jobs_on_job_id"
   end
 
   create_table "employee_templates", force: :cascade do |t|
@@ -375,6 +384,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_034838) do
   add_foreign_key "attribute_answers", "employees"
   add_foreign_key "customers", "accounts"
   add_foreign_key "employee_attributes", "employee_templates"
+  add_foreign_key "employee_jobs", "employees"
+  add_foreign_key "employee_jobs", "jobs"
   add_foreign_key "employee_templates", "accounts"
   add_foreign_key "employees", "accounts"
   add_foreign_key "employees", "employee_templates"
