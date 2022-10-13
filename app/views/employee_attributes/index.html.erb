@@ -1,0 +1,36 @@
+<%= content_for :title, "Employee Attributes" %>
+<%= turbo_stream_from :employee_attributes %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h1 class="h3">Employee Attributes</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500">Sort by:</span>
+        <%= sortable @employee_attributes, :employee_template_id, "Employee template", class: "text-gray-700 mr-1" %>
+        <%= sortable @employee_attributes, :name, "Name", class: "text-gray-700 mr-1" %>
+      </div>
+    </div>
+
+    <%= link_to t("shared.scaffold.new.title", model: "Employee Attribute"), new_employee_attribute_path, class: "btn btn-white" %>
+  </div>
+
+  <%= tag.div id: ("employee_attributes" if first_page?), class: "bg-white rounded-md shadow p-6 space-y-8" do %>
+    <%= render partial: "employee_attributes/index", collection: @employee_attributes, as: :employee_attribute, cached: true %>
+
+    <div class="hidden only:flex flex-col items-center justify-between lg:flex-row">
+      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+      <div class="flex-1 text-center">
+        <p class="mb-4 h3">Create your first Employee Attribute</p>
+        <%= link_to t("shared.scaffold.new.title", model: "Employee Attribute"), new_employee_attribute_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

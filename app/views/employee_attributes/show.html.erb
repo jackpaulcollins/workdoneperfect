@@ -1,0 +1,17 @@
+<%= content_for :title, "Employee Attributes ##{@employee_attribute.id}" %>
+<%= turbo_stream_from @employee_attribute %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="h3">
+      <%= link_to "Employee Attributes", employee_attributes_path, class: "text-black" %>
+      <span class="text-gray-400 font-light mx-2">\</span>
+      Employee Attribute #<%= @employee_attribute.id %>
+    </h1>
+    <%= link_to t("edit"), edit_employee_attribute_path(@employee_attribute), class: "btn btn-white" %>
+  </div>
+
+  <div class="p-8 bg-white rounded shadow">
+    <%= render @employee_attribute %>
+  </div>
+</div>

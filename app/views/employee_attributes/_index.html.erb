@@ -1,0 +1,6 @@
+<div id="<%= dom_id(employee_attribute, :index) %>">
+  <%= turbo_stream_from employee_attribute %>
+  <%= render employee_attribute %>
+  <%= link_to "View", employee_attribute, class: "btn btn-white" %>
+</div>
+

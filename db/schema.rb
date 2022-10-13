@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_032729) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_033349) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -130,6 +130,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_032729) do
     t.datetime "updated_at", null: false
     t.index ["token"], name: "index_api_tokens_on_token", unique: true
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
+  end
+
+  create_table "employee_attributes", force: :cascade do |t|
+    t.bigint "employee_template_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_template_id"], name: "index_employee_attributes_on_employee_template_id"
   end
 
   create_table "employee_templates", force: :cascade do |t|
@@ -329,6 +337,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_032729) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "employee_attributes", "employee_templates"
   add_foreign_key "employee_templates", "accounts"
   add_foreign_key "employees", "accounts"
   add_foreign_key "employees", "employee_templates"
