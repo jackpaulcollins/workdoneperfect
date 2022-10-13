@@ -20,6 +20,8 @@
 #  fk_rails_...  (account_id => accounts.id)
 #
 class Customer < ApplicationRecord
+  acts_as_tenant :account
+
   has_person_name
 
   belongs_to :account

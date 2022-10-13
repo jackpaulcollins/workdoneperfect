@@ -18,6 +18,7 @@
 #
 class EmployeeTemplate < ApplicationRecord
   acts_as_tenant :account
+
   belongs_to :account
   has_many :employees, dependent: :destroy
   has_many :employee_attributes, dependent: :destroy
