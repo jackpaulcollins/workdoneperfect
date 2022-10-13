@@ -23,6 +23,7 @@ class Customer < ApplicationRecord
   has_person_name
 
   belongs_to :account
+  has_many :jobs, dependent: :destroy
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :customers, partial: "customers/index", locals: {customer: self} }
