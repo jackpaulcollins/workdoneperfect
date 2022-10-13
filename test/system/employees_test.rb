@@ -14,10 +14,11 @@ class EmployeesTest < ApplicationSystemTestCase
     visit employees_url
     click_on "New Employee"
 
-    fill_in "Created by", with: @employee.created_by_id
-    check "Driver" if @employee.driver
-    fill_in "Name", with: @employee.name
-    fill_in "Position", with: @employee.position
+    fill_in "Account", with: @employee.account_id
+    fill_in "Employee template", with: @employee.employee_template_id
+    fill_in "Final date", with: @employee.final_date
+    fill_in "First name", with: @employee.first_name
+    fill_in "Last name", with: @employee.last_name
     fill_in "Start date", with: @employee.start_date
     click_on "Create Employee"
 
@@ -29,10 +30,11 @@ class EmployeesTest < ApplicationSystemTestCase
     visit employee_url(@employee)
     click_on "Edit", match: :first
 
-    fill_in "Created by", with: @employee.created_by_id
-    check "Driver" if @employee.driver
-    fill_in "Name", with: @employee.name
-    fill_in "Position", with: @employee.position
+    fill_in "Account", with: @employee.account_id
+    fill_in "Employee template", with: @employee.employee_template_id
+    fill_in "Final date", with: @employee.final_date
+    fill_in "First name", with: @employee.first_name
+    fill_in "Last name", with: @employee.last_name
     fill_in "Start date", with: @employee.start_date
     click_on "Update Employee"
 

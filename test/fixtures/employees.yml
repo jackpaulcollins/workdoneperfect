@@ -3,17 +3,14 @@
 # Table name: employees
 #
 #  id                   :bigint           not null, primary key
-#  attributes_finished  :boolean          default(FALSE)
+#  final_date           :datetime
 #  first_name           :string
 #  last_name            :string
-#  start_date           :date
-#  template_attributes  :jsonb
-#  termination_date     :date
-#  title                :string
+#  start_date           :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  account_id           :bigint           not null
-#  employee_template_id :bigint
+#  employee_template_id :bigint           not null
 #
 # Indexes
 #
@@ -23,18 +20,21 @@
 # Foreign Keys
 #
 #  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (employee_template_id => employee_templates.id)
 #
 
 one:
-  name: MyString
-  position: MyString
-  start_date: 2022-10-06
-  driver: false
-  created_by: one
+  account: one
+  employee_template: one
+  first_name: MyString
+  last_name: MyString
+  start_date: 2022-10-12 22:27:29
+  final_date: 2022-10-12 22:27:29
 
 two:
-  name: MyString
-  position: MyString
-  start_date: 2022-10-06
-  driver: false
-  created_by: two
+  account: two
+  employee_template: two
+  first_name: MyString
+  last_name: MyString
+  start_date: 2022-10-12 22:27:29
+  final_date: 2022-10-12 22:27:29

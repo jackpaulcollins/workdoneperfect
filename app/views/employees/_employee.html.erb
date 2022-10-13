@@ -1,24 +1,26 @@
 <div id="<%= dom_id employee %>">
   <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Name</p>
-    <%= employee.first_name + " " + employee.last_name %>
+    <p class="text-sm font-medium text-gray-500">Account</p>
+    <%= employee.account_id %>
   </div>
   <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Title</p>
-    <%= employee.title %>
+    <p class="text-sm font-medium text-gray-500">Employee template</p>
+    <%= employee.employee_template_id %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">First name</p>
+    <%= employee.first_name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Last name</p>
+    <%= employee.last_name %>
   </div>
   <div class="mb-4">
     <p class="text-sm font-medium text-gray-500">Start date</p>
     <%= employee.start_date %>
   </div>
-
-  <div class="flex flex-col">
-  <% if !employee.template_attributes.nil? %>
-      <% employee.template_attributes.each_pair do |k, v| %>
-        <div>
-          <strong><%= k %></strong>: <%= v %>
-        </div>
-      <% end %>
-    <% end %>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Final date</p>
+    <%= employee.final_date %>
   </div>
 </div>

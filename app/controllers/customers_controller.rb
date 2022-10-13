@@ -83,7 +83,7 @@ class CustomersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def customer_params
-    params.require(:customer).permit(:first_name, :last_name, :email, :phone_number)
+    params.require(:customer).permit(:account_id, :email, :first_name, :last_name, :phone_number)
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:customer).permit(policy(@customer).permitted_attributes)

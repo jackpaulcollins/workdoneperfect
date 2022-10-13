@@ -3,17 +3,14 @@
 # Table name: employees
 #
 #  id                   :bigint           not null, primary key
-#  attributes_finished  :boolean          default(FALSE)
+#  final_date           :datetime
 #  first_name           :string
 #  last_name            :string
-#  start_date           :date
-#  template_attributes  :jsonb
-#  termination_date     :date
-#  title                :string
+#  start_date           :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  account_id           :bigint           not null
-#  employee_template_id :bigint
+#  employee_template_id :bigint           not null
 #
 # Indexes
 #
@@ -23,6 +20,7 @@
 # Foreign Keys
 #
 #  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (employee_template_id => employee_templates.id)
 #
 require "test_helper"
 

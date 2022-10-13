@@ -5,6 +5,12 @@
   <div class="flex items-center justify-between mb-4">
     <div>
       <h1 class="h3">Employee Templates</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500">Sort by:</span>
+        <%= sortable @employee_templates, :account_id, "Account", class: "text-gray-700 mr-1" %>
+        <%= sortable @employee_templates, :title, "Title", class: "text-gray-700 mr-1" %>
+      </div>
     </div>
 
     <%= link_to t("shared.scaffold.new.title", model: "Employee Template"), new_employee_template_path, class: "btn btn-white" %>

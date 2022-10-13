@@ -1,45 +1,44 @@
-class EmployeeTemplatesController < Accounts::BaseController
-  before_action :authenticate_user!
+class EmployeeTemplatesController < ApplicationController
   before_action :set_employee_template, only: [:show, :edit, :update, :destroy]
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized
   # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
-  # GET /employees
+  # GET /employee_templates
   def index
     @pagy, @employee_templates = pagy(EmployeeTemplate.sort_by_params(params[:sort], sort_direction))
 
     # Uncomment to authorize with Pundit
-    # authorize @employees
+    # authorize @employee_templates
   end
 
-  # GET /employees/1 or /employees/1.json
+  # GET /employee_templates/1 or /employee_templates/1.json
   def show
   end
 
-  # GET /employees/new
+  # GET /employee_templates/new
   def new
     @employee_template = EmployeeTemplate.new
 
     # Uncomment to authorize with Pundit
-    # authorize @employee
+    # authorize @employee_template
   end
 
-  # GET /employees/1/edit
+  # GET /employee_templates/1/edit
   def edit
   end
 
-  # POST /employees or /employees.json
+  # POST /employee_templates or /employee_templates.json
   def create
-    @employee_template = EmployeeTemplate.new(employee_template_params.merge(user: current_user, account: current_account))
+    @employee_template = EmployeeTemplate.new(employee_template_params)
 
     # Uncomment to authorize with Pundit
-    # authorize @employee
+    # authorize @employee_template
 
     respond_to do |format|
       if @employee_template.save
-        format.html { redirect_to @employee_template, notice: "employee template was successfully created." }
+        format.html { redirect_to @employee_template, notice: "Employee template was successfully created." }
         format.json { render :show, status: :created, location: @employee_template }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,11 +47,11 @@ class EmployeeTemplatesController < Accounts::BaseController
     end
   end
 
-  # PATCH/PUT /employees/1 or /employees/1.json
+  # PATCH/PUT /employee_templates/1 or /employee_templates/1.json
   def update
     respond_to do |format|
       if @employee_template.update(employee_template_params)
-        format.html { redirect_to @employee_template, notice: "employee template was successfully updated." }
+        format.html { redirect_to @employee_template, notice: "Employee template was successfully updated." }
         format.json { render :show, status: :ok, location: @employee_template }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -61,18 +60,12 @@ class EmployeeTemplatesController < Accounts::BaseController
     end
   end
 
-  # DELETE /employees/1 or /employees/1.json
+  # DELETE /employee_templates/1 or /employee_templates/1.json
   def destroy
     @employee_template.destroy
     respond_to do |format|
-      format.html { redirect_to employee_templates_url, status: :see_other, notice: "employee template was successfully destroyed." }
+      format.html { redirect_to employee_templates_url, status: :see_other, notice: "Employee template was successfully destroyed." }
       format.json { head :no_content }
-    end
-  end
-
-  def append_template_attribute
-    respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.append("template-attributes", partial: "template_attribute") }
     end
   end
 
@@ -83,15 +76,16 @@ class EmployeeTemplatesController < Accounts::BaseController
     @employee_template = EmployeeTemplate.find(params[:id])
 
     # Uncomment to authorize with Pundit
-    # authorize @employee
+    # authorize @employee_template
   rescue ActiveRecord::RecordNotFound
-    redirect_to employee_template_path
+    redirect_to employee_templates_path
   end
 
   # Only allow a list of trusted parameters through.
   def employee_template_params
-    params.require(:employee_template).permit(:title, template_attributes: [])
+    params.require(:employee_template).permit(:account_id, :title)
+
+    # Uncomment to use Pundit permitted attributes
+    # params.require(:employee_template).permit(policy(@employee_template).permitted_attributes)
   end
-  # Uncomment to use Pundit permitted attributes
-  # params.require(:employee).permit(policy(@employee).permitted_attributes)
 end

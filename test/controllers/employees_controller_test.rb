@@ -17,7 +17,7 @@ class EmployeesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create employee" do
     assert_difference("Employee.count") do
-      post employees_url, params: {employee: {created_by_id: @employee.created_by_id, driver: @employee.driver, name: @employee.name, position: @employee.position, start_date: @employee.start_date}}
+      post employees_url, params: {employee: {account_id: @employee.account_id, employee_template_id: @employee.employee_template_id, final_date: @employee.final_date, first_name: @employee.first_name, last_name: @employee.last_name, start_date: @employee.start_date}}
     end
 
     assert_redirected_to employee_url(Employee.last)
@@ -34,7 +34,7 @@ class EmployeesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update employee" do
-    patch employee_url(@employee), params: {employee: {created_by_id: @employee.created_by_id, driver: @employee.driver, name: @employee.name, position: @employee.position, start_date: @employee.start_date}}
+    patch employee_url(@employee), params: {employee: {account_id: @employee.account_id, employee_template_id: @employee.employee_template_id, final_date: @employee.final_date, first_name: @employee.first_name, last_name: @employee.last_name, start_date: @employee.start_date}}
     assert_redirected_to employee_url(@employee)
   end
 

@@ -1,11 +1,10 @@
 <div id="<%= dom_id employee_template %>">
   <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Name</p>
+    <p class="text-sm font-medium text-gray-500">Account</p>
+    <%= employee_template.account_id %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Title</p>
     <%= employee_template.title %>
-
-    <p class="text-sm font-medium text-gray-500">Attributes</p>
-    <% employee_template.template_attributes.each do |attribute| %>
-      <p><%= attribute %></p>
-    <% end %>
   </div>
 </div>

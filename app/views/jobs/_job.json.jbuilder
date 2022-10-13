@@ -1,2 +1,2 @@
-json.extract! job, :id, :customer_id, :employees_id, :date, :estimated_hours, :compeleted_hours, :revenue, :created_at, :updated_at
+json.extract! job, :id, :account_id, :customer_id, :date_and_time, :estimated_hours, :total_hours, :revenue, :created_at, :updated_at
 json.url job_url(job, format: :json)

@@ -8,9 +8,10 @@
 
       <div class="text-sm font-medium">
         <span class="text-gray-500">Sort by:</span>
+        <%= sortable @customers, :account_id, "Account", class: "text-gray-700 mr-1" %>
+        <%= sortable @customers, :email, "Email", class: "text-gray-700 mr-1" %>
         <%= sortable @customers, :first_name, "First name", class: "text-gray-700 mr-1" %>
         <%= sortable @customers, :last_name, "Last name", class: "text-gray-700 mr-1" %>
-        <%= sortable @customers, :email, "Email", class: "text-gray-700 mr-1" %>
         <%= sortable @customers, :phone_number, "Phone number", class: "text-gray-700 mr-1" %>
       </div>
     </div>

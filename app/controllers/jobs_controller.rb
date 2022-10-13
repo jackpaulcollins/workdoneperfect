@@ -29,27 +29,9 @@ class JobsController < ApplicationController
   def edit
   end
 
-  # json endpoint for stimulus
-  def employees
-    employees = Employee.all
-    render json: {status: 200, employees: employees}
-  end
-
-  def append_employee
-    respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.append("job-employees", partial: "appended_employee", locals: {employees: Employee.all}) }
-    end
-  end
-
   # POST /jobs or /jobs.json
   def create
     @job = Job.new(job_params)
-
-    params[:employee_ids][:id].each do |e|
-      if !e.empty?
-        @job.employees << Employee.find(e)
-      end
-    end
 
     # Uncomment to authorize with Pundit
     # authorize @job
@@ -67,14 +49,6 @@ class JobsController < ApplicationController
 
   # PATCH/PUT /jobs/1 or /jobs/1.json
   def update
-    @job.employees.replace([])
-
-    params[:employee_ids][:id].each do |e|
-      if !e.empty?
-        @job.employees << Employee.find(e)
-      end
-    end
-
     respond_to do |format|
       if @job.update(job_params)
         format.html { redirect_to @job, notice: "Job was successfully updated." }
@@ -109,7 +83,7 @@ class JobsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def job_params
-    params.require(:job).permit(:customer_id, :date, :estimated_hours, :compeleted_hours, :revenue)
+    params.require(:job).permit(:account_id, :customer_id, :date_and_time, :estimated_hours, :total_hours, :revenue)
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:job).permit(policy(@job).permitted_attributes)

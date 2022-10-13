@@ -14,12 +14,12 @@ class JobsTest < ApplicationSystemTestCase
     visit jobs_url
     click_on "New Job"
 
-    fill_in "Compeleted hours", with: @job.compeleted_hours
+    fill_in "Account", with: @job.account_id
     fill_in "Customer", with: @job.customer_id
-    fill_in "Date", with: @job.date
-    fill_in "Employees", with: @job.employees_id
+    fill_in "Date and time", with: @job.date_and_time
     fill_in "Estimated hours", with: @job.estimated_hours
     fill_in "Revenue", with: @job.revenue
+    fill_in "Total hours", with: @job.total_hours
     click_on "Create Job"
 
     assert_text "Job was successfully created"
@@ -30,12 +30,12 @@ class JobsTest < ApplicationSystemTestCase
     visit job_url(@job)
     click_on "Edit", match: :first
 
-    fill_in "Compeleted hours", with: @job.compeleted_hours
+    fill_in "Account", with: @job.account_id
     fill_in "Customer", with: @job.customer_id
-    fill_in "Date", with: @job.date
-    fill_in "Employees", with: @job.employees_id
+    fill_in "Date and time", with: @job.date_and_time
     fill_in "Estimated hours", with: @job.estimated_hours
     fill_in "Revenue", with: @job.revenue
+    fill_in "Total hours", with: @job.total_hours
     click_on "Update Job"
 
     assert_text "Job was successfully updated"

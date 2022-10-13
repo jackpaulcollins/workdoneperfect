@@ -2,15 +2,15 @@
 #
 # Table name: jobs
 #
-#  id               :bigint           not null, primary key
-#  compeleted_hours :integer
-#  date             :datetime
-#  estimated_hours  :integer
-#  revenue          :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  account_id       :bigint
-#  customer_id      :bigint           not null
+#  id              :bigint           not null, primary key
+#  date_and_time   :datetime         not null
+#  estimated_hours :float
+#  revenue         :float
+#  total_hours     :float
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  account_id      :bigint           not null
+#  customer_id     :bigint           not null
 #
 # Indexes
 #
@@ -19,13 +19,16 @@
 #
 # Foreign Keys
 #
+#  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (customer_id => customers.id)
 #
 class Job < ApplicationRecord
-  acts_as_tenant :account
   belongs_to :account
   belongs_to :customer
-  has_and_belongs_to_many :employees
+  has_many :employee_jobs, dependent: :destroy
+  has_many :employees, through: :employee_jobs
+
+  validates :date_and_time, presence: true
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :jobs, partial: "jobs/index", locals: {job: self} }

@@ -14,6 +14,7 @@ class CustomersTest < ApplicationSystemTestCase
     visit customers_url
     click_on "New Customer"
 
+    fill_in "Account", with: @customer.account_id
     fill_in "Email", with: @customer.email
     fill_in "First name", with: @customer.first_name
     fill_in "Last name", with: @customer.last_name
@@ -28,6 +29,7 @@ class CustomersTest < ApplicationSystemTestCase
     visit customer_url(@customer)
     click_on "Edit", match: :first
 
+    fill_in "Account", with: @customer.account_id
     fill_in "Email", with: @customer.email
     fill_in "First name", with: @customer.first_name
     fill_in "Last name", with: @customer.last_name

@@ -8,11 +8,11 @@
 
       <div class="text-sm font-medium">
         <span class="text-gray-500">Sort by:</span>
+        <%= sortable @jobs, :account_id, "Account", class: "text-gray-700 mr-1" %>
         <%= sortable @jobs, :customer_id, "Customer", class: "text-gray-700 mr-1" %>
-        <%= sortable @jobs, :employees_id, "Employees", class: "text-gray-700 mr-1" %>
-        <%= sortable @jobs, :date, "Date", class: "text-gray-700 mr-1" %>
+        <%= sortable @jobs, :date_and_time, "Date and time", class: "text-gray-700 mr-1" %>
         <%= sortable @jobs, :estimated_hours, "Estimated hours", class: "text-gray-700 mr-1" %>
-        <%= sortable @jobs, :compeleted_hours, "Compeleted hours", class: "text-gray-700 mr-1" %>
+        <%= sortable @jobs, :total_hours, "Total hours", class: "text-gray-700 mr-1" %>
         <%= sortable @jobs, :revenue, "Revenue", class: "text-gray-700 mr-1" %>
       </div>
     </div>

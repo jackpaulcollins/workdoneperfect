@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_11_063710) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_040611) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -132,58 +132,74 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_063710) do
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
   end
 
+  create_table "attribute_answers", force: :cascade do |t|
+    t.bigint "employee_template_id", null: false
+    t.bigint "employee_id", null: false
+    t.string "answer", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_attribute_answers_on_employee_id"
+    t.index ["employee_template_id"], name: "index_attribute_answers_on_employee_template_id"
+  end
+
   create_table "customers", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "email", null: false
     t.string "first_name"
     t.string "last_name"
-    t.string "email"
     t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "account_id"
     t.index ["account_id"], name: "index_customers_on_account_id"
+  end
+
+  create_table "employee_attributes", force: :cascade do |t|
+    t.bigint "employee_template_id", null: false
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_template_id"], name: "index_employee_attributes_on_employee_template_id"
+  end
+
+  create_table "employee_jobs", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "employee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["employee_id"], name: "index_employee_jobs_on_employee_id"
+    t.index ["job_id"], name: "index_employee_jobs_on_job_id"
   end
 
   create_table "employee_templates", force: :cascade do |t|
     t.bigint "account_id", null: false
-    t.bigint "user_id", null: false
+    t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "title"
-    t.string "template_attributes", default: [], array: true
     t.index ["account_id"], name: "index_employee_templates_on_account_id"
-    t.index ["user_id"], name: "index_employee_templates_on_user_id"
   end
 
   create_table "employees", force: :cascade do |t|
-    t.string "title"
-    t.date "start_date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.bigint "account_id", null: false
-    t.date "termination_date"
-    t.bigint "employee_template_id"
+    t.bigint "employee_template_id", null: false
     t.string "first_name"
     t.string "last_name"
-    t.boolean "attributes_finished", default: false
-    t.jsonb "template_attributes"
+    t.datetime "start_date"
+    t.datetime "final_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_employees_on_account_id"
     t.index ["employee_template_id"], name: "index_employees_on_employee_template_id"
   end
 
-  create_table "employees_jobs", id: false, force: :cascade do |t|
-    t.bigint "employee_id", null: false
-    t.bigint "job_id", null: false
-  end
-
   create_table "jobs", force: :cascade do |t|
+    t.bigint "account_id", null: false
     t.bigint "customer_id", null: false
-    t.datetime "date"
-    t.integer "estimated_hours"
-    t.integer "compeleted_hours"
-    t.integer "revenue"
+    t.datetime "date_and_time", null: false
+    t.float "estimated_hours"
+    t.float "total_hours"
+    t.float "revenue"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "account_id"
     t.index ["account_id"], name: "index_jobs_on_account_id"
     t.index ["customer_id"], name: "index_jobs_on_customer_id"
   end
@@ -364,9 +380,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_063710) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "attribute_answers", "employee_templates"
+  add_foreign_key "attribute_answers", "employees"
+  add_foreign_key "customers", "accounts"
+  add_foreign_key "employee_attributes", "employee_templates"
+  add_foreign_key "employee_jobs", "employees"
+  add_foreign_key "employee_jobs", "jobs"
   add_foreign_key "employee_templates", "accounts"
-  add_foreign_key "employee_templates", "users"
   add_foreign_key "employees", "accounts"
+  add_foreign_key "employees", "employee_templates"
+  add_foreign_key "jobs", "accounts"
   add_foreign_key "jobs", "customers"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"

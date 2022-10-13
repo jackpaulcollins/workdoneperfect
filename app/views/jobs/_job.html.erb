@@ -1,25 +1,23 @@
 <div id="<%= dom_id job %>">
   <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Account</p>
+    <%= job.account_id %>
+  </div>
+  <div class="mb-4">
     <p class="text-sm font-medium text-gray-500">Customer</p>
-    <%= job.customer.name_with_email %>
+    <%= job.customer_id %>
   </div>
   <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Employees</p>
-    <% job.employees.each do |e| %>
-      <%= e.first_and_last_name %>
-    <% end %>
-  </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Date</p>
-    <%= job.date %>
+    <p class="text-sm font-medium text-gray-500">Date and time</p>
+    <%= job.date_and_time %>
   </div>
   <div class="mb-4">
     <p class="text-sm font-medium text-gray-500">Estimated hours</p>
     <%= job.estimated_hours %>
   </div>
   <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Compeleted hours</p>
-    <%= job.compeleted_hours %>
+    <p class="text-sm font-medium text-gray-500">Total hours</p>
+    <%= job.total_hours %>
   </div>
   <div class="mb-4">
     <p class="text-sm font-medium text-gray-500">Revenue</p>
