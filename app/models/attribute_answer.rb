@@ -23,6 +23,8 @@ class AttributeAnswer < ApplicationRecord
   belongs_to :employee_template
   belongs_to :employee
 
+  validates :answer, presence: true
+
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :attribute_answers, partial: "attribute_answers/index", locals: {attribute_answer: self} }
   after_update_commit -> { broadcast_replace_later_to self }

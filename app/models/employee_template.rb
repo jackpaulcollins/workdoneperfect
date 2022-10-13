@@ -22,6 +22,8 @@ class EmployeeTemplate < ApplicationRecord
   has_many :employee_attributes, dependent: :destroy
   has_many :attribute_answers, dependent: :destroy
 
+  validates :title, presence: true
+
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :employee_templates, partial: "employee_templates/index", locals: {employee_template: self} }
   after_update_commit -> { broadcast_replace_later_to self }
