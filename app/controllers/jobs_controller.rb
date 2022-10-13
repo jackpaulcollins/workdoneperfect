@@ -29,15 +29,15 @@ class JobsController < ApplicationController
   def edit
   end
 
-  #json endpoint for stimulus
+  # json endpoint for stimulus
   def employees
     employees = Employee.all
-    render json: { status: 200, employees: employees }
+    render json: {status: 200, employees: employees}
   end
 
   def append_employee
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.append('job-employees', partial: 'appended_employee', locals: { employees: Employee.all }) }
+      format.turbo_stream { render turbo_stream: turbo_stream.append("job-employees", partial: "appended_employee", locals: {employees: Employee.all}) }
     end
   end
 

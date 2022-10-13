@@ -28,11 +28,11 @@ class EmployeeTemplate < ApplicationRecord
   belongs_to :account
   belongs_to :user
   has_many :employees
-  validates :template_attributes, :presence => true, length: { minimum: 1 }
+  validates :template_attributes, :presence => true, length: {minimum: 1}
   validates :account, :presence => true
 
   # Broadcast changes in realtime with Hotwire
-  after_create_commit  -> { broadcast_prepend_later_to :templates, partial: "templates/index", locals: { template: self } }
-  after_update_commit  -> { broadcast_replace_later_to self }
+  after_create_commit -> { broadcast_prepend_later_to :templates, partial: "templates/index", locals: {template: self} }
+  after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :templates, target: dom_id(self, :index) }
 end

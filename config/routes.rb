@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   post "/jobs/append_employee", to: "jobs#append_employee"
   get "account/employees", to: "jobs#employees"
 
-
   draw :turbo
 
   # Jumpstart views

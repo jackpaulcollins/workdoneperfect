@@ -41,7 +41,7 @@ class EmployeesController < Accounts::BaseController
   def set_attributes
     template_attributes = JSON.parse(employee_params[:template_attributes].to_json)
     respond_to do |format|
-     if @employee.update(template_attributes: template_attributes)
+      if @employee.update(template_attributes: template_attributes)
         format.html { redirect_to @employee, notice: "Employee was successfully added." }
         format.json { render :show, status: :ok, location: @employee }
       else

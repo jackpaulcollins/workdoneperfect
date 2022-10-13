@@ -72,7 +72,7 @@ class EmployeeTemplatesController < Accounts::BaseController
 
   def append_template_attribute
     respond_to do |format|
-      format.turbo_stream { render turbo_stream: turbo_stream.append('template-attributes', partial: 'template_attribute') }
+      format.turbo_stream { render turbo_stream: turbo_stream.append("template-attributes", partial: "template_attribute") }
     end
   end
 
@@ -92,6 +92,6 @@ class EmployeeTemplatesController < Accounts::BaseController
   def employee_template_params
     params.require(:employee_template).permit(:title, template_attributes: [])
   end
-    # Uncomment to use Pundit permitted attributes
-    # params.require(:employee).permit(policy(@employee).permitted_attributes)
+  # Uncomment to use Pundit permitted attributes
+  # params.require(:employee).permit(policy(@employee).permitted_attributes)
 end
