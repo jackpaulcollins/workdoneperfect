@@ -25,6 +25,12 @@ class EmployeeTemplatesController < ApplicationController
     # authorize @employee_template
   end
 
+  def append_template_attribute
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.append("employee-template-appended-attributes", partial: "employee_attributes/appended_attribute_form") }
+    end
+  end
+
   # GET /employee_templates/1/edit
   def edit
   end
