@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_033747) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_034130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -140,6 +140,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_033747) do
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_attribute_answers_on_employee_id"
     t.index ["employee_template_id"], name: "index_attribute_answers_on_employee_template_id"
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "email", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_customers_on_account_id"
   end
 
   create_table "employee_attributes", force: :cascade do |t|
@@ -349,6 +360,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_033747) do
   add_foreign_key "api_tokens", "users"
   add_foreign_key "attribute_answers", "employee_templates"
   add_foreign_key "attribute_answers", "employees"
+  add_foreign_key "customers", "accounts"
   add_foreign_key "employee_attributes", "employee_templates"
   add_foreign_key "employee_templates", "accounts"
   add_foreign_key "employees", "accounts"
