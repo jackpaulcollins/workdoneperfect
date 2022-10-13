@@ -34,7 +34,3 @@ class EmployeeAttribute < ApplicationRecord
 
   enum data_type: [:text, :boolean, :integer]
 end
-
-# (name: "driver", data_type: "boolean", required: boolean)
-
-DATA_TYPE_MAPPINGS = [[:text, 1], [:boolean, 2], [:integer, 3]].freeze
