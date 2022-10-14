@@ -23,6 +23,8 @@
 #  fk_rails_...  (customer_id => customers.id)
 #
 class Job < ApplicationRecord
+  acts_as_tenant :account
+
   belongs_to :account
   belongs_to :customer
   has_many :employee_jobs, dependent: :destroy

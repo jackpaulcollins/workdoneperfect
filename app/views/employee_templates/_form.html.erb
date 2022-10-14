@@ -8,10 +8,14 @@
 
 
   <template data-nested-form-target="template">
-    <%= form.fields_for :employee_attributes, EmployeeAttribute.new, child_index: 'NEW_RECORD' do |fields| %>
-      <%= render "employee_attributes/employee_attribute_form", f: fields %>
+    <%= form.fields_for :employee_attributes, EmployeeAttribute.new, child_index: 'NEW_RECORD' do |employee_attribute_fields| %>
+      <%= render "employee_attributes/employee_attribute_form", f: employee_attribute_fields %>
     <% end %>
   </template>
+
+  <%= form.fields_for :employee_attributes do |employee_attribute_fields| %>
+    <%= render "employee_attributes/employee_attribute_form", f: employee_attribute_fields %>
+  <% end %>
 
  <!-- Inserted elements will be injected before that target. -->
   <div data-nested-form-target="target"></div>
@@ -19,7 +23,7 @@
   <button 
     type="button" 
     data-action="nested-form#add"
-    class="btn btn-light-green mr-2"
+    class="mr-2 btn btn-light-green"
     >Add Attribute</button>
 
   <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>

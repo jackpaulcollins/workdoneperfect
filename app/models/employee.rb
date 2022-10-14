@@ -23,6 +23,8 @@
 #  fk_rails_...  (employee_template_id => employee_templates.id)
 #
 class Employee < ApplicationRecord
+  acts_as_tenant :account
+
   has_person_name
 
   acts_as_tenant :account

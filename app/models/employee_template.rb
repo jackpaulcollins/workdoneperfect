@@ -10,7 +10,8 @@
 #
 # Indexes
 #
-#  index_employee_templates_on_account_id  (account_id)
+#  index_employee_templates_on_account_id            (account_id)
+#  index_employee_templates_on_title_and_account_id  (title,account_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -18,14 +19,15 @@
 #
 class EmployeeTemplate < ApplicationRecord
   acts_as_tenant :account
+
   belongs_to :account
   has_many :employees, dependent: :destroy
-  has_many :employee_attributes, dependent: :destroy
+  has_many :employee_attributes, index_errors: true, dependent: :destroy
   has_many :attribute_answers, dependent: :destroy
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: {scope: :account_id}
 
-  accepts_nested_attributes_for :employee_attributes, reject_if: proc { |attributes| attributes.values.any?(&:empty?) } # make sure all values are provided
+  accepts_nested_attributes_for :employee_attributes
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :employee_templates, partial: "employee_templates/index", locals: {employee_template: self} }

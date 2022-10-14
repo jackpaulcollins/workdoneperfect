@@ -13,7 +13,8 @@
 #
 # Indexes
 #
-#  index_customers_on_account_id  (account_id)
+#  index_customers_on_account_id            (account_id)
+#  index_customers_on_email_and_account_id  (email,account_id) UNIQUE
 #
 # Foreign Keys
 #

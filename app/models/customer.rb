@@ -13,20 +13,22 @@
 #
 # Indexes
 #
-#  index_customers_on_account_id  (account_id)
+#  index_customers_on_account_id            (account_id)
+#  index_customers_on_email_and_account_id  (email,account_id) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (account_id => accounts.id)
 #
 class Customer < ApplicationRecord
+  acts_as_tenant :account
+
   has_person_name
 
   belongs_to :account
   has_many :jobs, dependent: :destroy
 
-  # Add validation for uniqueness scoped to the account
-  validates :email, presence: true
+  validates :email, presence: true, uniqueness: {scope: :account_id}
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :customers, partial: "customers/index", locals: {customer: self} }
