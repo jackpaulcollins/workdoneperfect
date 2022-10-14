@@ -36,7 +36,7 @@ h4,
 
 h5,
 .h5 {
-  @apply font-bold uppercase tracking-wide text-sm;
+  @apply text-sm font-bold tracking-wide;
 }
 
 .link {

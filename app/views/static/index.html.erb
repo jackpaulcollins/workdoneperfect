@@ -1,18 +1,91 @@
-<div class="py-32 max-w-2xl m-auto text-center flex flex-col items-center justify-center">
-  <h1 class="mb-2">Welcome to WorkDonePerfect</h1>
-  <p class="mb-6 text-gray-700 leading-normal text-xl"></p>
-
-  <% if Rails.env.development? %>
-    <div class="flex flex-col items-center md:flex-row">
-      <div class="w-full md:w-auto">
-        <%= link_to "Configure Jumpstart", jumpstart_path, data: { turbo: false }, class: "btn btn-primary lg:mr-4 mr-0 lg:mb-0 mb-4" %>
+<div class="container mx-auto">
+  <div class="grid grid-cols-1 gap-16 py-16">
+    <!-- START HERO SECTION -->
+    <div class="grid grid-cols-2 gap-4">
+      <div class="flex flex-col justify-center w-3/4">
+        <h6 class="mb-3 text-lg font-bold text-gray-600">Coming soon</h6>
+        <h2 class="text-7xl">Your business</h2>
+        <h1 class="mb-5 text-7xl text-primary-700">Perfected</h1>
+        <p class="text-xl text-justify text-gray-600">
+          At WorkDonePerfect, we take the burden off small business owners by helping them to manage their employees and get organized.
+        <p>
+        <form class="mt-10">
+          <label for="email-signup" class="text-lg text-gray-900">
+            Sign up to get notified when we launch!
+          <label>
+          <div class="flex gap-4 mt-3">
+            <input id="email-signup" type="email" placeholder="What's your email?" class="p-3 border-gray-300 rounded-lg grow">
+            <input type="submit" value="Submit" class="flex-none px-5 text-gray-100 rounded-lg bg-primary-700">
+          </div>
+        </form>
       </div>
-
-      <div>
-        <span class="hidden md:inline border border-gray-200 h-10 mr-4"></span>
-        <%= link_to "Create a User", new_user_registration_path, class: "btn btn-tertiary outline lg:mr-4 mr-0 lg:mb-0 mb-4" %>
-        <%= link_to "Read the Docs", jumpstart.docs_path, target: :_blank, data: { turbo: false }, class: "btn btn-tertiary outline lg:mr-4 mr-0 lg:mb-0 mb-4" %>
+      <div class="flex items-center justify-center">
+        <%= image_tag "hero_image" %>
       </div>
     </div>
-  <% end %>
+    <!-- END HERO SECTION -->
+    <div class="border-b-2 border-gray-100"></div>
+    <!-- START FEATURES SECTION -->
+    <div class="grid grid-cols-3 gap-12">
+      <div>
+        <h4 class="text-primary-700">Drop the spreadsheets</h4>
+        <h3 class="pb-3 text-3xl">We've got you covered</h3>
+        <p class="text-lg text-gray-600">
+          A one stop spot to manage all the important data your business depends on.
+        </p>
+      </div>
+      <div class="col-span-2">
+        <div class="grid grid-cols-2 gap-12">
+          <div class="flex gap-5">
+            <div class="flex-none">
+              <i class="pt-3 text-green-500 fa-solid fa-check fa-xl"></i>
+            </div>
+            <div class="grow">
+              <h5 class="mb-5 text-lg text-gray-800">Manage employees</h5>
+              <p class="text-gray-600">
+                Easily track all the data for you employees that you with the ability to create custom attributes for your employees.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-5">
+            <div class="flex-none">
+              <i class="pt-3 text-green-500 fa-solid fa-check fa-xl"></i>
+            </div>
+            <div class="grow">
+              <h5 class="mb-5 text-lg text-gray-800">Track your jobs</h5>
+              <p class="text-gray-600">
+                Organize your jobs by assigning employees and exporting them to the calendar software of your choice.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-5">
+            <div class="flex-none">
+              <i class="pt-3 text-green-500 fa-solid fa-check fa-xl"></i>
+            </div>
+            <div class="grow">
+              <h5 class="mb-5 text-lg text-gray-800">Learn from metrics</h5>
+              <p class="text-gray-600">
+                Use our reporting system identify bottlenecks in your business allowing you to improve your business.
+              </p>
+            </div>
+          </div>
+          <div class="flex gap-5">
+            <div class="flex-none">
+              <i class="pt-3 text-green-500 fa-solid fa-check fa-xl"></i>
+            </div>
+            <div class="grow">
+              <h5 class="mb-5 text-lg text-gray-800">And much more</h5>
+              <p class="text-gray-600">
+                This is only what we have planned currently but we have many more exciting features coming soon!
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END FEATURES SECTION -->
+    <div class="border-b-2 border-gray-100"></div>
+    <!-- START FAQ SECTION -->
+    <!-- END FAQ SECTION -->
+  </div>
 </div>
