@@ -13,12 +13,14 @@
     <% end %>
   </template>
 
-
-
-  <!-- Inserted elements will be injected before that target. -->
+ <!-- Inserted elements will be injected before that target. -->
   <div data-nested-form-target="target"></div>
 
-  <button type="button" data-action="nested-form#add">Add Attribute</button>
+  <button 
+    type="button" 
+    data-action="nested-form#add"
+    class="btn btn-light-green mr-2"
+    >Add Attribute</button>
 
   <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
 

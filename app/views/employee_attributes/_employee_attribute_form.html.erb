@@ -1,17 +1,25 @@
 <div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
-  <div class="form-group flex flex-row">
-    <%= f.label :name %>
-    <%= f.text_field :name, class: "form-control" %>
-
-    <%= f.label :data_type %>
-    <%= f.select :data_type, System::EMPLOYEE_ATTRIBUTE_DATA_TYPE_MAPPINGS, class: "form-control" %>
-
-    <%= f.label :required %>
-    <%= f.radio_button :required, :true %><p>true</p>
-    <%= f.radio_button :required, :false %><p>false</p>
+  <div class="form-group flex flex-row align-center justify-around">
+    <div class="flex flex-row items-center w-1/3">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="flex flex-row items-center w-1/3">
+      <%= f.label :data %>
+      <%= f.select :data_type, System::EMPLOYEE_ATTRIBUTE_DATA_TYPE_MAPPINGS, class: "form-control" %>
+    </div>
+    <div class="flex justify-around items-center w-1/4">
+      <%= f.label :required %>
+      <%= f.radio_button :required, :true %><p>true</p>
+      <%= f.radio_button :required, :false %><p>false</p>
+    </div>
   </div>
 
-  <button type="button" data-action="nested-form#remove">Remove Attribute</button>
+  <button 
+    type="button" 
+    data-action="nested-form#remove"
+    class="btn btn-light-red mr-2"
+    >Remove Attribute</button>
 
   <%= f.hidden_field :_destroy %>
 </div>
