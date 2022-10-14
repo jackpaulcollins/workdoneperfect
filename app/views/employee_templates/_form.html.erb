@@ -26,12 +26,12 @@
 </button>
 
   <div class="mt-12 flex flex-row">
-  <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary mr-2" %>
-    <% if form.object.new_record? %>
-    <%= link_to t("cancel"), employee_templates_path, class: "btn btn-white" %>
-  <% else %>
-    <%= link_to t("cancel"), employee_template_path(@employee_template), class: "btn btn-white ml-2" %>
-  <% end %>
+    <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary mr-2" %>
+      <% if form.object.new_record? %>
+      <%= link_to t("cancel"), employee_templates_path, class: "btn btn-white" %>
+    <% else %>
+      <%= link_to t("cancel"), employee_template_path(@employee_template), class: "btn btn-white ml-2" %>
+    <% end %>
   </div>
 </div>
 <% end %>

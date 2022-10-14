@@ -49,6 +49,7 @@ class EmployeeTemplatesController < ApplicationController
 
   # PATCH/PUT /employee_templates/1 or /employee_templates/1.json
   def update
+    puts "PARAMS" * 100, params
     respond_to do |format|
       if @employee_template.update(employee_template_params)
         format.html { redirect_to @employee_template, notice: "Employee template was successfully updated." }
@@ -83,7 +84,7 @@ class EmployeeTemplatesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def employee_template_params
-    params.require(:employee_template).permit(:account_id, :title, employee_attributes_attributes: [:name, :data_type, :required, :_destroy])
+    params.require(:employee_template).permit(:account_id, :title, employee_attributes_attributes: [:id, :name, :data_type, :required, :_destroy])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:employee_template).permit(policy(@employee_template).permitted_attributes)
