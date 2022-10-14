@@ -41,7 +41,9 @@ class EmployeeTemplatesController < ApplicationController
         format.html { redirect_to @employee_template, notice: "Employee template was successfully created." }
         format.json { render :show, status: :created, location: @employee_template }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html do
+          render :new, status: :unprocessable_entity
+        end
         format.json { render json: @employee_template.errors, status: :unprocessable_entity }
       end
     end
