@@ -49,7 +49,6 @@ class EmployeeTemplatesController < ApplicationController
 
   # PATCH/PUT /employee_templates/1 or /employee_templates/1.json
   def update
-    puts "PARAMS" * 100, params
     respond_to do |format|
       if @employee_template.update(employee_template_params)
         format.html { redirect_to @employee_template, notice: "Employee template was successfully updated." }
