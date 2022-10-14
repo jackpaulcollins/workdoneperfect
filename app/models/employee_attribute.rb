@@ -8,12 +8,10 @@
 #  required             :boolean          default(FALSE)
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
-#  account_id           :bigint
 #  employee_template_id :bigint           not null
 #
 # Indexes
 #
-#  index_employee_attributes_on_account_id            (account_id)
 #  index_employee_attributes_on_employee_template_id  (employee_template_id)
 #
 # Foreign Keys
@@ -21,8 +19,6 @@
 #  fk_rails_...  (employee_template_id => employee_templates.id)
 #
 class EmployeeAttribute < ApplicationRecord
-  acts_as_tenant :account
-  belongs_to :account
   belongs_to :employee_template
   validates :name, presence: true
   validates :employee_template, presence: true
