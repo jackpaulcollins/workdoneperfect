@@ -6,6 +6,7 @@ class CreateCustomers < ActiveRecord::Migration[7.0]
       t.string :first_name
       t.string :last_name
       t.string :phone_number
+      t.index [:email, :account_id], unique: true
 
       t.timestamps
     end
