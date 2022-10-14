@@ -1,5 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_template, only: :new
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized
@@ -79,6 +80,13 @@ class EmployeesController < ApplicationController
     # authorize @employee
   rescue ActiveRecord::RecordNotFound
     redirect_to employees_path
+  end
+
+  def ensure_template
+    if current_account.employee_templates.none?
+      flash[:notice] = "Please Create a Template Before Creating Employee Records"
+      redirect_to new_employee_template_path
+    end
   end
 
   # Only allow a list of trusted parameters through.

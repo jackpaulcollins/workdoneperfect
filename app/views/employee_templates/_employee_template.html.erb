@@ -1,10 +1,23 @@
 <div id="<%= dom_id employee_template %>">
   <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Account</p>
-    <%= employee_template.account_id %>
-  </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Title</p>
+    <h1 class="font-medium text-gray-500">Title</h1>
     <%= employee_template.title %>
+    <h2 class="font-medium text-gray-500">Attributes</h2>
+    <% employee_template.employee_attributes.any?%>
+
+    <% employee_template.employee_attributes.each do |a| %>
+      <div class="flex flex-col">
+        <div class="flex flex-row">
+          <strong class="mr-1">Name:</strong><%=a.name%>
+        </div>
+        <div class="flex flex-row">
+          <strong class="mr-1">Data type:</strong><%=a.data_type%>
+        </div>
+        <div class="flex flex-row">
+          <strong class="mr-1">Required:</strong><%=a.required%>
+        </div>
+      </div>
+    <% end %>
+
   </div>
 </div>
