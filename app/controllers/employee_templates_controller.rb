@@ -83,7 +83,7 @@ class EmployeeTemplatesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def employee_template_params
-    params.require(:employee_template).permit(:account_id, :title)
+    params.require(:employee_template).permit(:account_id, :title, employee_attributes_attributes: [:name, :data_type, :required, :_destroy])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:employee_template).permit(policy(@employee_template).permitted_attributes)

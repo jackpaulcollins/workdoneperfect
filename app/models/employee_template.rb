@@ -17,12 +17,15 @@
 #  fk_rails_...  (account_id => accounts.id)
 #
 class EmployeeTemplate < ApplicationRecord
+  acts_as_tenant :account
   belongs_to :account
   has_many :employees, dependent: :destroy
   has_many :employee_attributes, dependent: :destroy
   has_many :attribute_answers, dependent: :destroy
 
   validates :title, presence: true
+
+  accepts_nested_attributes_for :employee_attributes, reject_if: proc { |attributes| attributes.values.any?(&:empty?) } # make sure all values are provided
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :employee_templates, partial: "employee_templates/index", locals: {employee_template: self} }

@@ -1,0 +1,17 @@
+<div class="nested-form-wrapper" data-new-record="<%= f.object.new_record? %>">
+  <div class="form-group flex flex-row">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+
+    <%= f.label :data_type %>
+    <%= f.select :data_type, System::EMPLOYEE_ATTRIBUTE_DATA_TYPE_MAPPINGS, class: "form-control" %>
+
+    <%= f.label :required %>
+    <%= f.radio_button :required, :true %><p>true</p>
+    <%= f.radio_button :required, :false %><p>false</p>
+  </div>
+
+  <button type="button" data-action="nested-form#remove">Remove Attribute</button>
+
+  <%= f.hidden_field :_destroy %>
+</div>
