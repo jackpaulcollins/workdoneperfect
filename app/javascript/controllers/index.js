@@ -18,6 +18,4 @@ application.register('toggle', Toggle)
 application.register('slideover', Slideover)
 
 import Flatpickr from 'stimulus-flatpickr'
-import NestedForm from 'stimulus-rails-nested-form'
 application.register('flatpickr', Flatpickr)
-application.register('nested-form', NestedForm)
