@@ -496,6 +496,7 @@ DEPENDENCIES
   jumpstart!
   letter_opener_web (~> 2.0)
   local_time (~> 2.1)
+  minitest
   name_of_person (~> 1.0)
   nokogiri (>= 1.12.5)
   noticed (~> 1.5)
