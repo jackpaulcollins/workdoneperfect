@@ -125,3 +125,4 @@ end
 gem "view_component"
 gem "subroutine", "=2.0.1"
 gem "importmap-rails", "~> 1.1"
+gem 'minitest'

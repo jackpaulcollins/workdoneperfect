@@ -1,6 +1,7 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
   before_action :ensure_template, only: :new
+  before_action :authenticate_user_with_sign_up!
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized

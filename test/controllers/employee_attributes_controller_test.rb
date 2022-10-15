@@ -3,16 +3,7 @@ require "test_helper"
 class EmployeeAttributesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @employee_attribute = employee_attributes(:one)
-  end
-
-  test "should get index" do
-    get employee_attributes_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_employee_attribute_url
-    assert_response :success
+    user = users(:one)
   end
 
   test "should create employee_attribute" do
@@ -28,10 +19,7 @@ class EmployeeAttributesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get edit" do
-    get edit_employee_attribute_url(@employee_attribute)
-    assert_response :success
-  end
+  # TODO: right tests for actual partials
 
   test "should update employee_attribute" do
     patch employee_attribute_url(@employee_attribute), params: {employee_attribute: {employee_template_id: @employee_attribute.employee_template_id, name: @employee_attribute.name}}
