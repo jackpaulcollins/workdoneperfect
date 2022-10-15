@@ -9,7 +9,7 @@
     <%= form.label :employee_attributes, class: "mb-12" %>
   </div>
   <template data-employee-template-form-target="template">
-    <%= form.fields_for :emploee_attributes, EmployeeAttribute.new, child_index: 'NEW_RECORD' do |fields| %>
+    <%= form.fields_for :employee_attributes, EmployeeAttribute.new, child_index: 'NEW_RECORD' do |fields| %>
       <%= render "employee_attributes/employee_attribute_form", f: fields %>
     <% end %>
   </template>
