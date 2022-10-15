@@ -10,9 +10,8 @@
 #
 # Indexes
 #
-#  index_employee_jobs_on_employee_id             (employee_id)
-#  index_employee_jobs_on_job_id                  (job_id)
-#  index_employee_jobs_on_job_id_and_employee_id  (job_id,employee_id) UNIQUE
+#  index_employee_jobs_on_employee_id  (employee_id)
+#  index_employee_jobs_on_job_id       (job_id)
 #
 # Foreign Keys
 #

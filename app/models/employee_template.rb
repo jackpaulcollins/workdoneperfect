@@ -10,8 +10,7 @@
 #
 # Indexes
 #
-#  index_employee_templates_on_account_id            (account_id)
-#  index_employee_templates_on_title_and_account_id  (title,account_id) UNIQUE
+#  index_employee_templates_on_account_id  (account_id)
 #
 # Foreign Keys
 #
