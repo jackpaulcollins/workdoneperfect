@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  # TODO:
+  # Pre-release safe guard remove at launch
+
   include BundleAssets
   include SetCurrentRequestDetails
   include SetLocale
