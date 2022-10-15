@@ -38,3 +38,12 @@ two:
   last_name: MyString
   start_date: 2022-10-12 22:27:29
   final_date: 2022-10-12 22:27:29
+
+three:
+  account: one
+  employee_template: three
+  first_name: MyString
+  last_name: MyString
+  start_date: 2022-10-12 22:27:29
+  final_date: 2022-10-12 22:27:29
+
