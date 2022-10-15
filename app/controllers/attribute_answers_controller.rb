@@ -1,5 +1,6 @@
 class AttributeAnswersController < ApplicationController
   before_action :set_attribute_answer, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user_with_sign_up!
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized
