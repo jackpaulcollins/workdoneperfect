@@ -3,6 +3,8 @@ require "test_helper"
 class EmployeeTemplatesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @employee_template = employee_templates(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do

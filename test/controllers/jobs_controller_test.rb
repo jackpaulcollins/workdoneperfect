@@ -3,6 +3,8 @@ require "test_helper"
 class JobsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @job = jobs(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do

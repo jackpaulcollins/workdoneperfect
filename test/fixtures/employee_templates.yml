@@ -25,3 +25,7 @@ one:
 two:
   account: two
   title: MyString
+
+three:
+  account: one
+  title: MySecondString
