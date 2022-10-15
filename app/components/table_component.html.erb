@@ -1,0 +1,15 @@
+
+<div class="table w-full">
+  <div class="table-header-group">
+    <div class="table-row">
+      <% headers.each do |header| %>
+        <div class="table-cell"><%= header %></div>
+      <% end %>
+    </div>
+  </div>
+  <div class="table-row-group">
+    <% rows.each do |row| %>
+      <%= row %>
+    <% end %>
+  </div>
+</div>
