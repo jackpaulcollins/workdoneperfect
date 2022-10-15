@@ -538,7 +538,7 @@ DEPENDENCIES
   subroutine (~> 2.1.2)
   turbo-rails (~> 1.0, >= 1.0.1)
   tzinfo-data
-  view_component
+  view_component (~> 2.74.0)
   web-console (>= 4.1.0)
   webdrivers
   whenever (~> 1.0)
