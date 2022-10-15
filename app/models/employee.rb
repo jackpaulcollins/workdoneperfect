@@ -3,6 +3,7 @@
 # Table name: employees
 #
 #  id                   :bigint           not null, primary key
+#  email                :string
 #  final_date           :datetime
 #  first_name           :string
 #  last_name            :string
@@ -33,6 +34,8 @@ class Employee < ApplicationRecord
   has_many :attribute_answers, dependent: :destroy
   has_many :employee_jobs, dependent: :destroy
   has_many :jobs, through: :employee_jobs
+
+  validates :email, format: User.email_regexp, allow_blank: true
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :employees, partial: "employees/index", locals: {employee: self} }

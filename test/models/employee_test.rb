@@ -3,6 +3,7 @@
 # Table name: employees
 #
 #  id                   :bigint           not null, primary key
+#  email                :string
 #  final_date           :datetime
 #  first_name           :string
 #  last_name            :string

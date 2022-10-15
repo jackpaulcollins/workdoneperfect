@@ -3,6 +3,7 @@
 # Table name: employees
 #
 #  id                   :bigint           not null, primary key
+#  email                :string
 #  final_date           :datetime
 #  first_name           :string
 #  last_name            :string
@@ -28,6 +29,7 @@ one:
   employee_template: one
   first_name: MyString
   last_name: MyString
+  email: MyString
   start_date: 2022-10-12 22:27:29
   final_date: 2022-10-12 22:27:29
 
@@ -36,6 +38,7 @@ two:
   employee_template: two
   first_name: MyString
   last_name: MyString
+  email: MyString
   start_date: 2022-10-12 22:27:29
   final_date: 2022-10-12 22:27:29
 

@@ -200,6 +200,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
     t.datetime "final_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
     t.index ["account_id"], name: "index_employees_on_account_id"
     t.index ["employee_template_id"], name: "index_employees_on_employee_template_id"
   end
