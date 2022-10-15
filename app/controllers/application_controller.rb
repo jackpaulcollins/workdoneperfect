@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   # TODO:
   # Pre-release safe guard remove at launch
 
-  before_action :ensure_admin
-
   include BundleAssets
   include SetCurrentRequestDetails
   include SetLocale
@@ -58,9 +56,5 @@ class ApplicationController < ActionController::Base
 
   def require_account
     redirect_to new_user_registration_path unless current_account
-  end
-
-  def ensure_admin
-    redirect_to root_path unless current_user.admin?
   end
 end
