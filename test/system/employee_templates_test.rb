@@ -37,6 +37,7 @@ class EmployeeTemplatesTest < ApplicationSystemTestCase
   test "destroying an EmployeeTemplate" do
     visit edit_employee_template_url(@employee_template)
     click_on "Delete", match: :first
+    click_on "Confirm"
 
     assert_text "Employee template was successfully destroyed"
   end
