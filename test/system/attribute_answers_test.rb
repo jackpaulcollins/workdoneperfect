@@ -9,6 +9,7 @@ class AttributeAnswersTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit attribute_answers_url
+    assert_selector "h1", text: "Attribute Answers"
   end
 
   test "creating an attribute answer" do
@@ -24,7 +25,7 @@ class AttributeAnswersTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Attribute Answers"
   end
 
-  test "updating an attribute answer" do
+  test "updating an AttributeAnswer" do
     visit attribute_answer_url(@attribute_answer)
     click_on "Edit", match: :first
 
@@ -37,7 +38,7 @@ class AttributeAnswersTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Attribute Answers"
   end
 
-  test "destroying a Attribute answer" do
+  test "destroying a AttributeAnswer" do
     visit edit_attribute_answer_url(@attribute_answer)
     click_on "Delete", match: :first
     click_on "Confirm"
