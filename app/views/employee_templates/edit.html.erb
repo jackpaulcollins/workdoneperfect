@@ -9,7 +9,7 @@
         <span class="text-gray-400 font-light mx-2">\</span>
         <%= t("shared.scaffold.edit.title", model: "Employee Template") %>
       </h1>
-      <%= button_to t("delete"), @employee_template, method: :delete, class: "btn btn-white", form: { data: { turbo_confirm: t("are_you_sure") } } %>
+      <%= link_to t("delete"), @employee_template, method: :delete, class: "btn btn-white", form: { data: { turbo_confirm: t("are_you_sure") } } %>
     </div>
 
     <div class="p-8 bg-white rounded shadow">

@@ -6,14 +6,6 @@ Rails.application.routes.draw do
   resources :employee_attributes
   resources :employees
   resources :employee_templates
-  post "employee_templates/append_attribute", to: "employee_templates#append_template_attribute"
-  post "/employee_templates/:id/append_attribute", to: "employee_templates#append_template_attribute"
-  post "employees/set-template", to: "employees#set_template"
-  get "employees/:id/finish", to: "employees#finish"
-  patch "/employees/:id/edit", to: "employees#edit"
-  post "/employees/:id/set_attributes", to: "employees#set_attributes"
-  post "/jobs/append_employee", to: "jobs#append_employee"
-  get "account/employees", to: "jobs#employees"
 
   draw :turbo
 
