@@ -33,12 +33,4 @@ class EmployeeAttributesTest < ApplicationSystemTestCase
     assert_text "Employee template was successfully updated."
     assert_selector "h1", text: "Employee Templates"
   end
-
-  test "destroying a Employee attribute" do
-    visit edit_employee_attribute_url(@employee_attribute)
-    click_on "Delete", match: :first
-    click_on "Confirm"
-
-    assert_text "Employee attribute was successfully destroyed"
-  end
 end
