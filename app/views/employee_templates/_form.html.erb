@@ -1,31 +1,31 @@
 <%= form_with model: employee_template, data: { controller: 'employee-template-form', employee_template_form_wrapper_selector_value: '.employee-template-form-wrapper' } do |form| %>
   <%= render "shared/error_messages", resource: form.object %>
-
   <div class="form-group">
     <%= form.label :template_title %>
     <%= form.text_field :title, class: "form-control" %>
   </div>
-  <div>
-    <%= form.label :employee_attributes, class: "mb-8" %>
+  <div class="mb-8 flex flex-row items-center">
+    <div class="mt-1">
+      <%= form.label :employee_attributes %>
+    </div>
+    <div data-controller="tooltip" data-tippy-content="<%= t("employee_templates.tooltips.employee_attribute_info") %>">
+      <i class="ml-2 fa-thin fa-circle-info"></i>
+    </div>
   </div>
   <template data-employee-template-form-target="template">
     <%= form.fields_for :employee_attributes, EmployeeAttribute.new, child_index: 'NEW_RECORD' do |fields| %>
       <%= render "employee_attributes/employee_attribute_form", f: fields %>
     <% end %>
   </template>
-
   <%= form.fields_for :employee_attributes do |employee_attribute_fields| %>
     <%= render "employee_attributes/employee_attribute_form", f: employee_attribute_fields %>
   <% end %>
-
- <!-- Inserted elements will be injected before that target. -->
   <div class="flex flex-row" data-employee-template-form-target="target"></div>
   <button type="button" data-action="employee-template-form#add" class="mt-8 inline-flex items-center rounded-full border border-transparent bg-indigo-600 p-1 text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
       <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
     </svg>
   </button>
-
   <div class="mt-12 flex flex-row">
     <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary mr-2" %>
       <% if form.object.new_record? %>
