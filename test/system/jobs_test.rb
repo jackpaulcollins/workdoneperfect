@@ -3,6 +3,8 @@ require "application_system_test_case"
 class JobsTest < ApplicationSystemTestCase
   setup do
     @job = jobs(:one)
+    @user = users(:one)
+    login_as(@user)
   end
 
   test "visiting the index" do
