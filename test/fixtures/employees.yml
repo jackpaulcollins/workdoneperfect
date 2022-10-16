@@ -5,7 +5,7 @@
 #  id                   :bigint           not null, primary key
 #  email                :string
 #  final_date           :datetime
-#  first_name           :string
+#  first_name           :string           not null
 #  last_name            :string
 #  start_date           :datetime
 #  created_at           :datetime         not null

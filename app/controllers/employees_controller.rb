@@ -9,7 +9,8 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    @pagy, @employees = pagy(Employee.sort_by_params(params[:sort], sort_direction))
+    @q = Employee.ransack(params[:q])
+    @pagy, @employees = pagy(@q.result)
 
     # Uncomment to authorize with Pundit
     # authorize @employees

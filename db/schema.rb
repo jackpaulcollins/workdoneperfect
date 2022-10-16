@@ -194,7 +194,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
   create_table "employees", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "employee_template_id", null: false
-    t.string "first_name"
+    t.string "first_name", null: false
     t.string "last_name"
     t.datetime "start_date"
     t.datetime "final_date"

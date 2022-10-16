@@ -8,12 +8,10 @@
 
       <div class="text-sm font-medium">
         <span class="text-gray-500">Sort by:</span>
-        <%= sortable @employees, :account_id, "Account", class: "text-gray-700 mr-1" %>
-        <%= sortable @employees, :employee_template_id, "Employee template", class: "text-gray-700 mr-1" %>
-        <%= sortable @employees, :first_name, "First name", class: "text-gray-700 mr-1" %>
-        <%= sortable @employees, :last_name, "Last name", class: "text-gray-700 mr-1" %>
-        <%= sortable @employees, :start_date, "Start date", class: "text-gray-700 mr-1" %>
-        <%= sortable @employees, :final_date, "Final date", class: "text-gray-700 mr-1" %>
+        <%= sort_link @q, :full_name, "Name", class: "text-gray-700 mr-1" %>
+        <%= sort_link @q, :employee_template_title, class: "text-gray-700 mr-1" %>
+        <%= sort_link @q, :start_date, class: "text-gray-700 mr-1" %>
+        <%= sort_link @q, :final_date, class: "text-gray-700 mr-1" %>
       </div>
     </div>
     <div>
@@ -22,10 +20,16 @@
     </div>
   </div>
 
-  <%= tag.div id: ("employees" if first_page?), class: "bg-white rounded-md shadow p-6 space-y-8" do %>
-    <%= render partial: "employees/index", collection: @employees, as: :employee, cached: true %>
+  <%= tag.div id: ("employees" if first_page?), class: "bg-white rounded-md shadow space-y-8" do %>
+    <% if @employees.present? %>
+      <div class="overflow-hidden bg-white shadow sm:rounded-md">
+        <ul role="list" class="list-none divide-y divide-gray-200">
+          <%= render partial: "employees/index", collection: @employees, as: :employee, cached: true %>
+        </ul>
+      </div>
+    <% end %>
 
-    <div class="hidden only:flex flex-col items-center justify-between lg:flex-row">
+    <div class="flex-col items-center justify-between hidden only:flex lg:flex-row">
       <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
       <div class="flex-1 text-center">
         <p class="mb-4 h3">Create your first Employee</p>
