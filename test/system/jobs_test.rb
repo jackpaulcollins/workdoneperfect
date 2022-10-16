@@ -3,6 +3,8 @@ require "application_system_test_case"
 class JobsTest < ApplicationSystemTestCase
   setup do
     @job = jobs(:one)
+    @user = users(:one)
+    login_as(@user)
   end
 
   test "visiting the index" do
@@ -13,9 +15,7 @@ class JobsTest < ApplicationSystemTestCase
   test "creating a Job" do
     visit jobs_url
     click_on "New Job"
-
-    fill_in "Account", with: @job.account_id
-    fill_in "Customer", with: @job.customer_id
+    select "MyString", from: "job[customer_id]"
     fill_in "Date and time", with: @job.date_and_time
     fill_in "Estimated hours", with: @job.estimated_hours
     fill_in "Revenue", with: @job.revenue
@@ -29,12 +29,8 @@ class JobsTest < ApplicationSystemTestCase
   test "updating a Job" do
     visit job_url(@job)
     click_on "Edit", match: :first
-
-    fill_in "Account", with: @job.account_id
-    fill_in "Customer", with: @job.customer_id
-    fill_in "Date and time", with: @job.date_and_time
     fill_in "Estimated hours", with: @job.estimated_hours
-    fill_in "Revenue", with: @job.revenue
+    fill_in "Revenue", with: 100
     fill_in "Total hours", with: @job.total_hours
     click_on "Update Job"
 
