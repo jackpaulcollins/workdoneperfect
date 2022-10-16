@@ -3,6 +3,8 @@ require "test_helper"
 class EmployeeAttributesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @employee_attribute = employee_attributes(:one)
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should create employee_attribute" do

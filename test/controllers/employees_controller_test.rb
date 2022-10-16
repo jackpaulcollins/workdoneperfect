@@ -4,7 +4,7 @@ class EmployeesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @employee = employees(:one)
     @user = users(:one)
-    sign_in(@user)
+    sign_in @user
   end
 
   test "should get index" do
