@@ -25,3 +25,8 @@ one:
   employee_template: one
   employee: one
   answer: MyString
+
+two:
+  employee_template: two
+  employee: two
+  answer: MyString
