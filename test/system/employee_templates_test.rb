@@ -23,7 +23,7 @@ class EmployeeTemplatesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Employee Templates"
   end
 
-  test "updating a Employee template" do
+  test "updating an EmployeeTemplate" do
     visit employee_template_url(@employee_template)
     click_on "Edit", match: :first
 
@@ -34,7 +34,7 @@ class EmployeeTemplatesTest < ApplicationSystemTestCase
     assert_selector "h1", text: "Employee Templates"
   end
 
-  test "destroying a Employee template" do
+  test "destroying an EmployeeTemplate" do
     visit edit_employee_template_url(@employee_template)
     click_on "Delete", match: :first
 
