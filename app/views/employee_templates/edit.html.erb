@@ -2,14 +2,18 @@
 
 <%= form_with model: @employee_template, data: { controller: 'employee-template-form', employee_template_form_wrapper_selector_value: '.employee-template-form-wrapper' } do |form| %>
   <%= render "shared/error_messages", resource: form.object %>
-  <div class="container mx-auto px-4 my-8">
+  <div class="container mx-auto px-4 my-8 w-1/2">
     <div class="flex items-center justify-between mb-4">
       <h1 class="h3">
         <%= link_to "Employee Templates", employee_templates_path, class: "text-black" %>
         <span class="text-gray-400 font-light mx-2">\</span>
         <%= t("shared.scaffold.edit.title", model: "Employee Template") %>
       </h1>
-      <%= link_to t("delete"), @employee_template, method: :delete, class: "btn btn-white", form: { data: { turbo_confirm: t("are_you_sure") } } %>
+      <%= link_to t("delete"), 
+          @employee_template, 
+          class: "btn btn-white", 
+          data: { turbo_method: :delete, turbo_confirm: t("employee_templates.delete.confirm") }
+      %>
     </div>
 
     <div class="p-8 bg-white rounded shadow">
@@ -19,7 +23,7 @@
       </div>
       <% @employee_template.employee_attributes.each do |attribute| %>
         <%= form.fields_for :employee_attributes, attribute do |fields| %>
-          <%= render "employee_attributes/employee_attribute_edit_form", f: fields %>
+          <%= render "employee_attributes/employee_attribute_edit_form", f: fields, attribute: attribute %>
         <% end %>
       <% end %>
     </div>

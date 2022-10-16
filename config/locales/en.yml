@@ -44,6 +44,14 @@ en:
   something_went_wrong: "Something went wrong"
   unauthorized: "You are not authorized to perform this action."
 
+  employee_templates:
+    delete:
+      confirm: "<strong class='text-red-500'>Warning:</strong> This will migrate all employees associated with this template to the default template, and you will lose all custom data. Are you sure?"
+
+  employee_attributes:
+    delete:
+      confirm: "<strong class='text-red-500'>Warning:</strong> Deleting an attribute will also delete data for employees associated with this attribute. Are you sure?"
+
   account_invitations_mailer:
     invite:
       subject: "%{inviter} invited you to %{account}"
