@@ -84,7 +84,7 @@ class AttributeAnswersController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def attribute_answer_params
-    params.require(:attribute_answer).permit(:employee_template_id, :employee_id, :answer)
+    params.require(:attribute_answer).permit(:employee_attribute_id, :employee_id, :answer)
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:attribute_answer).permit(policy(@attribute_answer).permitted_attributes)

@@ -20,6 +20,8 @@
 #
 class EmployeeAttribute < ApplicationRecord
   belongs_to :employee_template
+  has_many :attribute_answers, dependent: :destroy
+
   validates :name, presence: true
   validates :employee_template, presence: true
 

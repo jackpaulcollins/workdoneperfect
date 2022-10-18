@@ -20,7 +20,7 @@ class AttributeAnswersControllerTest < ActionDispatch::IntegrationTest
 
   test "should create attribute_answer" do
     assert_difference("AttributeAnswer.count") do
-      post attribute_answers_url, params: {attribute_answer: {answer: @attribute_answer.answer, employee_id: @employee.id, employee_template_id: employee_templates(:three).id}}
+      post attribute_answers_url, params: {attribute_answer: {answer: @attribute_answer.answer, employee_id: @employee.id, employee_attribute_id: employee_attributes(:three).id}}
     end
 
     assert_redirected_to attribute_answer_url(AttributeAnswer.last)
@@ -37,7 +37,7 @@ class AttributeAnswersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update attribute_answer" do
-    patch attribute_answer_url(@attribute_answer), params: {attribute_answer: {answer: @attribute_answer.answer, employee_id: @employee.id, employee_template_id: employee_templates(:three).id}}
+    patch attribute_answer_url(@attribute_answer), params: {attribute_answer: {answer: @attribute_answer.answer, employee_id: @employee.id, employee_attribute_id: employee_attributes(:one).id}}
     assert_redirected_to attribute_answer_url(@attribute_answer)
   end
 

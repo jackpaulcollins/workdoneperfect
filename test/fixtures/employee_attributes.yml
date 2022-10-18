@@ -28,3 +28,7 @@ one:
 two:
   employee_template: two
   name: MyString
+
+three:
+  employee_template: three
+  name: MyString

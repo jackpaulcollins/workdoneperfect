@@ -22,11 +22,11 @@
 #
 
 one:
-  employee_template: one
+  employee_attribute: one
   employee: one
   answer: MyString
 
 two:
-  employee_template: two
+  employee_attribute: two
   employee: two
   answer: MyString

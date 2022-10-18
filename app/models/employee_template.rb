@@ -23,7 +23,6 @@ class EmployeeTemplate < ApplicationRecord
   belongs_to :account
   has_many :employees, dependent: :destroy
   has_many :employee_attributes, index_errors: true, dependent: :destroy
-  has_many :attribute_answers, dependent: :destroy
 
   validates :title, presence: true, uniqueness: {scope: :account_id}
 

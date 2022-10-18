@@ -48,6 +48,7 @@ three:
   account: one
   employee_template: three
   first_name: MyString
-  last_name: three@email.com
+  last_name: MyString
+  email: tree@email.com
   start_date: 2022-10-12 22:27:29
   final_date: 2022-10-12 22:27:29
