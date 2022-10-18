@@ -191,6 +191,8 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    friendly_id (5.4.2)
+      activerecord (>= 4.0.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     hashids (1.0.6)
@@ -500,6 +502,7 @@ DEPENDENCIES
   devise-i18n (~> 1.10)
   erb_lint
   faker
+  friendly_id (~> 5.4.2)
   image_processing (~> 1.12)
   inline_svg (~> 1.6)
   invisible_captcha (~> 2.0)

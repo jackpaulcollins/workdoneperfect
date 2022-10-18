@@ -76,7 +76,7 @@ class EmployeesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_employee
-    @employee = Employee.find(params[:id])
+    @employee = Employee.friendly.find(params[:id])
 
     # Uncomment to authorize with Pundit
     # authorize @employee

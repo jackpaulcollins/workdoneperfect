@@ -7,6 +7,7 @@
 #  final_date           :datetime
 #  first_name           :string           not null
 #  last_name            :string
+#  slug                 :string
 #  start_date           :datetime
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
@@ -17,6 +18,7 @@
 #
 #  index_employees_on_account_id            (account_id)
 #  index_employees_on_employee_template_id  (employee_template_id)
+#  index_employees_on_slug                  (slug) UNIQUE
 #
 # Foreign Keys
 #
