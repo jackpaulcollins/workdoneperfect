@@ -7,7 +7,7 @@ default_from_email: Jumpstart <support@example.com>
 business_address: |-
   3850 N Mississippi Ave #A103
   Portland, OR 97227
-background_job_processor: async
+background_job_processor: sidekiq
 email_provider: ''
 personal_accounts: true
 solargraph: false

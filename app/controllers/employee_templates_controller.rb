@@ -30,6 +30,17 @@ class EmployeeTemplatesController < ApplicationController
   def edit
   end
 
+  def bulk_upload
+  end
+
+  def process_bulk_upload
+    op = ::EmployeeTemplateBulkUploadOp.submit!(account_id: current_account.id, data: params[:csv].tempfile)
+
+    op.failures ? flash[:alert] = op.failures.to_s.delete("[").delete("]").delete('"') : flash[:notice] = "All Templates Saved!"
+
+    redirect_to employee_templates_path
+  end
+
   # POST /employee_templates or /employee_templates.json
   def create
     @employee_template = EmployeeTemplate.new(employee_template_params)
@@ -86,7 +97,7 @@ class EmployeeTemplatesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def employee_template_params
-    params.require(:employee_template).permit(:account_id, :title, employee_attributes_attributes: [:id, :name, :data_type, :required, :_destroy])
+    params.require(:employee_template).permit(:account_id, :title, :csv, employee_attributes_attributes: [:id, :name, :data_type, :required, :_destroy])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:employee_template).permit(policy(@employee_template).permitted_attributes)
