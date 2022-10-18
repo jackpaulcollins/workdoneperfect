@@ -133,13 +133,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
   end
 
   create_table "attribute_answers", force: :cascade do |t|
-    t.bigint "employee_template_id", null: false
+    t.bigint "employee_attribute_id", null: false
     t.bigint "employee_id", null: false
     t.string "answer", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["employee_attribute_id"], name: "index_attribute_answers_on_employee_attribute_id"
+    t.index ["employee_id", "employee_attribute_id"], name: "index_attribute_answers_on_employee_and_attribute", unique: true
     t.index ["employee_id"], name: "index_attribute_answers_on_employee_id"
-    t.index ["employee_template_id"], name: "index_attribute_answers_on_employee_template_id"
   end
 
   create_table "company_resources", force: :cascade do |t|
@@ -416,7 +417,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
-  add_foreign_key "attribute_answers", "employee_templates"
+  add_foreign_key "attribute_answers", "employee_attributes"
   add_foreign_key "attribute_answers", "employees"
   add_foreign_key "company_resources", "accounts"
   add_foreign_key "customers", "accounts"

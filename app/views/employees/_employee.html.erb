@@ -1,46 +1,60 @@
-<li id="<%= dom_id employee %>">
-  <%= link_to employee, class: "block hover:bg-gray-50" do %>
-    <div class="flex items-center px-4 py-4 sm:px-6">
-      <div class="flex items-center flex-1 min-w-0">
-        <div class="flex-shrink-0">
-          <img class="w-12 h-12 rounded-full" src="<%= gravatar_url_for(employee.email) %>" alt="<%= employee.name %>">
-        </div>
-        <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
-          <div>
-            <p class="text-sm font-medium truncate">
-              <span class="text-primary-600"><%= employee.name %></span>
-              <span class="text-gray-400"> - <%= employee.employee_template.title %></span>
-            </p>
-            <p class="flex items-center mt-2 text-sm text-gray-500">
-              <% if employee.email.present? %>
-                <i class="mr-2 fa-lg fa-solid fa-envelope"></i>
-                <span class="truncate"><%= employee.email %></span>
-              <% end %>
-            </p>
-          </div>
-          <% if employee.start_date.present? || employee.final_date.present? %>
-            <div class="items-center hidden md:flex">
-              <div>
-                <% if employee.start_date.present? %>
-                  <p class="text-sm text-gray-900">
-                    Started on
-                    <time datetime="<% employee.start_date&.strftime("%Y-%m-%d") %>"><%= employee.start_date&.strftime("%B %-m, %Y") %></time>
-                  </p>
-                <% end %>
-                <% if employee.final_date.present? %>
-                  <p class="text-sm text-gray-900">
-                    Final day on
-                    <time datetime="<% employee.final_date&.strftime("%Y-%m-%d") %>"><%= employee.final_date&.strftime("%B %-m, %Y") %></time>
-                  </p>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
+<div id="<%= dom_id employee %>">
+  <div class="flex items-center justify-between p-5 space-x-5 bg-gray-100 rounded-lg shadow">
+    <div class="flex items-center space-x-5">
+      <div class="flex-shrink-0">
+        <div class="relative">
+          <img class="w-16 h-16 rounded-full" src="<%= gravatar_url_for(employee.email, size: 64) %>" alt="">
         </div>
       </div>
       <div>
-        <i class="fa-solid fa-chevron-right"></i>
+        <h1 class="text-2xl font-bold text-gray-900"><%= employee.name %></h1>
+        <p class="text-sm font-medium text-gray-500"><%= employee.employee_template.title %></p>
       </div>
     </div>
-  <% end %>
-</li>
+    <div class="flex flex-col-reverse mt-6 space-y-4 space-y-reverse justify-stretch sm:flex-row-reverse sm:justify-end sm:space-y-0 sm:space-x-3 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+      <%= link_to "mailto:#{employee.email}", class: "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100" do %>
+        <i class="mr-3 fa-regular fa-envelope"></i>
+        Email
+      <% end %>
+    </div>
+  </div>
+  <div class="pt-5 overflow-hidden">
+    <div class="py-5">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">Employee Details</h3>
+      <p class="max-w-2xl mt-1 text-sm text-gray-500">Personal details and custom attributes.</p>
+    </div>
+    <div class="py-5 border-t border-gray-200">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Full name</dt>
+          <dd class="mt-1 text-sm text-gray-900"><%= employee.name %></dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Email address</dt>
+          <dd class="mt-1 text-sm text-gray-900"><%= employee.email %></dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Role</dt>
+          <dd class="mt-1 text-sm text-gray-900"><%= employee.employee_template.title %></dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Employment Period</dt>
+          <dd class="mt-1 text-sm text-gray-900">
+            <% if employee.start_date.present? %>
+              <%= employee.start_date&.strftime("%B %-m, %Y") %> - <%= employee.final_date&.strftime("%B %-m, %Y") || "Present" %>
+            <% end %>
+          </dd>
+        </div>
+        <% employee.attributes_and_answers.each do |data| %>
+          <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-gray-500"><%= data[:name] %></dt>
+            <dd class="mt-1 text-sm text-gray-900">
+              <%= data[:answer] %>
+            </dd>
+          </div>
+        <% end %>
+      </dl>
+    </div>
+    
+  </div>
+</div>
