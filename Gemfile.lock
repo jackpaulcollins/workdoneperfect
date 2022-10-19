@@ -272,6 +272,7 @@ GEM
       timeout
     net-smtp (0.3.2)
       net-protocol
+    newrelic_rpm (8.11.0)
     nio4r (2.5.8)
     nokogiri (1.13.8)
       mini_portile2 (~> 2.8.0)
@@ -499,6 +500,7 @@ DEPENDENCIES
   letter_opener_web (~> 2.0)
   local_time (~> 2.1)
   name_of_person (~> 1.0)
+  newrelic_rpm
   nokogiri (>= 1.12.5)
   noticed (~> 1.5)
   oj (~> 3.8, >= 3.8.1)

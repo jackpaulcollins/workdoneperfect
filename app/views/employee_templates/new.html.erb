@@ -1,13 +1,12 @@
 <%= content_for :title, t("shared.scaffold.new.title", model: "Employee Template") %>
 
-<div class="container px-4 mx-auto my-8 w-1/2">
+<div class="md:container px-4 mx-auto my-8 w-1/2">
   <div class="flex items-center justify-between mb-4">
     <h1 class="h3 m-auto">
       <%= t("shared.scaffold.new.title", model: "Employee Template")%>
     </h1>
     <%= link_to t("employee_templates.bulk_upload"), bulk_upload_path, class: "btn btn-link" %>
   </div>
-
   <div class="p-8 bg-white rounded shadow">
     <%= render "form", employee_template: @employee_template %>
   </div>
