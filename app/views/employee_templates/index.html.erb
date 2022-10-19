@@ -16,7 +16,7 @@
     <%= link_to t("shared.scaffold.new.title", model: "Employee Template"), new_employee_template_path, class: "btn btn-white" %>
   </div>
 
-  <%= tag.div id: ("employee_templates" if first_page?), class: "bg-white rounded-md shadow p-6 space-y-8" do %>
+  <%= tag.div id: ("employee_templates" if first_page?) do %>
     <%= render partial: "employee_templates/index", collection: @employee_templates, as: :employee_template, cached: true %>
 
     <div class="hidden only:flex flex-col items-center justify-between lg:flex-row">
