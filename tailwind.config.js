@@ -35,6 +35,10 @@ module.exports = {
         "code-400": "#fefcf9",
         "code-600": "#3c455b",
       },
+      screens: {
+        xs: "450px",
+        hform: "1150px"
+      },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
       },

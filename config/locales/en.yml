@@ -45,6 +45,9 @@ en:
   unauthorized: "You are not authorized to perform this action."
 
   employee_templates:
+    form:
+      submit: "Submit"
+      update: "Update"
     tooltips:
       employee_attribute_info: "Attributes are custom data you want to track about the employees that belong to this template eg, Driver => true"
     delete:

@@ -26,13 +26,9 @@
       <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
     </svg>
   </button>
-  <div class="mt-12 flex flex-row">
-    <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary mr-2" %>
-      <% if form.object.new_record? %>
-      <%= link_to t("cancel"), employee_templates_path, class: "btn btn-white" %>
-    <% else %>
-      <%= link_to t("cancel"), employee_template_path(@employee_template), class: "btn btn-white ml-2" %>
-    <% end %>
+  <div class="mt-12 flex flex-col md:flex-row">
+    <%= form.button button_text(t("employee_templates.form.submit")), class: "mb-2 md:mr-4 inline-flex justify-center btn btn-primary" %>
+    <%= link_to t("cancel"), employee_templates_path, class: "inline-flex justify-center btn btn-white invisible xs:visible" %>
   </div>
 </div>
 <% end %>
