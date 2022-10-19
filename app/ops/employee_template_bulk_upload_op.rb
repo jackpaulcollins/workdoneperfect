@@ -8,7 +8,7 @@ class EmployeeTemplateBulkUploadOp < ::Subroutine::Op
   string :title
   association :account
 
-  outputs :success
+  outputs :successes
   outputs :failures
 
   protected
@@ -43,19 +43,19 @@ class EmployeeTemplateBulkUploadOp < ::Subroutine::Op
       if t.valid?
         successes << t
       else
-        failures << "row #{index + 1} :#{t.errors.full_messages.to_s.delete("[").delete("]").delete('"')}"
+        failures << t.title
       end
     end
 
     return save_records(successes) if failures.empty?
 
-    output :failures, failures
-    output :success, false
+    output :failures, failures.count
+    output :successes, false
   end
 
   def save_records(records)
     records.each(&:save!)
-    output :success, true
+    output :successes, records.count
     output :failures, false
   end
 end

@@ -36,7 +36,7 @@ class EmployeeTemplatesController < ApplicationController
   def process_bulk_upload
     op = ::EmployeeTemplateBulkUploadOp.submit!(account_id: current_account.id, data: params[:csv].tempfile)
 
-    op.failures ? flash[:alert] = op.failures.to_s.delete("[").delete("]").delete('"') : flash[:notice] = "All Templates Saved!"
+    op.failures ? flash[:alert] = "#{op.failures} templates failed to save" : flash[:notice] = "#{op.successes} templates created!"
 
     redirect_to employee_templates_path
   end
