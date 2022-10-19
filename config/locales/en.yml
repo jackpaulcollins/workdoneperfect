@@ -45,6 +45,8 @@ en:
   unauthorized: "You are not authorized to perform this action."
 
   employee_templates:
+    index: "Employee Templates"
+    bulk_upload: "Bulk Upload"
     form:
       submit: "Submit"
       update: "Update"
