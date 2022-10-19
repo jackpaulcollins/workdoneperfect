@@ -41,6 +41,8 @@ class Employee < ApplicationRecord
   has_many :employee_jobs, dependent: :destroy
   has_many :jobs, through: :employee_jobs
 
+  accepts_nested_attributes_for :attribute_answers
+
   validates :email, format: User.email_regexp, allow_blank: true
 
   ransacker :full_name do |parent|

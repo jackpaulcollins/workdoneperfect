@@ -1,37 +1,68 @@
-<%= form_with(model: employee) do |form| %>
+<%= form_for(employee) do |form| %>
   <%= render "shared/error_messages", resource: form.object %>
-  <div class="form-group">
-    <%= form.label :employee_template %>
-    <%= form.collection_select :employee_template_id, EmployeeTemplate.all, :id, :title, { prompt: true }, { class: "mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" } %>
-  </div>
 
-  <div class="form-group">
-    <%= form.label :first_name %>
-    <%= form.text_field :first_name, class: "form-control" %>
-  </div>
+  <div class="grid grid-cols-2 gap-4">
+    <div class="col-span-2 border-b border-gray-200">
+      <div class="pb-5">
+        <h3 class="text-lg font-medium leading-6 text-gray-900">Employee Details</h3>
+        <p class="max-w-2xl mt-1 text-sm text-gray-500">Personal details and custom attributes.</p>
+      </div>
+    </div>
 
-  <div class="form-group">
-    <%= form.label :last_name %>
-    <%= form.text_field :last_name, class: "form-control" %>
-  </div>
+    <div class="col-span-2">
+      <%= form.label :employee_template_id, "Role" %>
+      <%= form.collection_select :employee_template_id, EmployeeTemplate.all, :id, :title, { prompt: true }, { class: "mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm" } %>
+    </div>
+    
+    <div class="col-span-2">
+      <%= form.label :email %>
+      <%= form.email_field :email, class: "form-control" %>
+    </div>
+    
+    <div class="col-span-1">
+      <%= form.label :first_name %>
+      <%= form.text_field :first_name, class: "form-control" %>
+    </div>
 
-  <div class="form-group">
-    <%= form.label :start_date %>
-    <%= form.date_field :start_date, class: "form-control" %>
-  </div>
+    <div class="col-span-1">
+      <%= form.label :last_name %>
+      <%= form.text_field :last_name, class: "form-control" %>
+    </div>
 
-  <div class="form-group">
-    <%= form.label :final_date %>
-    <%= form.date_field :final_date, class: "form-control" %>
-  </div>
+    <div class="col-span-1">
+      <%= form.label :start_date %>
+      <%= form.date_field :start_date, class: "form-control" %>
+    </div>
+    
+    <div class="col-span-1">
+      <%= form.label :final_date %>
+      <%= form.date_field :final_date, class: "form-control" %>
+    </div>
 
-  <div>
-    <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
+    <% if @employee.employee_template.present? %>
+      <div class="col-span-2 border-b border-gray-200">
+        <div class="py-5">
+          <h3 class="text-lg font-medium leading-6 text-gray-900">Role Information</h3>
+          <p class="max-w-2xl mt-1 text-sm text-gray-500">Information specific to this employees role.</p>
+        </div>
+      </div>
 
-    <% if form.object.new_record? %>
-      <%= link_to t("cancel"), employees_path, class: "btn btn-white" %>
-    <% else %>
-      <%= link_to t("cancel"), employee_path(@employee), class: "btn btn-white" %>
+      <%= form.fields_for :attribute_answers do |aa_form| %>
+        <div class="col-span-1">
+          <%= aa_form.label :answer, aa_form.object.employee_attribute.name %>
+          <%= aa_form.text_field :answer, class: "form-control" %>
+        </div>
+      <% end %>
     <% end %>
+
+    <div class="col-span-2">
+      <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
+
+      <% if form.object.new_record? %>
+        <%= link_to t("cancel"), employees_path, class: "btn btn-white" %>
+      <% else %>
+        <%= link_to t("cancel"), employee_path(@employee), class: "btn btn-white" %>
+      <% end %>
+    </div>
   </div>
 <% end %>
