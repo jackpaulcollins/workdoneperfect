@@ -3,7 +3,7 @@
 # .NET, PHP, Python, Node, and Go applications with deep visibility and low
 # overhead.  For more information, visit www.newrelic.com.
 #
-# Generated October 18, 2022
+# Generated October 22, 2022
 #
 # This configuration file is custom generated for NewRelic Administration
 #
@@ -12,11 +12,11 @@
 
 common: &default_settings
   # Required license key associated with your New Relic account.
-  license_key: 6fcdb0fc9629e90b4b15f23457ba40021bb0NRAL
+  license_key: 524ec3565f141349c546e72ba4ab152b527fNRAL
 
   # Your application name. Renaming here affects where data displays in New
   # Relic.  For more details, see https://docs.newrelic.com/docs/apm/new-relic-apm/maintenance/renaming-applications
-  app_name: WDP
+  app_name: WDP Prod
 
   distributed_tracing:
     enabled: true
@@ -50,7 +50,7 @@ common: &default_settings
 # If your application has other named environments, configure them here.
 development:
   <<: *default_settings
-  app_name: WDP (Development)
+  app_name: WDP Prod (Development)
 
 test:
   <<: *default_settings
@@ -59,7 +59,7 @@ test:
 
 staging:
   <<: *default_settings
-  app_name: WDP (Staging)
+  app_name: WDP Prod (Staging)
 
 production:
   <<: *default_settings
