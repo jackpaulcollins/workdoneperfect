@@ -126,4 +126,4 @@ gem "view_component"
 gem 'subroutine', '~> 2.1.2'
 gem 'smarter_csv', '~> 1.1', '>= 1.1.4'
 gem 'newrelic_rpm'
-
+gem 'postmark-rails'
