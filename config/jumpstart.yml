@@ -2,8 +2,8 @@
 application_name: WorkDonePerfect
 business_name: WorkDonePerfect, LLC
 domain: example.com
-support_email: support@workdoneperfect.com
-default_from_email: Jumpstart <support@example.com>
+support_email: jack@workdoneperfect.com
+default_from_email: jack@workdoneperfect.com
 business_address: |-
   3850 N Mississippi Ave #A103
   Portland, OR 97227
