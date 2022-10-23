@@ -20,7 +20,7 @@ class EmployeeTemplateBulkUploadOp < ::Subroutine::Op
 
   def extract_csv
     File.open(data, "r:bom|utf-8") do |f|
-      data = SmarterCSV.process(f)
+      SmarterCSV.process(f)
     end
   end
 
