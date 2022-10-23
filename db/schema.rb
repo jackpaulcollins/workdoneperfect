@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_043938) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_23_060921) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -138,7 +138,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_043938) do
     t.string "answer", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["employee_id", "employee_template_id"], name: "index_attribute_answers_on_employee_id_and_employee_template_id", unique: true
     t.index ["employee_id"], name: "index_attribute_answers_on_employee_id"
     t.index ["employee_template_id"], name: "index_attribute_answers_on_employee_template_id"
   end
@@ -152,7 +151,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_043938) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_customers_on_account_id"
-    t.index ["email", "account_id"], name: "index_customers_on_email_and_account_id", unique: true
   end
 
   create_table "employee_attributes", force: :cascade do |t|
@@ -162,6 +160,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_043938) do
     t.datetime "updated_at", null: false
     t.integer "data_type"
     t.boolean "required", default: false
+    t.bigint "account_id"
+    t.index ["account_id"], name: "index_employee_attributes_on_account_id"
     t.index ["employee_template_id"], name: "index_employee_attributes_on_employee_template_id"
   end
 
@@ -171,7 +171,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_043938) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_employee_jobs_on_employee_id"
-    t.index ["job_id", "employee_id"], name: "index_employee_jobs_on_job_id_and_employee_id", unique: true
     t.index ["job_id"], name: "index_employee_jobs_on_job_id"
   end
 
@@ -181,7 +180,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_043938) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_employee_templates_on_account_id"
-    t.index ["title", "account_id"], name: "index_employee_templates_on_title_and_account_id", unique: true
   end
 
   create_table "employees", force: :cascade do |t|
@@ -325,6 +323,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_043938) do
     t.string "unit"
   end
 
+  create_table "resources", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "account_id", null: false
+    t.integer "count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_resources_on_account_id"
+  end
+
   create_table "user_connected_accounts", force: :cascade do |t|
     t.bigint "user_id"
     t.string "provider"
@@ -400,5 +408,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_043938) do
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
+  add_foreign_key "resources", "accounts"
   add_foreign_key "user_connected_accounts", "users"
 end

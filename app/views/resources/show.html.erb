@@ -1,0 +1,17 @@
+<%= content_for :title, "Resources ##{@resource.id}" %>
+<%= turbo_stream_from @resource %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="h3">
+      <%= link_to "Resources", resources_path, class: "text-black" %>
+      <span class="text-gray-400 font-light mx-2">\</span>
+      Resource #<%= @resource.id %>
+    </h1>
+    <%= link_to t("edit"), edit_resource_path(@resource), class: "btn btn-white" %>
+  </div>
+
+  <div class="p-8 bg-white rounded shadow">
+    <%= render @resource %>
+  </div>
+</div>
