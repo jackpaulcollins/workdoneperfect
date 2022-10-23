@@ -2,7 +2,14 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   config.action_mailer.delivery_method = :postmark
-  config.action_mailer.postmark_settings = {:api_token => Rails.application.credentials.postmark_api_token}
+  config.action_mailer.smtp_settings = {
+    authentication: :plain,
+    address: "smtp.postmarkapp.com",
+    port: 587,
+    domain: "workdoneperfect.com",
+    user_name: Rails.application.credentials.postmark_api_token,
+    password: Rails.application.credentials.postmark_api_token
+  }
 
   # Settings specified here will take precedence over those in config/application.rb.
 
