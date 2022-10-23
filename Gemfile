@@ -123,7 +123,7 @@ end
 # We recommend using strong migrations when your app is in production
 # gem "strong_migrations", "~> 0.7.6"
 gem "view_component"
-gem 'subroutine', '~> 2.1.2'
-gem 'smarter_csv', '~> 1.1', '>= 1.1.4'
-gem 'newrelic_rpm'
-gem 'postmark-rails'
+gem "subroutine", "~> 2.1.2"
+gem "smarter_csv", "~> 1.1", ">= 1.1.4"
+gem "newrelic_rpm"
+gem "postmark-rails"

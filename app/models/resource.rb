@@ -20,9 +20,10 @@
 #
 class Resource < ApplicationRecord
   belongs_to :account
+  acts_as_tenant :account
 
   # Broadcast changes in realtime with Hotwire
-  after_create_commit  -> { broadcast_prepend_later_to :resources, partial: "resources/index", locals: { resource: self } }
-  after_update_commit  -> { broadcast_replace_later_to self }
+  after_create_commit -> { broadcast_prepend_later_to :resources, partial: "resources/index", locals: {resource: self} }
+  after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :resources, target: dom_id(self, :index) }
 end

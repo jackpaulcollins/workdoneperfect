@@ -1,1 +1,1 @@
-gem 'sidekiq'
+gem "sidekiq"
