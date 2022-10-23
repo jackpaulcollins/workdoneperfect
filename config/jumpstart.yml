@@ -1,7 +1,7 @@
 --- !ruby/object:Jumpstart::Configuration
 application_name: WorkDonePerfect
 business_name: WorkDonePerfect, LLC
-domain: workdoneperfect.com
+domain: https://workdoneperfect.com
 support_email: jack@workdoneperfect.com
 default_from_email: jack@workdoneperfect.com
 business_address: |-
