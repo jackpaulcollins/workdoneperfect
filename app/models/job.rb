@@ -29,6 +29,8 @@ class Job < ApplicationRecord
   belongs_to :customer
   has_many :employee_jobs, dependent: :destroy
   has_many :employees, through: :employee_jobs
+  has_many :resource_schedules, dependent: :destroy
+  has_many :company_resources, through: :resource_schedules
 
   validates :date_and_time, presence: true
 

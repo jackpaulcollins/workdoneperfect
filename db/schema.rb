@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_23_060921) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -140,6 +140,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_23_060921) do
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_attribute_answers_on_employee_id"
     t.index ["employee_template_id"], name: "index_attribute_answers_on_employee_template_id"
+  end
+
+  create_table "company_resources", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_company_resources_on_account_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -323,14 +332,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_23_060921) do
     t.string "unit"
   end
 
-  create_table "resources", force: :cascade do |t|
-    t.string "name"
-    t.string "description"
-    t.bigint "account_id", null: false
-    t.integer "count"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_resources_on_account_id"
+  create_table "resource_schedules", id: false, force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "company_resource_id", null: false
+    t.date "job_date"
+    t.index ["company_resource_id", "job_id", "job_date"], name: "company_resource_job_schedule", unique: true
+    t.index ["company_resource_id", "job_id"], name: "index_resource_schedules_on_company_resource_id_and_job_id"
+    t.index ["job_id", "company_resource_id"], name: "index_resource_schedules_on_job_id_and_company_resource_id"
   end
 
   create_table "user_connected_accounts", force: :cascade do |t|
@@ -396,6 +404,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_23_060921) do
   add_foreign_key "api_tokens", "users"
   add_foreign_key "attribute_answers", "employee_templates"
   add_foreign_key "attribute_answers", "employees"
+  add_foreign_key "company_resources", "accounts"
   add_foreign_key "customers", "accounts"
   add_foreign_key "employee_attributes", "employee_templates"
   add_foreign_key "employee_jobs", "employees"
@@ -408,6 +417,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_23_060921) do
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
-  add_foreign_key "resources", "accounts"
   add_foreign_key "user_connected_accounts", "users"
 end

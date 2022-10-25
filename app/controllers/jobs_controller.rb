@@ -32,7 +32,12 @@ class JobsController < ApplicationController
 
   # POST /jobs or /jobs.json
   def create
+    puts job_params, "*" * 100
     @job = Job.new(job_params)
+
+    # if job_params[:company_resources_attributes][:id].present?
+    #   @job.resource_schedules.build(company_resource_id: job_params[:company_resources_attributes][:id], job_date: @job.date_and_time)
+    # end
 
     # Uncomment to authorize with Pundit
     # authorize @job
@@ -84,9 +89,14 @@ class JobsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def job_params
-    params.require(:job).permit(:account_id, :customer_id, :date_and_time, :estimated_hours, :total_hours, :revenue)
-
-    # Uncomment to use Pundit permitted attributes
-    # params.require(:job).permit(policy(@job).permitted_attributes)
+    params.require(:job).permit(
+      :account_id,
+      :customer_id,
+      :date_and_time,
+      :estimated_hours,
+      :total_hours,
+      :revenue,
+      :company_resource_ids
+    )
   end
 end

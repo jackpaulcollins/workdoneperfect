@@ -1,6 +1,5 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
-  resources :resources
   match "/employee_templates/bulk_upload", to: "employee_templates#bulk_upload", as: :bulk_upload, via: :get
   post "/employee_templates/bulk_upload", to: "employee_templates#process_bulk_upload"
 
@@ -10,6 +9,7 @@ Rails.application.routes.draw do
   resources :employee_attributes
   resources :employees
   resources :employee_templates
+  resources :company_resources
 
   draw :turbo
 
