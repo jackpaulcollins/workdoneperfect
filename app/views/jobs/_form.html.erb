@@ -25,10 +25,14 @@
     <%= form.text_field :revenue, class: "form-control" %>
   </div>
 
-  <div class="form-group">
-    <%= form.label :resources %>
-    <%= form.collection_select :company_resource_ids, CompanyResource.all, :id, :name, { prompt: true }, 
-    { class: "mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" } %>
+  <div data-controller="choices">
+    <div data-controller="choices" data-remove-item-button="true" data-duplicate-items-allowed="false" data-no-choices-text="Start typing to search...">
+      <select name="job[company_resource_ids][]" multiple size="<%= CompanyResource.count %>" >
+        <%= CompanyResource.all.each do |resource| %>
+          <option value="<%= resource.id %>"><%= resource.name %></option>
+        <% end %>
+      </select>
+    </div>
   </div>
 
   <div>

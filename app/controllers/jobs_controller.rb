@@ -91,7 +91,7 @@ class JobsController < ApplicationController
       :estimated_hours,
       :total_hours,
       :revenue,
-      :company_resource_ids
+      :company_resource_ids => []
     )
   end
 end
