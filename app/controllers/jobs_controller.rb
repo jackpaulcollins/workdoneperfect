@@ -32,12 +32,7 @@ class JobsController < ApplicationController
 
   # POST /jobs or /jobs.json
   def create
-    puts job_params, "*" * 100
     @job = Job.new(job_params)
-
-    # if job_params[:company_resources_attributes][:id].present?
-    #   @job.resource_schedules.build(company_resource_id: job_params[:company_resources_attributes][:id], job_date: @job.date_and_time)
-    # end
 
     # Uncomment to authorize with Pundit
     # authorize @job
