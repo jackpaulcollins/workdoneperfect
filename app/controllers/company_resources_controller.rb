@@ -8,7 +8,6 @@ class CompanyResourcesController < ApplicationController
   # GET /company_resources
   def index
     @pagy, @company_resources = pagy(CompanyResource.sort_by_params(params[:sort], sort_direction))
-
     # Uncomment to authorize with Pundit
     # authorize @company_resources
   end

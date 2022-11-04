@@ -25,14 +25,21 @@
     <%= form.text_field :revenue, class: "form-control" %>
   </div>
 
-  <div data-controller="choices">
-    <div data-controller="choices" data-remove-item-button="true" data-duplicate-items-allowed="false" data-no-choices-text="Start typing to search...">
-      <select name="job[company_resource_ids][]" multiple size="<%= CompanyResource.count %>" >
-        <%= CompanyResource.all.each do |resource| %>
-          <option value="<%= resource.id %>"><%= resource.name %></option>
-        <% end %>
-      </select>
-    </div>
+  <%# <div class="field-unit__field">
+  <%= form.select(:company_resource_ids,
+               options_for_select(CompanyResource.all.pluck(:name)),
+               {include_blank: false}, {data: {controller: "select"}}) %>
+  <%# </div> %>
+
+  <div class="form-group">
+    <%= form.collection_select :company_resource_ids, 
+                               CompanyResource.all,
+                               :id, 
+                               :name,
+                               {:prompt => "Allocate Resources", data: {controller: 'select'}}, 
+                               {:multiple => true}
+
+    %>
   </div>
 
   <div>
