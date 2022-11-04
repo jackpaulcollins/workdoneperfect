@@ -1,10 +1,14 @@
 EmployeeTemplate.all.each do |employee_template|
   unless employee_template.employees.any?
     rand(10..30).times do
+      first_name = Faker::Name.first_name
+      last_name = Faker::Name.last_name
+
       employee = employee_template.employees.create({
         account: employee_template.account,
-        first_name: Faker::Name.first_name,
-        last_name: Faker::Name.last_name,
+        email: Faker::Internet.email(name: "#{first_name} #{last_name}"),
+        first_name: first_name,
+        last_name: last_name,
         start_date: Faker::Date.between(from: 5.years.ago, to: Date.today)
       })
 

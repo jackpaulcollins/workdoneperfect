@@ -20,6 +20,7 @@ module.exports = {
     './app/views/**/*.slim',
     './lib/jumpstart/app/views/**/*.erb',
     './lib/jumpstart/app/helpers/**/*.rb',
+    './app/components/**'
   ],
 
   // All the default values will be compiled unless they are overridden below

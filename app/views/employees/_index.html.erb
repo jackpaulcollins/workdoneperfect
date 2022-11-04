@@ -1,6 +1,4 @@
 <div id="<%= dom_id(employee, :index) %>">
   <%= turbo_stream_from employee %>
-  <%= render employee %>
-  <%= link_to "View", employee, class: "btn btn-white" %>
+  <%= render "employees/list_employee", employee: employee %>
 </div>
-

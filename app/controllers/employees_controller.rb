@@ -9,7 +9,8 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    @pagy, @employees = pagy(Employee.sort_by_params(params[:sort], sort_direction))
+    @q = Employee.ransack(params[:q])
+    @pagy, @employees = pagy(@q.result)
 
     # Uncomment to authorize with Pundit
     # authorize @employees
@@ -75,7 +76,7 @@ class EmployeesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_employee
-    @employee = Employee.find(params[:id])
+    @employee = Employee.friendly.find(params[:id])
 
     # Uncomment to authorize with Pundit
     # authorize @employee
@@ -92,7 +93,7 @@ class EmployeesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def employee_params
-    params.require(:employee).permit(:account_id, :employee_template_id, :first_name, :last_name, :start_date, :final_date)
+    params.require(:employee).permit(:account_id, :employee_template_id, :first_name, :last_name, :start_date, :final_date, attribute_answers_attributes: [:id, :answer])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:employee).permit(policy(@employee).permitted_attributes)

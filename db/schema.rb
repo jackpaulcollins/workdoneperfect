@@ -133,13 +133,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
   end
 
   create_table "attribute_answers", force: :cascade do |t|
-    t.bigint "employee_template_id", null: false
+    t.bigint "employee_attribute_id", null: false
     t.bigint "employee_id", null: false
     t.string "answer", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["employee_attribute_id"], name: "index_attribute_answers_on_employee_attribute_id"
+    t.index ["employee_id", "employee_attribute_id"], name: "index_attribute_answers_on_employee_and_attribute", unique: true
     t.index ["employee_id"], name: "index_attribute_answers_on_employee_id"
-    t.index ["employee_template_id"], name: "index_attribute_answers_on_employee_template_id"
   end
 
   create_table "company_resources", force: :cascade do |t|
@@ -160,6 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_customers_on_account_id"
+    t.index ["email", "account_id"], name: "index_customers_on_email_and_account_id", unique: true
   end
 
   create_table "employee_attributes", force: :cascade do |t|
@@ -169,8 +171,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
     t.datetime "updated_at", null: false
     t.integer "data_type"
     t.boolean "required", default: false
-    t.bigint "account_id"
-    t.index ["account_id"], name: "index_employee_attributes_on_account_id"
     t.index ["employee_template_id"], name: "index_employee_attributes_on_employee_template_id"
   end
 
@@ -180,6 +180,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_employee_jobs_on_employee_id"
+    t.index ["job_id", "employee_id"], name: "index_employee_jobs_on_job_id_and_employee_id", unique: true
     t.index ["job_id"], name: "index_employee_jobs_on_job_id"
   end
 
@@ -189,19 +190,34 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_employee_templates_on_account_id"
+    t.index ["title", "account_id"], name: "index_employee_templates_on_title_and_account_id", unique: true
   end
 
   create_table "employees", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "employee_template_id", null: false
-    t.string "first_name"
+    t.string "first_name", null: false
     t.string "last_name"
     t.datetime "start_date"
     t.datetime "final_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email"
+    t.string "slug"
     t.index ["account_id"], name: "index_employees_on_account_id"
     t.index ["employee_template_id"], name: "index_employees_on_employee_template_id"
+    t.index ["slug"], name: "index_employees_on_slug", unique: true
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
   create_table "jobs", force: :cascade do |t|
@@ -402,7 +418,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
-  add_foreign_key "attribute_answers", "employee_templates"
+  add_foreign_key "attribute_answers", "employee_attributes"
   add_foreign_key "attribute_answers", "employees"
   add_foreign_key "company_resources", "accounts"
   add_foreign_key "customers", "accounts"

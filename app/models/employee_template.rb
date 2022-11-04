@@ -10,7 +10,8 @@
 #
 # Indexes
 #
-#  index_employee_templates_on_account_id  (account_id)
+#  index_employee_templates_on_account_id            (account_id)
+#  index_employee_templates_on_title_and_account_id  (title,account_id) UNIQUE
 #
 # Foreign Keys
 #
@@ -22,7 +23,6 @@ class EmployeeTemplate < ApplicationRecord
   belongs_to :account
   has_many :employees, dependent: :destroy
   has_many :employee_attributes, index_errors: true, dependent: :destroy
-  has_many :attribute_answers, dependent: :destroy
 
   validates :title, presence: true, uniqueness: {scope: :account_id}
 

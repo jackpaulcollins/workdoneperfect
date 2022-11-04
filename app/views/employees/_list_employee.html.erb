@@ -1,0 +1,46 @@
+<li id="<%= dom_id employee %>">
+  <%= link_to employee, class: "block hover:bg-gray-50" do %>
+    <div class="flex items-center px-4 py-4 sm:px-6">
+      <div class="flex items-center flex-1 min-w-0">
+        <div class="flex-shrink-0">
+          <img class="w-12 h-12 rounded-full" src="<%= gravatar_url_for(employee.email) %>" alt="<%= employee.name %>">
+        </div>
+        <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
+          <div>
+            <p class="text-sm font-medium truncate">
+              <span class="text-primary-600"><%= employee.name %></span>
+              <span class="text-gray-400"> - <%= employee.employee_template.title %></span>
+            </p>
+            <p class="flex items-center mt-2 text-sm text-gray-500">
+              <% if employee.email.present? %>
+                <i class="mr-2 fa-lg fa-solid fa-envelope"></i>
+                <span class="truncate"><%= employee.email %></span>
+              <% end %>
+            </p>
+          </div>
+          <% if employee.start_date.present? || employee.final_date.present? %>
+            <div class="items-center hidden md:flex">
+              <div>
+                <% if employee.start_date.present? %>
+                  <p class="text-sm text-gray-900">
+                    Started on
+                    <time datetime="<% employee.start_date&.strftime("%Y-%m-%d") %>"><%= employee.start_date&.strftime("%B %-m, %Y") %></time>
+                  </p>
+                <% end %>
+                <% if employee.final_date.present? %>
+                  <p class="text-sm text-gray-900">
+                    Final day on
+                    <time datetime="<% employee.final_date&.strftime("%Y-%m-%d") %>"><%= employee.final_date&.strftime("%B %-m, %Y") %></time>
+                  </p>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div>
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+    </div>
+  <% end %>
+</li>
