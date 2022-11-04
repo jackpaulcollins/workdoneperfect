@@ -161,6 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_customers_on_account_id"
+    t.index ["email", "account_id"], name: "index_customers_on_email_and_account_id", unique: true
   end
 
   create_table "employee_attributes", force: :cascade do |t|
@@ -170,8 +171,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
     t.datetime "updated_at", null: false
     t.integer "data_type"
     t.boolean "required", default: false
-    t.bigint "account_id"
-    t.index ["account_id"], name: "index_employee_attributes_on_account_id"
     t.index ["employee_template_id"], name: "index_employee_attributes_on_employee_template_id"
   end
 
@@ -181,6 +180,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["employee_id"], name: "index_employee_jobs_on_employee_id"
+    t.index ["job_id", "employee_id"], name: "index_employee_jobs_on_job_id_and_employee_id", unique: true
     t.index ["job_id"], name: "index_employee_jobs_on_job_id"
   end
 
@@ -190,6 +190,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_24_163458) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_employee_templates_on_account_id"
+    t.index ["title", "account_id"], name: "index_employee_templates_on_title_and_account_id", unique: true
   end
 
   create_table "employees", force: :cascade do |t|
