@@ -82,11 +82,6 @@ class JobsController < ApplicationController
     redirect_to jobs_path
   end
 
-  def company_resource_names
-    resources = CompanyResource.find_each
-    resources.map(:name)
-  end
-
   # Only allow a list of trusted parameters through.
   def job_params
     params.require(:job).permit(
