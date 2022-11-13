@@ -1,0 +1,31 @@
+<li id="<%= dom_id job %>">
+  <%= link_to job, class: "block hover:bg-gray-50" do %>
+    <div class="flex items-center px-4 py-4 sm:px-6">
+      <div class="flex items-center flex-1 min-w-0">
+        <div class="flex-1 min-w-0 px-4 md:grid md:grid-cols-2 md:gap-4">
+          <div>
+            <p class="text-sm font-medium truncate">
+              <span class="text-primary-600"><%= job&.customer&.name %></span>
+            </p>
+            <p class="flex items-center mt-2 text-sm text-gray-500">
+              <% if job.customer&.email.present? %>
+                <i class="mr-2 fa-lg fa-solid fa-envelope"></i>
+                <span class="truncate"><%= job.customer&.email %></span>
+              <% end %>
+            </p>
+          </div>
+          <div class="items-center hidden md:flex">
+            <div>
+              <p class="text-sm text-gray-900">
+                <time datetime="<% job.date_and_time&.strftime("%Y-%m-%d") %>"><%= job.date_and_time&.strftime("%Y-%m-%d") %></time>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <i class="fa-solid fa-chevron-right"></i>
+      </div>
+    </div>
+  <% end %>
+</li>

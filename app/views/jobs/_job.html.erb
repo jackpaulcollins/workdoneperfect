@@ -1,22 +1,51 @@
-<div id="<%= dom_id job %>">
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Customer</p>
-    <%= job.customer_id %>
+<div id="<%= dom_id job%>">
+  <div class="flex items-center justify-between p-5 space-x-5 bg-gray-100 rounded-lg shadow">
+    <div class="flex items-center space-x-5">
+      <div class="flex-shrink-0">
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900"><%= job.customer.first_name %></h1>
+        <p class="text-sm font-medium text-gray-500"><%= job.date_and_time %></p>
+      </div>
+    </div>
+    <div class="flex flex-col-reverse mt-6 space-y-4 space-y-reverse justify-stretch sm:flex-row-reverse sm:justify-end sm:space-y-0 sm:space-x-3 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+      <%= link_to "mailto:#{job.customer.email}", class: "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100" do %>
+        <i class="mr-3 fa-regular fa-envelope"></i>
+        Email
+      <% end %>
+    </div>
   </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Date and time</p>
-    <%= job.date_and_time %>
-  </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Estimated hours</p>
-    <%= job.estimated_hours %>
-  </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Total hours</p>
-    <%= job.total_hours %>
-  </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Revenue</p>
-    <%= job.revenue %>
+  <div class="pt-5 overflow-hidden">
+    <div class="py-5">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">Job Details</h3>
+    </div>
+    <div class="py-5 border-t border-gray-200">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Estimated Hours</dt>
+          <dd class="mt-1 text-sm text-gray-900"><%= job&.estimated_hours %></dd>
+        </div>
+        <% if job.total_hours %>
+          <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-gray-500">Completed Hours</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= job.total_hours %></dd>
+          </div>
+        <% end %>
+        <% if job.revenue %>
+          <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-gray-500">Revenue</dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= job.revenue %></dd>
+          </div>
+        <% end %>
+        <% if job.company_resources.any? %>
+          <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-gray-500">Company Resources:</dt>
+            <% job.company_resources.each do |cr| %>
+            <dd class="mt-1 text-sm text-gray-900"><%= cr.name %></dd>
+            <% end %>
+          </div>
+        <% end %>
+      </dl>
+    </div>
   </div>
 </div>

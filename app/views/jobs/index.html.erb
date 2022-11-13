@@ -20,8 +20,14 @@
     <%= link_to t("shared.scaffold.new.title", model: "Job"), new_job_path, class: "btn btn-white" %>
   </div>
 
-  <%= tag.div id: ("jobs" if first_page?), class: "bg-white rounded-md shadow p-6 space-y-8" do %>
-    <%= render partial: "jobs/index", collection: @jobs, as: :job, cached: true %>
+  <%= tag.div id: ("jobs" if first_page?), class: "bg-white rounded-md shadow space-y-8" do %>
+    <% if @jobs.present? %>
+      <div class="overflow-hidden bg-white shadow sm:rounded-md">
+        <ul role="list" class="list-none divide-y divide-gray-200">
+          <%= render partial: "jobs/index", collection: @jobs, as: :job, cached: true %>
+        </ul>
+      </div>
+    <% end %>
 
     <div class="hidden only:flex flex-col items-center justify-between lg:flex-row">
       <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
