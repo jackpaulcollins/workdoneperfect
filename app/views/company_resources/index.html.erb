@@ -18,8 +18,12 @@
     <%= link_to t("shared.scaffold.new.title", model: "Resource"), new_company_resource_path, class: "btn btn-white" %>
   </div>
 
-  <%= tag.div id: ("company_resources" if first_page?), class: "bg-white rounded-md shadow p-6 space-y-8" do %>
-    <%= render partial: "company_resources/index", collection: @company_resources, as: :company_resource, cached: true %>
+  <%= tag.div id: ("company_resources" if first_page?), class: "bg-white rounded-md shadow space-y-8" do %>
+    <div class="overflow-hidden bg-white shadow sm:rounded-md">
+      <ul class="list-none divide-y divide-gray-200">
+        <%= render partial: "company_resources/index", collection: @company_resources, as: :company_resource, cached: true %>
+      </ul>
+    </div>
 
     <div class="hidden only:flex flex-col items-center justify-between lg:flex-row">
       <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>

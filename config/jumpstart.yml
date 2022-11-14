@@ -10,7 +10,7 @@ business_address: |-
 background_job_processor: sidekiq
 email_provider: ''
 personal_accounts: true
-solargraph: false
+solargraph: true
 register_with_account: false
 apns: false
 fcm: false
