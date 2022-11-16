@@ -1,5 +1,5 @@
 class EmployeeTemplatesController < ApplicationController
-  before_action :set_employee_template, only: [:show, :edit, :update, :destroy]
+  before_action :set_employee_template, only: [:show, :edit, :update, :destroy, :form_fields]
   before_action :authenticate_user_with_sign_up!
 
   # Uncomment to enforce Pundit authorization
@@ -80,6 +80,13 @@ class EmployeeTemplatesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to employee_templates_url, status: :see_other, notice: "Employee template was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def form_fields
+    @target = params[:target]
+    respond_to do |format|
+      format.turbo_stream
     end
   end
 

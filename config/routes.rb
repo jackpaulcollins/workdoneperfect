@@ -8,7 +8,11 @@ Rails.application.routes.draw do
   resources :attribute_answers
   resources :employee_attributes
   resources :employees
-  resources :employee_templates
+  resources :employee_templates do
+    collection do
+      get :form_fields
+    end
+  end
   resources :company_resources
 
   draw :turbo
