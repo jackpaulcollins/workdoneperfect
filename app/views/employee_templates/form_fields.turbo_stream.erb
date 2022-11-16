@@ -1,0 +1,11 @@
+<%= turbo_stream.update @target do %>
+  <%- @employee_template.employee_attributes.each do |attribute| %>
+    <div class="col-span-1">
+      <input type="hidden" value="<%= attribute.id %>" name=employee[attribute_answers_attributes][][employee_attribute_id]>
+      <label>
+        <%= attribute.name %>
+      </label>
+      <input class="form-control" type="text" name="employee[attribute_answers_attributes][][answer]">
+    </div>
+  <% end %>
+<% end %>

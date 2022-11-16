@@ -30,11 +30,6 @@ class Employee < ApplicationRecord
   friendly_id :name, use: :slugged
 
   acts_as_tenant :account
-
-  has_person_name
-  friendly_id :name, use: :slugged
-
-  acts_as_tenant :account
   belongs_to :account
   belongs_to :employee_template
   has_many :attribute_answers, dependent: :destroy
@@ -44,10 +39,15 @@ class Employee < ApplicationRecord
   accepts_nested_attributes_for :attribute_answers
 
   validates :email, format: User.email_regexp, allow_blank: true
+  validates :first_name, presence: true
 
   ransacker :full_name do |parent|
     Arel::Nodes::InfixOperation.new("||",
       parent.table[:first_name], parent.table[:last_name])
+  end
+
+  def name
+    "#{first_name} #{last_name}"
   end
 
   def attributes_and_answers
