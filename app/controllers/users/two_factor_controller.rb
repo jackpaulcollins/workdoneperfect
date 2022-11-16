@@ -1,5 +1,4 @@
 class Users::TwoFactorController < ApplicationController
-  before_action :authenticate_user!
   before_action :ensure_backup_codes
   before_action :ensure_otp_secret
 

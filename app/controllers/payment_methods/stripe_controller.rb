@@ -1,5 +1,4 @@
 class PaymentMethods::StripeController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_setup_intent
 
   def show
