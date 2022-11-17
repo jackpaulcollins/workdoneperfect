@@ -3,6 +3,8 @@ require "application_system_test_case"
 class EmployeeAttributesTest < ApplicationSystemTestCase
   setup do
     @employee_attribute = employee_attributes(:one)
+    @user = users(:one)
+    login_as(@user)
   end
 
   test "visiting the index" do
