@@ -16,7 +16,6 @@ class CompanyResourcesTest < ApplicationSystemTestCase
     visit company_resources_url
     click_on "New Company Resource"
 
-    fill_in "Account", with: @company_resource.account_id
     fill_in "Description", with: @company_resource.description
     fill_in "Name", with: @company_resource.name
     click_on "Create Company resource"
@@ -29,7 +28,6 @@ class CompanyResourcesTest < ApplicationSystemTestCase
     visit company_resource_url(@company_resource)
     click_on "Edit", match: :first
 
-    fill_in "Account", with: @company_resource.account_id
     fill_in "Description", with: @company_resource.description
     fill_in "Name", with: @company_resource.name
     click_on "Update Company resource"

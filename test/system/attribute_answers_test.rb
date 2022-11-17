@@ -18,7 +18,6 @@ class AttributeAnswersTest < ApplicationSystemTestCase
 
     fill_in "Answer", with: @attribute_answer.answer
     fill_in "Employee", with: @attribute_answer.employee_id
-    fill_in "Employee template", with: employee_templates(:three).id
     click_on "Create Attribute answer"
 
     assert_text "Attribute answer was successfully created"
@@ -31,7 +30,6 @@ class AttributeAnswersTest < ApplicationSystemTestCase
 
     fill_in "Answer", with: @attribute_answer.answer
     fill_in "Employee", with: @attribute_answer.employee_id
-    fill_in "Employee template", with: @attribute_answer.employee_template_id
     click_on "Update Attribute answer"
 
     assert_text "Attribute answer was successfully updated"
