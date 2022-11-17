@@ -6,7 +6,7 @@ on:
       - '*'
   push:
     branches:
-      - main
+      - master
 
 jobs:
   Test:
@@ -20,17 +20,17 @@ jobs:
         ports: ['5432:5432']
 
     steps:
-      - uses: actions/checkout@main
+      - uses: actions/checkout@master
 
-      - name: Setup Ruby 2.7.2
+      - name: Setup Ruby 3.1
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 2.7.2
+          ruby-version: 3.1
 
-      - name: Setup Node 14
+      - name: Setup Node 18
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
+          node-version: 18.x
 
       - name: Get yarn cache
         id: yarn-cache
@@ -73,8 +73,7 @@ jobs:
           PG_USER: postgres
         run: |
           bin/rails db:test:prepare
-          bin/rails assets:precompile
-          bundle exec rspec --order rand
+          bin/rails test
 
   # Deploy:
   #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
@@ -87,5 +86,5 @@ jobs:
   #       uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
   #       with:
   #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-  #         heroku_app_name: "" #Must be unique in Heroku
-  #         heroku_email: ""
+  #         heroku_app_name: "heroku-cd-todolist" #Must be unique in Heroku
+  #         heroku_email: "excid3@gmail.com"

@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   resources :jobs
   resources :customers
-  resources :attribute_answers
   resources :employee_attributes
   resources :employees
   resources :employee_templates do

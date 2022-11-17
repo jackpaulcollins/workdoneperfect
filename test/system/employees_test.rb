@@ -21,6 +21,7 @@ class EmployeesTest < ApplicationSystemTestCase
     fill_in "First name", with: @employee.first_name
     fill_in "Last name", with: @employee.last_name
     fill_in "Start date", with: @employee.start_date
+    fill_in "MyString", with: attribute_answers(:one).answer
     click_on "Create Employee"
 
     assert_text "Employee was successfully created"
