@@ -1,4 +1,4 @@
-name: Tests
+name: CI/CD
 
 on:
   pull_request:
@@ -61,3 +61,16 @@ jobs:
           bin/rails db:test:prepare
           bin/rails test
           bin/rails test:system
+
+  deploy:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy To Hatchbox
+        uses: hatchboxio/github-hatchbox-deploy-action@v1
+        with:
+          deploy_key: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
+          branch: main
