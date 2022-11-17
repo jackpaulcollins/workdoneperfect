@@ -6,7 +6,7 @@ on:
       - '*'
   push:
     branches:
-      - master
+      - main
 
 jobs:
   Test:
@@ -74,17 +74,15 @@ jobs:
         run: |
           bin/rails db:test:prepare
           bin/rails test
+  Deploy:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    needs: Test
+    runs-on: ubuntu-latest
 
-  # Deploy:
-  #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
-  #   needs: Test
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - uses: actions/checkout@master
-  #     - name: Deploy To Heroku
-  #       uses: akhileshns/heroku-deploy@v3.6.8 # This is the action
-  #       with:
-  #         heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-  #         heroku_app_name: "heroku-cd-todolist" #Must be unique in Heroku
-  #         heroku_email: "excid3@gmail.com"
+    steps:
+      - uses: actions/checkout@master
+      - name: Deploy To Hatchbox
+        uses: hatchboxio/github-hatchbox-deploy-action@v1
+        with:
+          deploy_key: ${{ secrets.HATCHBOX_DEPLOY_KEY }}
+          branch: main
