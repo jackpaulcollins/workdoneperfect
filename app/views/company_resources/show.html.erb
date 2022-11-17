@@ -4,9 +4,9 @@
 <div class="container px-4 mx-auto my-8">
   <div class="flex items-center justify-between mb-4">
     <h1 class="h3">
-      <%= link_to "company_Resources", company_resources_path, class: "text-black" %>
-      <span class="text-gray-400 font-light mx-2">\</span>
-      company_Resource #<%= @company_resource.id %>
+      <%= link_to "Company Resources", company_resources_path, class: "text-black" %>
+      <span class="mx-2 font-light text-gray-400">\</span>
+      Company Resource #<%= @company_resource.id %>
     </h1>
     <%= link_to t("edit"), edit_company_resource_path(@company_resource), class: "btn btn-white" %>
   </div>
