@@ -1,13 +1,11 @@
 <%= form_with model: employee_template, data: { controller: 'employee-template-form', employee_template_form_wrapper_selector_value: '.employee-template-form-wrapper' } do |form| %>
   <%= render "shared/error_messages", resource: form.object %>
   <div class="form-group">
-    <%= form.label :template_title %>
+    <%= form.label :template_title, "Title" %>
     <%= form.text_field :title, class: "form-control" %>
   </div>
-  <div class="flex flex-row items-center mb-8">
-    <div class="mt-1">
-      <%= form.label :employee_attributes %>
-    </div>
+  <div class="flex flex-row items-center py-2 border-b">
+    <h6>Employee Attributes</h6>
     <div data-controller="tooltip" data-tippy-content="<%= t("employee_templates.tooltips.employee_attribute_info") %>">
       <i class="ml-2 fa-thin fa-circle-info"></i>
     </div>
@@ -21,12 +19,14 @@
     <%= render "employee_attributes/employee_attribute_form", f: employee_attribute_fields %>
   <% end %>
   <div class="flex flex-row" data-employee-template-form-target="target"></div>
-  <button type="button" data-action="employee-template-form#add" class="inline-flex items-center p-1 mt-8 text-white border border-transparent rounded-full shadow-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-      <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-    </svg>
-  </button>
-  <div class="flex flex-col mt-12 md:flex-row">
+  <div class="flex justify-center">
+    <button type="button" data-action="employee-template-form#add" class="my-6 md:mr-4 btn btn-primary">
+      <i class="mr-2 fa-solid fa-plus-large fa-sm"></i>
+      Add Attribute
+    </button>
+  </div>
+
+  <div>
     <%= form.button button_text(form.send(:submit_default_value)), class: "mb-2 md:mr-4 inline-flex justify-center btn btn-primary" %>
 
     <%= link_to t("cancel"), employee_templates_path, class: "inline-flex justify-center btn btn-white invisible xs:visible" %>

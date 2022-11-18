@@ -30,6 +30,10 @@ class Customer < ApplicationRecord
 
   validates :email, presence: true, uniqueness: {scope: :account_id}
 
+  def has_name?
+    first_name.present? || last_name.present?
+  end
+
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :customers, partial: "customers/index", locals: {customer: self} }
   after_update_commit -> { broadcast_replace_later_to self }
