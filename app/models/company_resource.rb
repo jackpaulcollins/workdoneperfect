@@ -18,8 +18,12 @@
 #  fk_rails_...  (account_id => accounts.id)
 #
 class CompanyResource < ApplicationRecord
+  include PgSearch::Model
+
   belongs_to :account
   acts_as_tenant :account
   has_many :resource_schedules, inverse_of: :company_resource, dependent: :destroy
   has_many :jobs, through: :resource_schedules
+
+  pg_search_scope :search_by_name, against: :name
 end
