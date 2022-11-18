@@ -26,6 +26,7 @@
   </div>
 
   <div class="form-group">
+    <%= form.label :company_resource_ids, "Resources" %>
     <%= form.collection_select :company_resource_ids, 
                                CompanyResource.all,
                                :id, 

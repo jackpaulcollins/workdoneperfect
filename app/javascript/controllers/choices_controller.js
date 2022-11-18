@@ -7,10 +7,7 @@ export default class extends Controller {
     new Choices(this.element,
       {
         allowHTML: true,
-        removeItemButton: true,
-        classNames: {
-          inputCloned: 'choices__input--cloned focus:shadow-none border-none',
-        }
+        removeItemButton: true
       }
     );
   }
