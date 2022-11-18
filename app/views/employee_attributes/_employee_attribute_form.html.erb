@@ -1,34 +1,30 @@
-<div class="employee-template-form-wrapper" data-new-record="<%= f.object.new_record? %>">
-  <div class="flex flex-col hform:flex-row lg:flex-row s:justify-between md:justify-between lg:justify-around border-b border-gray-200 pb-4 mb-4">
-    <div class="flex flex-col justify-center">
-      <button type="button" 
-              data-action="employee-template-form#remove"
-              class="fa-regular fa-trash-can bg-white rounded-lg p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
-      >
-        <span class="sr-only">Close menu</span>
-      </button>
+<div class="divide-y employee-template-form-wrapper" data-new-record="<%= f.object.new_record? %>">
+  <div class="flex flex-col w-full gap-4 my-6 md:flex-row">
+    <div class="grow">
+      <%= f.label :attribute_name, class: "w-full text-sm font-medium text-gray-700" %>
+      <%= f.text_field :name, id: :attribute_name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
     </div>
-    <div>
-      <div class="form-group">
-        <%= f.label :attribute_name, class: "w-full text-sm font-medium text-gray-700" %>
-        <%= f.text_field :name, id: :attribute_name, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
-      </div>
+    <div class="grow">
+      <%= f.label :data_type, class: "w-full text-sm font-medium text-gray-700" %>
+      <%= f.select :data_type, System::EMPLOYEE_ATTRIBUTE_DATA_TYPE_MAPPINGS, {}, id: :data_type, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
     </div>
-    <div>
-      <div class="form-group">
-        <%= f.label :data_type, class: "w-full text-sm font-medium text-gray-700" %>
-        <%= f.select :data_type, System::EMPLOYEE_ATTRIBUTE_DATA_TYPE_MAPPINGS, {}, id: :data_type, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
-      </div>
-    </div>
-    <div class="flex flex-row items-center">
-      <fieldset>
-        <div class="relative flex items-start">
-          <%= f.label :required, name: :required, class: "mr-8" %>
-          <div class="flex h-5 items-center">
-            <%= f.check_box :required, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" %>
-          </div>
+    <div class="flex flex-row justify-between">
+      <div class="flex flex-row md:px-5 md:flex-col">
+        <div class="flex items-center justify-center">
+          <%= f.label :required, class: "text-center mb-0 md:mb-1 mr-2 md:mr-0" %>
         </div>
-      </fieldset>
+        <div class="flex items-center justify-center md:grow">
+          <%= f.check_box :required, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" %>
+        </div>
+      </div>
+      <div class="flex items-end">
+        <button type="button" 
+          data-action="employee-template-form#remove"
+          class="items-center justify-center text-gray-400 bg-white rounded-lg h-[38px] px-4 fa-regular fa-trash-can hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+        >
+          <span class="sr-only">Remove</span>
+        </button>
+      </div>
     </div>
   </div>
   <%= f.hidden_field :_destroy %>
