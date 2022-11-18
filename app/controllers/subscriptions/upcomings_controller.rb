@@ -1,5 +1,4 @@
 class Subscriptions::UpcomingsController < ApplicationController
-  before_action :authenticate_user!
   before_action :require_current_account_admin
   before_action :set_subscription
 

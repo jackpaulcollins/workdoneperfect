@@ -1,5 +1,4 @@
 class Users::ConnectedAccountsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_connected_account, only: [:destroy]
 
   def index
