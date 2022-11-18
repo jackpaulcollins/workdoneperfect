@@ -1,0 +1,16 @@
+.choices__inner {
+  @apply mt-0 form-control;
+}
+
+.choices__input--cloned {
+  @apply p-0 mb-0 focus:ring-0;
+}
+
+.choices__list--multiple .choices__item {
+  @apply mb-0 text-black bg-gray-100 border-gray-300 rounded;
+}
+
+.choices[data-type*=select-multiple] .choices__button {
+  background-image: url(	data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEiIGhlaWdodD0iMjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJtMi41OTIuMDQ0IDE4LjM2NCAxOC4zNjQtMi41NDggMi41NDhMLjA0NCAyLjU5MnoiLz48cGF0aCBkPSJNMCAxOC4zNjQgMTguMzY0IDBsMi41NDggMi41NDhMMi41NDggMjAuOTEyeiIvPjwvZz48L3N2Zz4=);
+  @apply pl-6 text-black border-l-gray-300;
+}
