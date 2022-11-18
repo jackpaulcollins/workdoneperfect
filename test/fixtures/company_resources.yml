@@ -23,10 +23,8 @@ one:
   name: MyString
   description: MyString
   account: one
-  count: 1
 
 two:
   name: MyString
   description: MyString
   account: two
-  count: 1

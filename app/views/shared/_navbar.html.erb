@@ -1,4 +1,4 @@
-<nav class="flex flex-wrap items-center justify-between px-4 py-2 bg-white border-b border-gray-200 text-sm font-medium" data-controller="toggle">
+<nav class="flex flex-wrap items-center justify-between px-4 py-2 text-sm font-medium bg-white border-b border-gray-200" data-controller="toggle">
   <div class="flex items-center flex-shrink-0 mr-6">
     <%= link_to root_path do %>
       <%= render_svg "logo", styles: "fill-current text-gray-700 hover:text-gray-800" %>
@@ -14,7 +14,9 @@
 
   <div class="flex-grow hidden w-full pb-6 lg:flex lg:w-auto lg:pb-0" data-toggle-target="toggleable">
     <div class="lg:flex-grow">
-      <%= render "shared/left_nav" %>
+      <% if user_signed_in? %>
+        <%= render "shared/left_nav" %>
+      <% end %>
     </div>
 
     <div>
@@ -25,7 +27,7 @@
         </div>
 
         <!-- Mobile menu -->
-        <div class="lg:hidden mt-2 pt-4 pb-2 border-t border-gray-200">
+        <div class="pt-4 pb-2 mt-2 border-t border-gray-200 lg:hidden">
           <div class="flex items-center px-2">
             <div class="flex-shrink-0">
               <%= account_avatar current_account, include_user: true, class: "rounded-full h-10 w-10" %>
@@ -35,7 +37,7 @@
             </div>
             <%= link_to notifications_path, class: "ml-auto bg-white flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" do %>
               <span class="sr-only">View notifications</span>
-              <svg class="h-6 w-6" x-description="Heroicon name: outline/bell" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <svg class="w-6 h-6" x-description="Heroicon name: outline/bell" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
               </svg>
             <% end %>
@@ -51,7 +53,7 @@
         </div>
 
         <!-- Main menu -->
-        <div class="hidden lg:inline-flex z-10 items-center leading-none text-gray-700 no-underline align-middle rounded hover:text-gray-800 hover:bg-white">
+        <div class="z-10 items-center hidden leading-none text-gray-700 no-underline align-middle rounded lg:inline-flex hover:text-gray-800 hover:bg-white">
           <div class="relative" data-controller="dropdown">
             <div data-action="click->dropdown#toggle click@window->dropdown#hide touch->dropdown#toggle touch@window->dropdown#hide" role="button" class="inline-block select-none" aria-label="Profile Menu">
               <span class="flex items-center text-gray-700 appearance-none">
