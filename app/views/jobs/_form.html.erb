@@ -25,11 +25,19 @@
     <%= form.text_field :revenue, class: "form-control" %>
   </div>
 
-  <%# <div class="field-unit__field">
-  <%= form.select(:company_resource_ids,
-               options_for_select(CompanyResource.all.pluck(:name)),
-               {include_blank: false}, {data: {controller: "select"}}) %>
-  <%# </div> %>
+  <div>
+    <h2>choices</h2>
+    <div data-controller="choices" 
+         data-search-path="/company_resources/search?name=" 
+         data-remove-item-button="true" 
+         data-duplicate-items-allowed="false" 
+         data-search-result-limit="100" 
+         data-no-choices-text="Start typing to search..."
+    >
+      <datalist data-choices-target="options"></datalist>
+      <select data-choices-target="select"></select>
+    </div>
+  </div>
 
   <div class="form-group">
     <%= form.collection_select :company_resource_ids, 

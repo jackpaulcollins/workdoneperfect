@@ -1,5 +1,6 @@
 class CompanyResourcesController < ApplicationController
   before_action :set_company_resource, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:search]
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized
@@ -26,6 +27,10 @@ class CompanyResourcesController < ApplicationController
 
   # GET /company_resources/1/edit
   def edit
+  end
+
+  def search
+    render json: CompanyResource.search_by_name(params[:name])
   end
 
   # POST /company_resources or /company_resources.json

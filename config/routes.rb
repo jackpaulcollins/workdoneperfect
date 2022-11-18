@@ -12,7 +12,12 @@ Rails.application.routes.draw do
       get :form_fields
     end
   end
-  resources :company_resources
+
+  resources :company_resources do
+    collection do
+      get "search", constraints: lambda { |request| request.xhr? }
+    end
+  end
 
   draw :turbo
 
