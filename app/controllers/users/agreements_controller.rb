@@ -1,6 +1,6 @@
 class Users::AgreementsController < ApplicationController
   skip_before_action :require_accepted_latest_agreements!
-
+  before_action :authenticate_user!
   before_action :set_agreement
 
   layout "minimal"

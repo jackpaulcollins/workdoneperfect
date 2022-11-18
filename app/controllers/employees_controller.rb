@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
   before_action :ensure_template, only: :new
 

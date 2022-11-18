@@ -1,4 +1,5 @@
 class AccountUsersController < Accounts::BaseController
+  before_action :authenticate_user!
   before_action :set_account
   before_action :require_non_personal_account!
   before_action :set_account_user, only: [:edit, :update, :destroy, :switch]

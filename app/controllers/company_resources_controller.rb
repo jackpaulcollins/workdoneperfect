@@ -1,4 +1,5 @@
 class CompanyResourcesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_company_resource, only: [:show, :edit, :update, :destroy]
 
   # Uncomment to enforce Pundit authorization

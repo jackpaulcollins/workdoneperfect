@@ -1,4 +1,5 @@
 class ApiTokensController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_api_token, only: [:show, :edit, :update, :destroy]
 
   def index

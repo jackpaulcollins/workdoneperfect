@@ -1,6 +1,7 @@
 class PaymentMethodsController < ApplicationController
   include SubscriptionsHelper
 
+  before_action :authenticate_user!
   before_action :set_payment_processor
   before_action :set_setup_intent, only: [:new], if: -> { Jumpstart.config.stripe? }
 

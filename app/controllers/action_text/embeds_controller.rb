@@ -1,4 +1,6 @@
 class ActionText::EmbedsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     @embed = ActionText::Embed.from_url(params[:id])
     if @embed
