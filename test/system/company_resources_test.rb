@@ -14,7 +14,7 @@ class CompanyResourcesTest < ApplicationSystemTestCase
 
   test "creating a Company resource" do
     visit company_resources_url
-    click_on "New Company Resource"
+    click_on "New Company Resource", match: :first
 
     fill_in "Description", with: @company_resource.description
     fill_in "Name", with: @company_resource.name
