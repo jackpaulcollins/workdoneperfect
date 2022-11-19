@@ -34,6 +34,14 @@ class Customer < ApplicationRecord
     first_name.present? || last_name.present?
   end
 
+  def name_and_email_or_email
+    if has_name?
+      return "#{first_name} #{last_name} | #{email}"
+    end
+
+    email
+  end
+
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :customers, partial: "customers/index", locals: {customer: self} }
   after_update_commit -> { broadcast_replace_later_to self }
