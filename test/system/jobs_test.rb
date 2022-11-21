@@ -18,9 +18,6 @@ class JobsTest < ApplicationSystemTestCase
     find(".choices__item--selectable").click
     find("#choices--customer-select-item-choice-1").click
     fill_in "Date and time", with: @job.date_and_time
-    fill_in "Estimated hours", with: @job.estimated_hours
-    fill_in "Revenue", with: @job.revenue
-    fill_in "Total hours", with: @job.total_hours
     click_on "Create Job"
     assert_text "Job was successfully created"
     assert_selector "h1", text: "Jobs"
