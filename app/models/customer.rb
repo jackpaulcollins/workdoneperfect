@@ -35,11 +35,7 @@ class Customer < ApplicationRecord
   end
 
   def name_and_email_or_email
-    if has_name?
-      return "#{first_name} #{last_name} | #{email}"
-    end
-
-    email
+    has_name? ? "#{first_name} #{last_name} | #{email}" : email
   end
 
   # Broadcast changes in realtime with Hotwire
