@@ -38,6 +38,14 @@ class Customer < ApplicationRecord
     has_name? ? "#{first_name} #{last_name} | #{email}" : email
   end
 
+  def job_count
+    jobs.count
+  end
+
+  def most_recent_job
+    jobs.order(:date_and_time).first!
+  end
+
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :customers, partial: "customers/index", locals: {customer: self} }
   after_update_commit -> { broadcast_replace_later_to self }
