@@ -43,7 +43,7 @@ class Customer < ApplicationRecord
   end
 
   def most_recent_job
-    jobs.order(:date_and_time).first!
+    jobs.order(:date_and_time).first! if jobs.any?
   end
 
   # Broadcast changes in realtime with Hotwire
