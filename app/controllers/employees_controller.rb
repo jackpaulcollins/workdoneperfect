@@ -12,8 +12,7 @@ class EmployeesController < ApplicationController
     @q = Employee.ransack(params[:q])
 
     if params[:q]&.values&.include?("active asc")
-      @pagy, @employees = pagy(Employee.active)
-      return @pagy, @employees
+      return @pagy, @employees = pagy(Employee.active)
     end
 
     @pagy, @employees = pagy(@q.result)
