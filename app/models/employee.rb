@@ -46,6 +46,8 @@ class Employee < ApplicationRecord
       parent.table[:first_name], parent.table[:last_name])
   end
 
+  scope :active, -> { where("final_date IS NULL OR final_date > ?", Date.today) }
+
   def name
     "#{first_name} #{last_name}"
   end

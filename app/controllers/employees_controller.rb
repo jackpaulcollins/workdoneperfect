@@ -10,6 +10,12 @@ class EmployeesController < ApplicationController
   # GET /employees
   def index
     @q = Employee.ransack(params[:q])
+
+    if params[:q]&.values&.include?("active asc")
+      @pagy, @employees = pagy(Employee.active)
+      return @pagy, @employees
+    end
+
     @pagy, @employees = pagy(@q.result)
 
     # Uncomment to authorize with Pundit
