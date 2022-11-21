@@ -15,13 +15,13 @@ class JobsTest < ApplicationSystemTestCase
   test "creating a Job" do
     visit jobs_url
     click_on "New Job"
-    select "MyString", from: "job[customer_id]"
+    find(".choices__item--selectable").click
+    find("#choices--customer-select-item-choice-1").click
     fill_in "Date and time", with: @job.date_and_time
     fill_in "Estimated hours", with: @job.estimated_hours
     fill_in "Revenue", with: @job.revenue
     fill_in "Total hours", with: @job.total_hours
     click_on "Create Job"
-
     assert_text "Job was successfully created"
     assert_selector "h1", text: "Jobs"
   end
@@ -29,8 +29,7 @@ class JobsTest < ApplicationSystemTestCase
   test "updating a Job" do
     visit job_url(@job)
     click_on "Edit", match: :first
-    fill_in "Estimated hours", with: @job.estimated_hours
-    fill_in "Revenue", with: 100
+    fill_in "Estimated hours", with: @job.estimated_hours + 1
     fill_in "Total hours", with: @job.total_hours
     click_on "Update Job"
 
