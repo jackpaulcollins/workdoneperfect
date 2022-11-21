@@ -18,7 +18,7 @@
   </div>
 
   <%= tag.div id: ("company_resources" if first_page?), class: "bg-white rounded-md shadow space-y-8" do %>
-    <% if @compnay_resources.present? %>
+    <% if @company_resources.present? %>
       <div class="overflow-hidden bg-white shadow sm:rounded-md">
         <ul class="list-none divide-y divide-gray-200">
           <%= render partial: "company_resources/index", collection: @company_resources, as: :company_resource, cached: true %>
