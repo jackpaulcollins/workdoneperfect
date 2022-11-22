@@ -9,15 +9,15 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    @q = Employee.ransack(params[:q])
-
-    if params[:q]&.values&.include?("active asc")
-      @pagy, @employees = pagy(Employee.active)
-      return @pagy, @employees
+    @employees = if params.include?(:active)
+      Employee.active
+    else
+      Employee.all
     end
 
-    @pagy, @employees = pagy(@q.result)
+    @q = @employees.ransack(params[:q])
 
+    @pagy, @employees = pagy(@q.result)
     # Uncomment to authorize with Pundit
     # authorize @employees
   end
@@ -29,7 +29,6 @@ class EmployeesController < ApplicationController
   # GET /employees/new
   def new
     @employee = Employee.new
-
     # Uncomment to authorize with Pundit
     # authorize @employee
   end
@@ -99,7 +98,7 @@ class EmployeesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def employee_params
-    params.require(:employee).permit(:account_id, :employee_template_id, :email, :first_name, :last_name, :start_date, :final_date, attribute_answers_attributes: [:id, :employee_attribute_id, :answer])
+    params.require(:employee).permit(:active, :account_id, :employee_template_id, :email, :first_name, :last_name, :start_date, :final_date, attribute_answers_attributes: [:id, :employee_attribute_id, :answer])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:employee).permit(policy(@employee).permitted_attributes)

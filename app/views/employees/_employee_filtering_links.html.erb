@@ -1,9 +1,0 @@
-<div>
-  <span>
-    <% if request.url.ends_with?("active+asc") %>
-      <%= link_to ("All Employees"), employees_path %>
-    <% else %>
-      <%= sort_link @q, :active, "Active Employees" %>
-    <% end %>
-  </span>
-</div>

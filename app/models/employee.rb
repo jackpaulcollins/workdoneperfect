@@ -41,12 +41,12 @@ class Employee < ApplicationRecord
   validates :email, format: User.email_regexp, allow_blank: true
   validates :first_name, presence: true
 
+  scope :active, -> { where("final_date IS NULL OR final_date > ?", Date.today) }
+
   ransacker :full_name do |parent|
     Arel::Nodes::InfixOperation.new("||",
       parent.table[:first_name], parent.table[:last_name])
   end
-
-  scope :active, -> { where("final_date IS NULL OR final_date > ?", Date.today) }
 
   def name
     "#{first_name} #{last_name}"
