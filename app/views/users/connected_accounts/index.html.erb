@@ -11,7 +11,7 @@
       <% if Devise.omniauth_configs.any? %>
         <% Devise.omniauth_configs.each do |provider, config| %>
           <% connected_accounts = @connected_accounts.select{ |a| a.provider == provider.to_s } %>
-          <hr />
+          <hr>
 
           <div class="p-4 -mx-4 hover:bg-gray-100">
             <% if connected_accounts.any? %>
