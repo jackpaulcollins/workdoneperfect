@@ -1,9 +1,8 @@
 # == Schema Information
 #
-# Table name: resources
+# Table name: company_resources
 #
 #  id          :bigint           not null, primary key
-#  count       :integer
 #  description :string
 #  name        :string
 #  created_at  :datetime         not null
@@ -12,7 +11,7 @@
 #
 # Indexes
 #
-#  index_resources_on_account_id  (account_id)
+#  index_company_resources_on_account_id  (account_id)
 #
 # Foreign Keys
 #
