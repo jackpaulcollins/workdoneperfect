@@ -9,9 +9,15 @@ class EmployeesController < ApplicationController
 
   # GET /employees
   def index
-    @q = Employee.ransack(params[:q])
-    @pagy, @employees = pagy(@q.result)
+    @employees = if params.include?(:active)
+      Employee.active
+    else
+      Employee.all
+    end
 
+    @q = @employees.ransack(params[:q])
+
+    @pagy, @employees = pagy(@q.result)
     # Uncomment to authorize with Pundit
     # authorize @employees
   end

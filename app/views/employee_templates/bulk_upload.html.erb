@@ -2,15 +2,14 @@
   <div class="flex items-start justify-between mb-4">
       <%= link_to "Back to #{t("employee_templates.index")}", employee_templates_path %>
   </div>
-  <%= form_with class: "bg-white rounded-md shadow p-6 space-y-8" do |form|%>
+  <%= form_with class: "bg-white rounded-md shadow p-6 space-y-8" do |form| %>
     <div class="flex flex-col">
       <%= form.file_field :csv, accept: "csv/*" %>
     </div>
     <%= button_to :upload,
-      employee_templates_bulk_upload_path, 
+      employee_templates_bulk_upload_path,
       remote: true,
       data: { turbo_method: :post, turbo_confirm: t("are_you_sure") },
-      class: "btn btn-primary" 
-    %>
-  <% end%>
+      class: "btn btn-primary" %>
+  <% end %>
 </div>

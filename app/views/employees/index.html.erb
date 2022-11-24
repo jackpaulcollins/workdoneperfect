@@ -5,14 +5,14 @@
   <div class="flex items-center justify-between mb-4">
     <div>
       <h1 class="h3">Employees</h1>
-
-      <div class="text-sm font-medium">
-        <span class="text-gray-500">Sort by:</span>
-        <%= sort_link @q, :full_name, "Name", class: "text-gray-700 mr-1" %>
-        <%= sort_link @q, :employee_template_title, "Role", class: "text-gray-700 mr-1" %>
-        <%= sort_link @q, :start_date, class: "text-gray-700 mr-1" %>
-        <%= sort_link @q, :final_date, class: "text-gray-700 mr-1" %>
-      </div>
+      <%= render "employee_sorting_links" %>
+    </div>
+    <div>
+      <% if request.query_parameters.include?(:active) %>
+        <%= link_to "show all employees", employees_path, class: "font-semibold" %>
+      <% else %>
+        <%= link_to "show active employees", employees_path({active: :true}), class: "font-semibold" %>
+      <% end %>
     </div>
     <div>
       <%= link_to t("shared.scaffold.new.title", model: "Employee Template"), new_employee_template_path, class: "btn btn-white" %>

@@ -42,7 +42,7 @@
         <div><%= Pay::Currency.format(@stripe_invoice.subtotal, currency: @stripe_invoice.currency) %></div>
       </div>
 
-      <hr class="mb-4" />
+      <hr class="mb-4">
 
       <div class="flex justify-between mb-4 text-sm text-gray-700">
         <% @stripe_invoice.total_tax_amounts.each do |tax| %>
@@ -55,7 +55,7 @@
         <% end %>
       </div>
 
-      <hr class="mb-4" />
+      <hr class="mb-4">
 
       <div class="flex justify-between mb-4 text-sm font-medium">
         <div><%= t(".total") %></div>
@@ -78,7 +78,7 @@
 
     <div class="flex justify-center mb-4">
       <div class="hidden lg:block">
-        <hr class="my-8 border-b border-gray-300" />
+        <hr class="my-8 border-b border-gray-300">
 
         <blockquote class="sm:flex lg:block">
           <p class="text-lg text-gray-600"><%= t(".testimonial", product: Jumpstart.config.application_name) %></p>
