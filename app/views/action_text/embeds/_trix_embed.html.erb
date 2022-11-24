@@ -5,7 +5,7 @@
 
 <% elsif embed.html %>
   <div class="embed">
-    <%= embed.html.html_safe %>
+    <%= sanitize embed.html %>
   </div>
 
 <% elsif embed.provider_name %>

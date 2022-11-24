@@ -14,8 +14,8 @@ Administrate::Engine.javascripts.each do |js_path|
 <%= yield :javascript %>
 
 <% if Rails.env.test? %>
-  <%= javascript_tag do %>
+  <script>
     $.fx.off = true;
     $.ajaxSetup({ async: false });
-  <% end %>
+  </script>
 <% end %>

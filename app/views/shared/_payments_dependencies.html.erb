@@ -20,13 +20,14 @@
 
 <% if Jumpstart.config.paddle? %>
   <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
-  <script type="text/javascript">
-    <% unless Rails.env.production? %>
+  <% unless Rails.env.production? %>
+    <script>
       Paddle.Environment.set('sandbox');
-    <% end %>
-
+    </script>
+  <% end %>
+  <script type="text/javascript">
     Paddle.Setup({
-      vendor: <%= Pay::Paddle.vendor_id %>,
+      vendor: <%= Pay::Paddle.vendor_id.to_json %>,
       eventCallback: function(eventData) {
         updatePrices(eventData);
       }

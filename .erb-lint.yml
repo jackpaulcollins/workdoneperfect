@@ -1,5 +1,9 @@
 ---
 EnableDefaultLinters: true
+exclude:
+  - '**/vendor/**/*'
+  - '**/node_modules/**/*'
+  - 'lib/jumpstart/app/views/jumpstart/docs/**'
 linters:
   ErbSafety:
     enabled: true
