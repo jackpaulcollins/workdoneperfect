@@ -8,10 +8,10 @@
       <%= render "employee_sorting_links" %>
     </div>
     <div>
-      <% if request.query_parameters.include?(:active) %>
-        <%= link_to "show all employees", employees_path, class: "font-semibold" %>
+      <% if params.dig(:q, :active).present? %>
+        <%= link_to "Show all employees", employees_path, class: "font-semibold" %>
       <% else %>
-        <%= link_to "show active employees", employees_path({active: :true}), class: "font-semibold" %>
+        <%= link_to "Show active employees", url_for(q: {active: true}), class: "font-semibold" %>
       <% end %>
     </div>
     <div>

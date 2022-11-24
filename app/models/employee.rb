@@ -41,7 +41,11 @@ class Employee < ApplicationRecord
   validates :email, format: User.email_regexp, allow_blank: true
   validates :first_name, presence: true
 
-  scope :active, -> { where("final_date IS NULL OR final_date > ?", Date.today) }
+  scope :active, ->(active = true) { where("final_date IS NULL OR final_date > ?", Date.today) if active }
+
+  def self.ransackable_scopes(auth_object = nil)
+    [:active]
+  end
 
   ransacker :full_name do |parent|
     Arel::Nodes::InfixOperation.new("||",
