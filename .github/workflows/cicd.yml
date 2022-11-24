@@ -47,8 +47,7 @@ jobs:
         run: bundle exec standardrb
 
       - name: Erb Linter
-        uses: bundle exec erblint --lint-all
-
+        run: bundle exec erblint --lint-all
 
 # Uncomment to enable Brakeman checks in CI
 #     - name: Brakeman Check
