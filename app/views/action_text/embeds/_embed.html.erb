@@ -1,6 +1,6 @@
 <% if embed.rich? || embed.video? || embed.html %>
   <div class="embed">
-    <%= embed.html.html_safe %>
+    <%= sanitize embed.html %>
   </div>
 
 <% elsif embed.photo? %>

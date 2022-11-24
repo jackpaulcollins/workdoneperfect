@@ -1,5 +1,7 @@
 ---
 EnableDefaultLinters: true
+exclude:
+  - 'lib/jumpstart/app/views/jumpstart/docs/**'
 linters:
   ErbSafety:
     enabled: true
