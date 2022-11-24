@@ -46,6 +46,12 @@ jobs:
       - name: Standardrb Check
         run: bundle exec standardrb
 
+      - name: Erb Linter
+        uses: revans/erb-action@v0.0.5
+        env:
+          GITHUB_TOKEN: ${{secrets.github_token}}
+
+
 # Uncomment to enable Brakeman checks in CI
 #     - name: Brakeman Check
 #       run: bundle exec brakeman
