@@ -529,7 +529,6 @@ DEPENDENCIES
   administrate!
   administrate-field-active_storage (~> 0.4.1)
   annotate!
-  better_html
   bootsnap (>= 1.4.2)
   capybara (>= 3.26)
   country_select (~> 8.0)
