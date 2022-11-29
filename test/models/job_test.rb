@@ -3,6 +3,7 @@
 # Table name: jobs
 #
 #  id              :bigint           not null, primary key
+#  completed_at    :datetime
 #  date_and_time   :datetime         not null
 #  estimated_hours :float
 #  revenue         :float
