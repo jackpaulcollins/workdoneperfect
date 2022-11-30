@@ -1,6 +1,13 @@
 <%= form_with(model: job) do |form| %>
   <%= render "shared/error_messages", resource: form.object %>
   <div class="form-group">
+    <%= form.label :job_type %>
+    <%= form.collection_select :job_template_id,
+                            JobTemplate.all,
+                            :id,
+                            :title,
+                            {prompt: true, selected: JobTemplate.default },
+                            {id: "job-template-select", class: "form-control", data: {controller: "choices"}} %>
     <%= form.label :customer_id %>
     <%= form.collection_select :customer_id,
                                Customer.all,
