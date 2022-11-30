@@ -14,11 +14,14 @@
               <% end %>
             </p>
           </div>
-          <div class="items-center hidden md:flex">
+          <div class="items-center hidden md:grid md:grid-cols-2">
+            <span class="text-sm text-gray-900">
+              <time datetime="<% job.date_and_time&.strftime("%Y-%m-%d") %>"><%= job.date_and_time&.strftime("%Y-%m-%d") %></time>
+            </span>
             <div>
-              <p class="text-sm text-gray-900">
-                <time datetime="<% job.date_and_time&.strftime("%Y-%m-%d") %>"><%= job.date_and_time&.strftime("%Y-%m-%d") %></time>
-              </p>
+              <% if job.completed? %>
+                <i class="fa-solid fa-circle-check text-green-500"></i>
+              <% end %>
             </div>
           </div>
         </div>
