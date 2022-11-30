@@ -7,7 +7,7 @@ class JobTemplate < ApplicationRecord
 
   validates :title, presence: true, uniqueness: {scope: :account_id}
 
-  accepts_nested_attributes_for :jobs_attributes
+  accepts_nested_attributes_for :job_attributes
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :job_templates, partial: "job_templates/index", locals: {job_template: self} }
