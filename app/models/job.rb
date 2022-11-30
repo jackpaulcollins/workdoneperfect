@@ -41,7 +41,6 @@ class Job < ApplicationRecord
   after_destroy_commit -> { broadcast_remove_to :jobs, target: dom_id(self, :index) }
 
   scope :completed, ->(completed = true) { where("completed_at IS NOT NULL") if completed }
-  default_scope { order("completed_at DESC") }
 
   # class methods
   class << self
