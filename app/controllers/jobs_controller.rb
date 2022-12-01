@@ -85,6 +85,7 @@ class JobsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def job_params
     params.require(:job).permit(
+      :job_template_id,
       :account_id,
       :customer_id,
       :date_and_time,

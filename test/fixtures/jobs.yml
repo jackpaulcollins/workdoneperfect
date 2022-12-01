@@ -12,11 +12,13 @@
 #  updated_at      :datetime         not null
 #  account_id      :bigint           not null
 #  customer_id     :bigint           not null
+#  job_template_id :bigint
 #
 # Indexes
 #
-#  index_jobs_on_account_id   (account_id)
-#  index_jobs_on_customer_id  (customer_id)
+#  index_jobs_on_account_id       (account_id)
+#  index_jobs_on_customer_id      (customer_id)
+#  index_jobs_on_job_template_id  (job_template_id)
 #
 # Foreign Keys
 #

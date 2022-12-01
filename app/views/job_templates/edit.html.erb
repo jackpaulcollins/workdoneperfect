@@ -1,0 +1,16 @@
+<%= content_for :title, t("shared.scaffold.edit.title", model: "Job Type") %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="h3">
+      <%= link_to "Job Types", job_templates_path, class: "text-black" %>
+      <span class="mx-2 font-light text-gray-400">\</span>
+      <%= t("shared.scaffold.edit.title", model: "job Template") %>
+    </h1>
+    <%= button_to t("delete"), @job_template, method: :delete, class: "btn btn-white", form: { data: { turbo_confirm: t("are_you_sure") } } %>
+  </div>
+
+  <div class="p-8 bg-white rounded shadow">
+    <%= render "form", job_template: @job_template %>
+  </div>
+</div>

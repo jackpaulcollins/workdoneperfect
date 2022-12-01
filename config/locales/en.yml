@@ -58,6 +58,10 @@ en:
   employee_attributes:
     delete:
       confirm: "<strong class='text-red-500'>Warning:</strong> Deleting an attribute will also delete data for employees associated with this attribute. Are you sure?"
+  
+  job_templates:
+    tooltips:
+      job_template_attribute_info: Data you care to capture about a job such as a list of items, or work to perform.
 
   account_invitations_mailer:
     invite:
