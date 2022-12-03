@@ -45,13 +45,15 @@
             <% end %>
           </div>
         <% end %>
-        <% job.attributes_and_answers.each do |aa| %>
-          <div class="sm:col-span-1">
-            <dt class="text-sm font-medium text-gray-500"><%= aa[:name] %></dt>
-            <dd class="mt-1 text-sm text-gray-900">
-              <%= aa[:answer] %>
-            </dd>
-          </div>
+        <% if job&.job_template&.job_attributes&.any? %>
+          <% job.attributes_and_answers.each do |aa| %>
+            <div class="sm:col-span-1">
+              <dt class="text-sm font-medium text-gray-500"><%= aa[:name] %></dt>
+              <dd class="mt-1 text-sm text-gray-900">
+                <%= aa[:answer] %>
+              </dd>
+            </div>
+          <% end %>
         <% end %>
       </dl>
     </div>

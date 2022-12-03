@@ -4,6 +4,7 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @job = jobs(:one)
     @user = users(:one)
+    @job_template = job_templates(:one)
     sign_in @user
   end
 
@@ -19,7 +20,7 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create job" do
     assert_difference("Job.count") do
-      post jobs_url, params: {job: {account_id: @job.account_id, customer_id: @job.customer_id, date_and_time: @job.date_and_time, estimated_hours: @job.estimated_hours, revenue: @job.revenue, total_hours: @job.total_hours}}
+      post jobs_url, params: {job: {job_template_id: @job_template.id, account_id: @job.account_id, customer_id: @job.customer_id, date_and_time: @job.date_and_time, estimated_hours: @job.estimated_hours, revenue: @job.revenue, total_hours: @job.total_hours}}
     end
 
     assert_redirected_to job_url(Job.last)
@@ -36,7 +37,7 @@ class JobsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update job" do
-    patch job_url(@job), params: {job: {account_id: @job.account_id, customer_id: @job.customer_id, date_and_time: @job.date_and_time, estimated_hours: @job.estimated_hours, revenue: @job.revenue, total_hours: @job.total_hours}}
+    patch job_url(@job), params: {job: {job_template_id: @job_template.id, account_id: @job.account_id, customer_id: @job.customer_id, date_and_time: @job.date_and_time, estimated_hours: @job.estimated_hours, revenue: @job.revenue, total_hours: @job.total_hours}}
     assert_redirected_to job_url(@job)
   end
 
