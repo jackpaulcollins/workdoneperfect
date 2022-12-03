@@ -25,7 +25,7 @@ export default class extends Controller {
     if (wrapper.dataset.newRecord === 'true') {
       wrapper.remove()
     } else {
-      wrapper.style.display = 'none'
+      e.target.parentNode.parentNode.parentNode.style.display = 'none';
 
       const input = wrapper.querySelector("input[name*='_destroy']")
       input.value = '1'
