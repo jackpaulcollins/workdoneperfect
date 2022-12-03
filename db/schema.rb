@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_24_181948) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_01_045807) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -220,6 +220,36 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_181948) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
+  create_table "job_attribute_answers", force: :cascade do |t|
+    t.bigint "job_attribute_id", null: false
+    t.bigint "job_id", null: false
+    t.string "answer", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_attribute_id"], name: "index_job_attribute_answers_on_job_attribute_id"
+    t.index ["job_id", "job_attribute_id"], name: "index_job_attribute_answers_on_job_and_attribute", unique: true
+    t.index ["job_id"], name: "index_job_attribute_answers_on_job_id"
+  end
+
+  create_table "job_attributes", force: :cascade do |t|
+    t.bigint "job_template_id", null: false
+    t.string "name", null: false
+    t.integer "data_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_template_id"], name: "index_job_attributes_on_job_template_id"
+  end
+
+  create_table "job_templates", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "title", null: false
+    t.boolean "default_template", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_job_templates_on_account_id"
+    t.index ["title", "account_id"], name: "index_job_templates_on_title_and_account_id", unique: true
+  end
+
   create_table "jobs", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "customer_id", null: false
@@ -230,8 +260,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_181948) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "completed_at"
+    t.bigint "job_template_id"
     t.index ["account_id"], name: "index_jobs_on_account_id"
     t.index ["customer_id"], name: "index_jobs_on_customer_id"
+    t.index ["job_template_id"], name: "index_jobs_on_job_template_id"
   end
 
   create_table "notification_tokens", force: :cascade do |t|
@@ -429,6 +461,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_181948) do
   add_foreign_key "employee_templates", "accounts"
   add_foreign_key "employees", "accounts"
   add_foreign_key "employees", "employee_templates"
+  add_foreign_key "job_attribute_answers", "job_attributes"
+  add_foreign_key "job_attribute_answers", "jobs"
+  add_foreign_key "job_attributes", "job_templates"
+  add_foreign_key "job_templates", "accounts"
   add_foreign_key "jobs", "accounts"
   add_foreign_key "jobs", "customers"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
