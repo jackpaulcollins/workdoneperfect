@@ -31,7 +31,8 @@ class JobTemplate < ApplicationRecord
   validates :title, presence: true, uniqueness: {scope: :account_id}
   scope :default, -> { where(default_template: true) }
 
-  accepts_nested_attributes_for :job_attributes
+  accepts_nested_attributes_for :job_attributes, allow_destroy: true
+
   before_validation :maybe_unset_default
 
   # Broadcast changes in realtime with Hotwire

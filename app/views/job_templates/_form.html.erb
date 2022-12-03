@@ -29,10 +29,12 @@
       Add Attribute
     </button>
   </div>
-
   <div>
-    <%= form.button button_text("Create Job Type"), class: "mb-2 md:mr-4 inline-flex justify-center btn btn-primary" %>
-
+    <% if form.object.new_record? %>
+      <%= form.button button_text("Create Job Type"), class: "mb-2 md:mr-4 inline-flex justify-center btn btn-primary" %>
+    <% else %>
+      <%= form.button button_text("Update Job Type"), class: "mb-2 md:mr-4 inline-flex justify-center btn btn-primary" %>
+    <% end %>
     <%= link_to t("cancel"), job_templates_path, class: "inline-flex justify-center btn btn-white invisible xs:visible" %>
   </div>
 </div>
