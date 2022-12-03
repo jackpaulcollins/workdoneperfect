@@ -57,11 +57,6 @@
                                {:multiple => true, data: {controller: 'choices'}} %>
   </div>
   <div>
-    <%= form.fields_for :job_attribute_answers_attributes do %>
-      <div data-dynamic-form-target="response" class="grid grid-cols-2 col-span-2 gap-4"></div>
-    <% end %>
-  </div>
-  <div>
     <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
 
     <% if form.object.new_record? %>
