@@ -1,21 +1,35 @@
 <%= form_with(model: job) do |form| %>
   <%= render "shared/error_messages", resource: form.object %>
+
   <div class="form-group">
-    <%= form.label :job_type %>
-    <%= form.collection_select :job_template_id,
-                            JobTemplate.all,
-                            :id,
-                            :title,
-                            {prompt: true, selected: JobTemplate.default },
-                            {id: "job-template-select", class: "form-control", data: {controller: "choices"}} %>
-    <%= form.label :customer_id %>
-    <%= form.collection_select :customer_id,
-                               Customer.all,
-                               :id,
-                               :name_and_email_or_email,
-                               {prompt: true},
-                               {id: "customer-select", class: "form-control", data: {controller: "choices"}} %>
+    <div data-controller="form-element">
+    <%= form.button "", formaction: new_job_path, formmethod: :get, data: { turbo_frame: :job_template_field, form_element_target: "submitbtn" } %>
+
+    <div>
+      <%= form.label :job_type, style: "display: block" %>
+      <%= form.collection_select :job_template_id, JobTemplate.all, :id, :title, {include_blank: true}, { data: { action: "change->form-element#remotesubmit"}} %>
+    </div>
   </div>
+
+  <%= turbo_frame_tag :job_template_field do %>
+    <% if job.job_template.present? %>
+      <div class="form-group">
+        <% job.job_template.job_attributes.each do |attribute| %>
+          <label><%= attribute.name %></label>
+          <input multiple name="job[job_template_attribute_answers][<%= attribute.id %>][answer][]" >
+        <% end %>
+      <% end %>
+     </div>
+  <% end %>
+
+  <%= form.label :customer_id %>
+  <%= form.collection_select :customer_id,
+                              Customer.all,
+                              :id,
+                              :name_and_email_or_email,
+                              {prompt: true},
+                              {id: "customer-select", class: "form-control", data: {controller: "choices"}} %>
+
 
   <div class="form-group">
     <%= form.label :date_and_time %>
@@ -46,7 +60,11 @@
                                {:prompt => "Allocate Resources"},
                                {:multiple => true, data: {controller: 'choices'}} %>
   </div>
-
+    <%= form.fields_for :job_attribute_answers_attributes do %>
+      <div data-dynamic-form-target="response" class="grid grid-cols-2 col-span-2 gap-4">
+    <%end %>
+  </div>
+  </div>
   <div>
     <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
 

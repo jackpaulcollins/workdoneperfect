@@ -33,10 +33,13 @@ class Job < ApplicationRecord
   belongs_to :job_template
   has_many :employee_jobs, dependent: :destroy
   has_many :employees, through: :employee_jobs
+  has_many :job_attribute_answers, dependent: :destroy
   has_many :resource_schedules, dependent: :destroy
   has_many :company_resources, through: :resource_schedules
 
   validates :date_and_time, presence: true
+
+  accepts_nested_attributes_for :job_attribute_answers
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :jobs, partial: "jobs/index", locals: {job: self} }
@@ -58,5 +61,30 @@ class Job < ApplicationRecord
 
   def incomplete?
     completed_at.nil?
+  end
+
+  def set_template_answers(attribute_id, answer)
+    if !new_record? && template_changing?
+      job_attribute_answers.destroy_all
+    end
+
+    if job_attribute_answers.where(job: self, job_attribute_id: attribute_id).exists?
+      JobAttributeAnswer.find_by(job_attribute_id: attribute_id).update(job: self, answer: answer)
+    else
+      JobAttributeAnswer.create(job: self, job_attribute_id: attribute_id, answer: answer)
+    end
+  end
+
+  def template_changing?
+    !job_template_id_previously_was.nil? && job_template_id_previously_was != job_template_id
+  end
+
+  def attributes_and_answers
+    job_template&.job_attributes&.map do |attribute|
+      {
+        name: attribute.name,
+        answer: job_attribute_answers.find_by(job_attribute: attribute)&.answer
+      }
+    end
   end
 end

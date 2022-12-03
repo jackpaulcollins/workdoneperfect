@@ -20,7 +20,11 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-    @job = Job.new
+    if job_params.present?
+      return @job = Job.new(job_template_id: job_params[:job_template_id])
+    end
+
+    @job = Job.new(job_params)
 
     # Uncomment to authorize with Pundit
     # authorize @job
@@ -30,15 +34,24 @@ class JobsController < ApplicationController
   def edit
   end
 
+  def build_answers(answers)
+    answers.each do |answer|
+      attribute_id = answer[0]
+      answer = answer[1][:answer][0]
+      @job.set_template_answers(attribute_id, answer)
+    end
+  end
+
   # POST /jobs or /jobs.json
   def create
-    @job = Job.new(job_params)
-
+    @job = Job.new(job_params.except(:job_template_attribute_answers))
     # Uncomment to authorize with Pundit
     # authorize @job
 
     respond_to do |format|
       if @job.save
+        build_answers(job_params[:job_template_attribute_answers].to_h)
+
         format.html { redirect_to @job, notice: "Job was successfully created." }
         format.json { render :show, status: :created, location: @job }
       else
@@ -51,7 +64,9 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1 or /jobs/1.json
   def update
     respond_to do |format|
-      if @job.update(job_params)
+      if @job.update(job_params.except(:job_template_attribute_answers))
+        build_answers(job_params[:job_template_attribute_answers].to_h)
+
         format.html { redirect_to @job, notice: "Job was successfully updated." }
         format.json { render :show, status: :ok, location: @job }
       else
@@ -84,7 +99,7 @@ class JobsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def job_params
-    params.require(:job).permit(
+    params.fetch(:job, {}).permit(
       :job_template_id,
       :account_id,
       :customer_id,
@@ -92,6 +107,7 @@ class JobsController < ApplicationController
       :estimated_hours,
       :total_hours,
       :revenue,
+      job_template_attribute_answers: [:job_attribute_id, answer: []],
       :company_resource_ids => []
     )
   end

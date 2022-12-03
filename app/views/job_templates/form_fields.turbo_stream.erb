@@ -1,0 +1,9 @@
+<%= turbo_stream.update @target do %>
+  <%- @job_template.job_attributes.each do |attribute| %>
+      <input type="hidden" value="<%= attribute.id %>" name="job[job_attribute_answers_attributes][job_attribute_id]">
+      <label for="job_attribute_answers_attributes_<%= attribute.id %>_answer">
+        <%= attribute.name %>
+      </label>
+      <input id="job_attribute_answers_attributes_<%= attribute.id %>_answer" class="form-control" type="text" name="job[job_attribute_answers_attributes][<%= attribute.id %>][answer]">
+  <% end %>
+<% end %>
