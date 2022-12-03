@@ -1,6 +1,6 @@
 class JobTemplatesController < ApplicationController
   before_action :set_job_template, only: [:show, :edit, :update, :destroy, :form_fields]
-  before_action :authenticate_user_with_sign_up!
+  before_action :authenticate_user!
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized
@@ -29,18 +29,6 @@ class JobTemplatesController < ApplicationController
   def edit
   end
 
-  # def bulk_upload
-  # end
-
-  # def process_bulk_upload
-  #   op = ::jobTemplateBulkUploadOp.submit!(account_id: current_account.id, data: params[:csv].tempfile)
-
-  #   op.failures ? flash[:alert] = "#{op.failures} templates failed to save" : flash[:notice] = "#{op.successes} templates created!"
-
-  #   redirect_to job_templates_path
-  # end
-
-  # POST /job_templates or /job_templates.json
   def create
     @job_template = JobTemplate.new(job_template_params)
 
