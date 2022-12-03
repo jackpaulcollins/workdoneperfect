@@ -1,6 +1,7 @@
 class JobsController < ApplicationController
-  before_action :authenticate_user!
+  include JobTemplateAnswersConcern
   before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized
@@ -20,9 +21,7 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-    if job_params.present?
-      return @job = Job.new(job_template_id: job_params[:job_template_id])
-    end
+    return @job = Job.new(job_template_id: job_params[:job_template_id]) if job_params.present?
 
     @job = Job.new(job_params)
 
@@ -32,14 +31,6 @@ class JobsController < ApplicationController
 
   # GET /jobs/1/edit
   def edit
-  end
-
-  def build_answers(answers)
-    answers.each do |answer|
-      attribute_id = answer[0]
-      answer = answer[1][:answer][0]
-      @job.set_template_answers(attribute_id, answer)
-    end
   end
 
   # POST /jobs or /jobs.json
