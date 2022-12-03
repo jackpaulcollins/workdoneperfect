@@ -16,7 +16,7 @@
       <div class="form-group">
         <% job.job_template.job_attributes.each do |attribute| %>
           <label><%= attribute.name %></label>
-          <input multiple name="job[job_template_attribute_answers][<%= attribute.id %>][answer][]" >
+          <input multiple name="job[job_template_attribute_answers][<%= attribute.id %>][answer][]">
         <% end %>
       <% end %>
      </div>
@@ -29,7 +29,6 @@
                               :name_and_email_or_email,
                               {prompt: true},
                               {id: "customer-select", class: "form-control", data: {controller: "choices"}} %>
-
 
   <div class="form-group">
     <%= form.label :date_and_time %>
@@ -62,7 +61,7 @@
   </div>
     <%= form.fields_for :job_attribute_answers_attributes do %>
       <div data-dynamic-form-target="response" class="grid grid-cols-2 col-span-2 gap-4">
-    <%end %>
+    <% end %>
   </div>
   </div>
   <div>
