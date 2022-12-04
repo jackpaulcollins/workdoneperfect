@@ -9,11 +9,10 @@
                                 :name_and_email_or_email,
                                 {prompt: true},
                                 {id: "customer-select", class: "form-control", data: {controller: "choices"}} %>
-
     <div class="form-group">
       <%= form.button "", formaction: new_job_path, formmethod: :get, data: { turbo_frame: :job_template_field, form_element_target: "submitbtn" } %>
       <%= form.label :job_type, style: "display: block" %>
-      <%= form.collection_select :job_template_id, JobTemplate.all, :id, :title, {include_blank: true, class: "form-control"}, { data: { action: "change->form-element#remotesubmit"}} %>
+      <%= form.collection_select :job_template_id, JobTemplate.all, :id, :title,  {include_blank: true, class: "form-control"}, {  data: {  action: "change->form-element#remotesubmit"}} %>
     </div>
 
     <%= turbo_frame_tag :job_template_field do %>

@@ -25,7 +25,7 @@ class JobTemplate < ApplicationRecord
   acts_as_tenant :account
 
   belongs_to :account
-  has_many :jobs, dependent: :destroy
+  has_many :jobs
   has_many :job_attributes, index_errors: true, dependent: :destroy
 
   validates :title, presence: true, uniqueness: {scope: :account_id}
