@@ -33,6 +33,7 @@ one:
   estimated_hours: 1.5
   total_hours: 1.5
   revenue: 1.5
+  job_template: jobs(:one)
 
 two:
   account: two
