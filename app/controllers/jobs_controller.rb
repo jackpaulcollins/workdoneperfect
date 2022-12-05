@@ -1,5 +1,4 @@
 class JobsController < ApplicationController
-  include JobTemplateAnswersConcern
   before_action :set_job, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
@@ -35,14 +34,12 @@ class JobsController < ApplicationController
 
   # POST /jobs or /jobs.json
   def create
-    @job = Job.new(job_params.except(:job_template_attribute_answers))
+    @job = Job.new(job_params)
     # Uncomment to authorize with Pundit
     # authorize @job
 
     respond_to do |format|
       if @job.save
-        build_answers(job_params[:job_template_attribute_answers].to_h)
-
         format.html { redirect_to @job, notice: "Job was successfully created." }
         format.json { render :show, status: :created, location: @job }
       else
@@ -55,9 +52,7 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1 or /jobs/1.json
   def update
     respond_to do |format|
-      if @job.update(job_params.except(:job_template_attribute_answers))
-        build_answers(job_params[:job_template_attribute_answers].to_h)
-
+      if @job.update(job_params)
         format.html { redirect_to @job, notice: "Job was successfully updated." }
         format.json { render :show, status: :ok, location: @job }
       else
@@ -98,7 +93,7 @@ class JobsController < ApplicationController
       :estimated_hours,
       :total_hours,
       :revenue,
-      job_template_attribute_answers: [:job_attribute_id, answer: []],
+      job_attribute_answers_attributes: [:job_attribute_id, :answer, :_destroy],
       :company_resource_ids => []
     )
   end
