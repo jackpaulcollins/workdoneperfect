@@ -39,7 +39,7 @@ class Job < ApplicationRecord
 
   validates :date_and_time, presence: true
 
-  accepts_nested_attributes_for :job_attribute_answers
+  accepts_nested_attributes_for :job_attribute_answers, allow_destroy: true
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :jobs, partial: "jobs/index", locals: {job: self} }

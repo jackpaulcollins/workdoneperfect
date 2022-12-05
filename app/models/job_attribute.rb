@@ -30,4 +30,8 @@ class JobAttribute < ApplicationRecord
   after_destroy_commit -> { broadcast_remove_to :job_attributes, target: dom_id(self, :index) }
 
   enum data_type: [:text, :boolean, :integer]
+
+  def fetch_answer(job_id)
+    job_attribute_answers.where(job_id: job_id).first
+  end
 end

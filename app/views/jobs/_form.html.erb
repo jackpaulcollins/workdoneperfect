@@ -16,19 +16,7 @@
     </div>
 
     <%= turbo_frame_tag :job_template_field do %>
-      <% if job.job_template.present? %>
-        <% job.job_template.job_attributes.each do |attribute| %>
-        <div class="form-group">
-          <div class="col-span-1">
-            <input type="hidden" value=<%=attribute.id%> name="job[job_attribute_answers_attributes][][job_attribute_id]">
-            <label for="job_attribute_answers_attributes_<%=attribute.id%>_answer">
-              <%= attribute.name %>
-            </label>
-            <input id="job_attribute_answers_attributes_answer" class="form-control" type="text" name="job[job_attribute_answers_attributes][][answer]">
-          </div>
-        </div>
-        <% end %>
-      <% end %>
+      <%= render "job_template_responses", job: job %>
     <% end %>
 
     <div class="form-group">

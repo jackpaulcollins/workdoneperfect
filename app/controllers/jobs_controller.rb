@@ -93,7 +93,7 @@ class JobsController < ApplicationController
       :estimated_hours,
       :total_hours,
       :revenue,
-      job_attribute_answers_attributes: [:job_attribute_id, :answer, :_destroy],
+      job_attribute_answers_attributes: [:id, :job_attribute_id, :answer, :_destroy],
       :company_resource_ids => []
     )
   end
