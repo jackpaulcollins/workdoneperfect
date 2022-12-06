@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   post "/employee_templates/bulk_upload", to: "employee_templates#process_bulk_upload"
 
   resources :jobs
+  resources :job_templates
   resources :customers
   resources :employee_attributes
   resources :employees

@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized
@@ -20,7 +20,9 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-    @job = Job.new
+    return @job = Job.new(job_template_id: job_params[:job_template_id]) if job_params.present?
+
+    @job = Job.new(job_params)
 
     # Uncomment to authorize with Pundit
     # authorize @job
@@ -33,7 +35,6 @@ class JobsController < ApplicationController
   # POST /jobs or /jobs.json
   def create
     @job = Job.new(job_params)
-
     # Uncomment to authorize with Pundit
     # authorize @job
 
@@ -84,13 +85,15 @@ class JobsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def job_params
-    params.require(:job).permit(
+    params.fetch(:job, {}).permit(
+      :job_template_id,
       :account_id,
       :customer_id,
       :date_and_time,
       :estimated_hours,
       :total_hours,
       :revenue,
+      job_attribute_answers_attributes: [:id, :job_attribute_id, :answer, :_destroy],
       :company_resource_ids => []
     )
   end

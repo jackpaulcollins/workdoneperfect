@@ -16,8 +16,10 @@
         <%= sortable @jobs, :revenue, "Revenue", class: "text-gray-700 mr-1" %>
       </div>
     </div>
-
-    <%= link_to t("shared.scaffold.new.title", model: "Job"), new_job_path, class: "btn btn-white" %>
+    <div>
+      <%= link_to t("shared.scaffold.new.title", model: "Job Type"), new_job_template_path, class: "btn btn-white" %>
+      <%= link_to t("shared.scaffold.new.title", model: "Job"), new_job_path, class: "btn btn-white" %>
+    </div>
   </div>
 
   <%= tag.div id: ("jobs" if first_page?), class: "bg-white rounded-md shadow space-y-8" do %>

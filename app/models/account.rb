@@ -36,6 +36,7 @@ class Account < ApplicationRecord
   has_many :customers, dependent: :destroy
   has_many :company_resources, dependent: :destroy
   has_many :jobs, dependent: :destroy
+  has_many :job_templates, dependent: :destroy
   has_one :billing_address, -> { where(address_type: :billing) }, class_name: "Address", as: :addressable
   has_one :shipping_address, -> { where(address_type: :shipping) }, class_name: "Address", as: :addressable
 

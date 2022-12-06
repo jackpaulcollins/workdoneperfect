@@ -1,0 +1,21 @@
+<div id="<%= dom_id(job_template, :index) %>">
+  <%= turbo_stream_from job_template %>
+  <div class="overflow-hidden bg-white shadow">
+    <ul role="list" class="divide-y divide-gray-200">
+      <li class="list-none">
+        <a href="<%= job_template_url job_template %>" class="block hover:bg-gray-50">
+          <div class="px-4 py-4 sm:px-6">
+            <div class="flex items-center justify-between">
+              <p class="truncate text-sm font-medium text-indigo-600"><%= job_template.title %></p>
+                <p class="flex items-center text-sm text-gray-500">
+                  <i class="fa-solid fa-hammer">&nbsp;</i>
+                  <span>Jobs:&nbsp;</span>
+                  <%= job_template.job_count %>
+                </p>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

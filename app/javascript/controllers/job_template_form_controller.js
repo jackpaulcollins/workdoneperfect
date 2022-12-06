@@ -1,12 +1,12 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="employee-template-form"
+// Connects to data-controller="job-template-form"
 export default class extends Controller {
   static targets = ['target', 'template']
   static values = {
     wrapperSelector: {
       type: String,
-      default: '.employee-template-form-wrapper'
+      default: '.job-template-form-wrapper'
     }
   }
 
@@ -14,7 +14,7 @@ export default class extends Controller {
     e.preventDefault()
 
     const content = this.templateTarget.innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
-    this.targetTarget.insertAdjacentHTML('afterend', content)
+    this.targetTarget.insertAdjacentHTML('beforebegin', content)
   }
 
   remove (e) {
@@ -28,6 +28,7 @@ export default class extends Controller {
       e.target.parentNode.parentNode.parentNode.style.display = 'none';
 
       const input = wrapper.querySelector("input[name*='_destroy']")
+
       input.value = '1'
     }
   }

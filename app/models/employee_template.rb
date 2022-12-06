@@ -26,7 +26,7 @@ class EmployeeTemplate < ApplicationRecord
 
   validates :title, presence: true, uniqueness: {scope: :account_id}
 
-  accepts_nested_attributes_for :employee_attributes
+  accepts_nested_attributes_for :employee_attributes, allow_destroy: true
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :employee_templates, partial: "employee_templates/index", locals: {employee_template: self} }
