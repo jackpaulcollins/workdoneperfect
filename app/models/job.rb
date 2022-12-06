@@ -82,6 +82,6 @@ class Job < ApplicationRecord
   end
 
   def maybe_discard_stale_answers
-    job_attribute_answers.destroy_all
+    job_attribute_answers.where(job_id: self).destroy_all
   end
 end
