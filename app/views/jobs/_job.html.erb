@@ -4,7 +4,9 @@
       <div class="flex-shrink-0">
       </div>
       <div>
-        <h1 class="text-2xl font-bold text-gray-900"><%= job.customer.first_name %></h1>
+        <%= link_to customer_path(job.customer.id) do %>
+        <h1 class="text-2xl font-bold text-gray-900 hover:text-primary-500"><%= job.customer.first_name %></h1>
+        <% end %>
         <p class="text-sm font-medium text-gray-500"><%= job.date_and_time %></p>
       </div>
     </div>
@@ -15,47 +17,9 @@
       <% end %>
     </div>
   </div>
-  <div class="pt-5 overflow-hidden">
-    <div class="py-5">
-      <h3 class="text-lg font-medium leading-6 text-gray-900">Job Details</h3>
-    </div>
-    <div class="py-5 border-t border-gray-200">
-      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
-        <div class="sm:col-span-1">
-          <dt class="text-sm font-medium text-gray-500">Estimated Hours</dt>
-          <dd class="mt-1 text-sm text-gray-900"><%= job&.estimated_hours %></dd>
-        </div>
-        <% if job.total_hours %>
-          <div class="sm:col-span-1">
-            <dt class="text-sm font-medium text-gray-500">Completed Hours</dt>
-            <dd class="mt-1 text-sm text-gray-900"><%= job.total_hours %></dd>
-          </div>
-        <% end %>
-        <% if job.revenue %>
-          <div class="sm:col-span-1">
-            <dt class="text-sm font-medium text-gray-500">Revenue</dt>
-            <dd class="mt-1 text-sm text-gray-900"><%= job.revenue %></dd>
-          </div>
-        <% end %>
-        <% if job.company_resources.any? %>
-          <div class="sm:col-span-1">
-            <dt class="text-sm font-medium text-gray-500">Company Resources:</dt>
-            <% job.company_resources.each do |cr| %>
-            <dd class="mt-1 text-sm text-gray-900"><%= cr.name %></dd>
-            <% end %>
-          </div>
-        <% end %>
-        <% if job&.job_template&.job_attributes&.any? %>
-          <% job.attributes_and_answers.each do |aa| %>
-            <div class="sm:col-span-1">
-              <dt class="text-sm font-medium text-gray-500"><%= aa[:name] %></dt>
-              <dd class="mt-1 text-sm text-gray-900">
-                <%= aa[:answer] %>
-              </dd>
-            </div>
-          <% end %>
-        <% end %>
-      </dl>
-    </div>
-  </div>
+    <% if job&.job_template&.job_attributes&.any? %>
+      <div class="min-w-full">
+        <%= render "job_template_answers_table", job: job, attributes: job.attributes_and_answers %>
+      </div>
+  <% end %>
 </div>

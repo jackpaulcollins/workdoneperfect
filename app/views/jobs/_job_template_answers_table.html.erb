@@ -1,0 +1,34 @@
+<div>
+  <div class="mt-5 border-t border-gray-200">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+        <dt class="text-sm font-medium text-gray-500">Estimated Hours</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= job.estimated_hours %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+        <dt class="text-sm font-medium text-gray-500">Total Hours</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= job.total_hours %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+        <dt class="text-sm font-medium text-gray-500">Revenue</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= job.revenue %></dd>
+      </div>
+      <% if job.company_resources.any? %>
+        <% job.company_resources.each do |cr| %>
+          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+            <dt class="text-sm font-medium text-gray-500">Resources Needed</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= cr.name %></dd>
+          </div>
+        <% end %>
+      <% end %>
+      <% if attributes.any? %>
+        <% attributes.each do |attribute| %>
+          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+            <dt class="text-sm font-medium text-gray-500"><%= attribute[:name] %></dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= attribute[:answer] %></dd>
+          </div>
+        <% end %>
+      <% end %>
+    </dl>
+  </div>
+</div>
