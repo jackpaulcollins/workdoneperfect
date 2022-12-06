@@ -41,6 +41,11 @@ class Job < ApplicationRecord
 
   accepts_nested_attributes_for :job_attribute_answers, allow_destroy: true
 
+  # since we index on answer_job, we need to destroy outgoing answers
+  # when a template is being changed
+  # before we validate the object
+  before_validation :maybe_discard_stale_answers, if: :template_changing?
+
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :jobs, partial: "jobs/index", locals: {job: self} }
   after_update_commit -> { broadcast_replace_later_to self }
@@ -69,6 +74,17 @@ class Job < ApplicationRecord
         name: attribute.name,
         answer: job_attribute_answers.find_by(job_attribute: attribute)&.answer
       }
+    end
+  end
+
+  def template_changing?
+    job_template_changed?
+  end
+
+  def maybe_discard_stale_answers
+    attributes = job_template.job_attributes
+    attributes.each do |a|
+      job_attribute_answers.where(job_id: self).destroy_all
     end
   end
 end
