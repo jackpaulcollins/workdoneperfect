@@ -1,25 +1,23 @@
 <% if job.job_template.present? %>
-	<% job.job_template.job_attributes.each do |attribute| %>
-		<div class="form-group">
-			<div class="col-span-1">
-				<% if request.url.include?("edit") %>
-					<%# if the user is editting the job we need the job_attribute_answer id %>
-					<%- answer = attribute.fetch_answer(job.id) %>
-					<input  type="hidden" value=<%=answer.id %> name="job[job_attribute_answers_attributes][][id]">
-					<%= attribute.name %>
-					</label>
-					<input value="<%=answer.answer%>" id="job_attribute_answers_attributes_answer" class="form-control" type="text" name="job[job_attribute_answers_attributes][][answer]">
-				<% else %>
-					<%# otherwise we just need the attribute id %>
-					<input type="hidden" value=<%=attribute.id%> name="job[job_attribute_answers_attributes][][job_attribute_id]">
-					<label for="job_attribute_answers_attributes_<%=attribute.id%>_answer">
-					<%= attribute.name %>
-					</label>
-					<input id="job_attribute_answers_attributes_answer" class="form-control" type="text" name="job[job_attribute_answers_attributes][][answer]">
-				<% end %>
-			</div>
-		</div>
-	<% end %>
+  <% job.job_template.job_attributes.each do |attribute| %>
+    <div class="form-group">
+      <div class="col-span-1">
+        <% if request.url.include?("edit") %>
+          <%# if the user is editting the job we need the job_attribute_answer id %>
+          <%- answer = attribute.fetch_answer(job.id) %>
+          <input type="hidden" value=<%= answer.id %>>
+          <%= attribute.name %>
+          </label>
+          <input value="<%= answer.answer %>" id="job_attribute_answers_attributes_answer" class="form-control" type="text" name="job[job_attribute_answers_attributes][][answer]">
+        <% else %>
+          <%# otherwise we just need the attribute id %>
+          <input type="hidden" value=<%= attribute.id %>>
+          <label for="job_attribute_answers_attributes_<%= attribute.id %>_answer">
+          <%= attribute.name %>
+          </label>
+          <input id="job_attribute_answers_attributes_answer" class="form-control" type="text" name="job[job_attribute_answers_attributes][][answer]">
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <% end %>
-
-
