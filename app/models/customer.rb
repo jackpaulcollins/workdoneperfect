@@ -35,7 +35,7 @@ class Customer < ApplicationRecord
   end
 
   def name_and_email_or_email
-    has_name? ? "#{first_name} #{last_name} | #{email}" : email
+    has_name? ? "#{first_name} #{last_name} #{email}" : email
   end
 
   def job_count

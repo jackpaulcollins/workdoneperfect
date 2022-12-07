@@ -22,4 +22,8 @@ class CompanyResource < ApplicationRecord
   acts_as_tenant :account
   has_many :resource_schedules, inverse_of: :company_resource, dependent: :destroy
   has_many :jobs, through: :resource_schedules
+
+  def job_usage_count
+    resource_schedules.count
+  end
 end

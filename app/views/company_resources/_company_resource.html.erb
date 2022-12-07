@@ -1,10 +1,33 @@
 <div id="<%= dom_id company_resource %>">
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Name</p>
-    <%= company_resource.name %>
+  <div class="flex items-center justify-between p-5 space-x-5 bg-gray-100 rounded-lg shadow">
+    <div class="flex items-center space-x-5">
+      <div class="flex-shrink-0">
+      </div>
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900"><%= company_resource.name %></h1>
+      </div>
+    </div>
   </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Description</p>
-    <%= company_resource.description %>
+  <div class="pt-5 overflow-hidden">
+    <div class="py-5 border-t border-gray-200">
+      <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Description</dt>
+          <dd class="mt-1 text-sm text-gray-900"><%= company_resource.description %></dd>
+        </div>
+        <div class="sm:col-span-1">
+          <dt class="text-sm font-medium text-gray-500">Jobs Utilized On</dt>
+          <dd class="mt-1 text-sm text-gray-900"><%= company_resource.job_usage_count %></dd>
+        </div>
+        <% if company_resource.resource_schedules.any? %>
+          <% company_resource.resource_schedules.each do |scheduled_job| %>
+          <div class="sm:col-span-1">
+            <dt class="text-sm font-medium text-gray-500"><%scheduled_job.job_id %></dt>
+            <dd class="mt-1 text-sm text-gray-900"><%= scheduled_job.job_id %></dd>
+          </div>
+          <% end %>
+        <% end %>
+      </dl>
+    </div>
   </div>
 </div>

@@ -5,7 +5,7 @@
       </div>
       <div>
         <%= link_to customer_path(job.customer.id) do %>
-        <h1 class="text-2xl font-bold text-gray-900 hover:text-primary-500"><%= job.customer.first_name %></h1>
+        <h1 class="text-2xl font-bold text-gray-900 hover:text-primary-500"><%= job.customer.name_and_email_or_email %></h1>
         <% end %>
         <p class="text-sm font-medium text-gray-500"><%= job.date_and_time %></p>
       </div>
