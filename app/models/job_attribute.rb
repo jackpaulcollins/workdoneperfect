@@ -23,15 +23,22 @@ class JobAttribute < ApplicationRecord
 
   validates :name, presence: true
   validates :job_template, presence: true
-
-  # Broadcast changes in realtime with Hotwire
-  after_create_commit -> { broadcast_prepend_later_to :job_attributes, partial: "job_attributes/index", locals: {job_attribute: self} }
-  after_update_commit -> { broadcast_replace_later_to self }
-  after_destroy_commit -> { broadcast_remove_to :job_attributes, target: dom_id(self, :index) }
-
-  enum data_type: [:text, :boolean, :integer]
+  enum data_type: [:text, :required, :integer]
 
   def fetch_answer(job_id)
     job_attribute_answers.where(job_id: job_id).first
+  end
+
+  def input_field
+    case self.data_type
+    when "text"
+      "text_field"
+    when "boolean"
+      "checkbox"
+    when "number_field"
+      "number_field"
+    else
+      raise NotImplementedError
+    end
   end
 end

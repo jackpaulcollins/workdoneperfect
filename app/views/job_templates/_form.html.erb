@@ -8,6 +8,15 @@
         <%= form.check_box :default_template, class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500 ml-2" %>
       </div>
     </div>
+    <div class="grow mb-8">
+      <%= form.label :required_roles, class: "w-full text-sm font-medium text-gray-700" %>
+      <%= form.collection_select :name,
+                              EmployeeTemplate.all,
+                              :title,
+                              :title,
+                              {prompt: true},
+                              {id: "employee-template-select", class: "form-control", data: {controller: "choices"}} %>
+    </div>
   <div class="flex flex-row items-center py-2 border-b">
     <h6>Job Attributes</h6>
     <div data-controller="tooltip" data-tippy-content="<%= t("job_templates.tooltips.job_template_attribute_info") %>">
