@@ -41,6 +41,8 @@ class JobsController < ApplicationController
     # Uncomment to authorize with Pundit
     # authorize @job
 
+    @job.schedule unless job_params.include?(:draft)
+
     respond_to do |format|
       if @job.save
         format.html { redirect_to @job, notice: "Job was successfully created." }
