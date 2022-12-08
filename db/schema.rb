@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_07_041822) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_08_054608) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -262,6 +262,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_041822) do
     t.datetime "updated_at", null: false
     t.datetime "completed_at"
     t.bigint "job_template_id"
+    t.string "state"
     t.index ["account_id"], name: "index_jobs_on_account_id"
     t.index ["customer_id"], name: "index_jobs_on_customer_id"
     t.index ["job_template_id"], name: "index_jobs_on_job_template_id"

@@ -130,3 +130,4 @@ gem "newrelic_rpm"
 gem "postmark-rails"
 gem "ransack", "~> 3.2.1"
 gem "friendly_id", "~> 5.4.2"
+gem 'state_machines-activerecord'

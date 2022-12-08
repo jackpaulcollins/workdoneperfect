@@ -467,6 +467,13 @@ GEM
     standard (1.16.1)
       rubocop (= 1.35.1)
       rubocop-performance (= 1.14.3)
+    state_machines (0.5.0)
+    state_machines-activemodel (0.8.0)
+      activemodel (>= 5.1)
+      state_machines (>= 0.5.0)
+    state_machines-activerecord (0.8.0)
+      activerecord (>= 5.1)
+      state_machines-activemodel (>= 0.8.0)
     stimulus-rails (1.1.0)
       railties (>= 6.0.0)
     subroutine (2.1.2)
@@ -580,6 +587,7 @@ DEPENDENCIES
   solargraph-rails (~> 0.2.0.pre)
   sprockets-rails (>= 3.4.1)
   standard
+  state_machines-activerecord
   stimulus-rails (~> 1.0, >= 1.0.2)
   subroutine (~> 2.1.2)
   turbo-rails (~> 1.0, >= 1.0.1)

@@ -7,6 +7,7 @@
 #  date_and_time   :datetime         not null
 #  estimated_hours :float
 #  revenue         :float
+#  state           :string
 #  total_hours     :float
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -34,7 +35,7 @@ class Job < ApplicationRecord
   has_many :employee_jobs, dependent: :destroy
   has_many :employees, through: :employee_jobs
   has_many :job_attribute_answers, dependent: :destroy
-  has_many :resource_schedules, dependent: :destroy
+  has_many :resource_schedules, dependent: :delete_all
   has_many :company_resources, through: :resource_schedules
 
   validates :date_and_time, presence: true
@@ -52,6 +53,10 @@ class Job < ApplicationRecord
   after_destroy_commit -> { broadcast_remove_to :jobs, target: dom_id(self, :index) }
 
   scope :completed, ->(completed = true) { where("completed_at IS NOT NULL") if completed }
+
+  # :draft, :scheduled, :staffed (employees added), :canceled or :completed
+
+  state_machine :initial => :draft
 
   # class methods
   class << self

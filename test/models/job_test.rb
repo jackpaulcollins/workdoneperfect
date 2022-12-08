@@ -7,6 +7,7 @@
 #  date_and_time   :datetime         not null
 #  estimated_hours :float
 #  revenue         :float
+#  state           :string
 #  total_hours     :float
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
