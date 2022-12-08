@@ -20,12 +20,12 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-    if JobTemplate.default_template.present? && job_params.blank?
-      @job = Job.new(job_template: JobTemplate.default_template)
+    @job = if JobTemplate.default_template.present? && job_params.blank?
+      Job.new(job_template: JobTemplate.default_template)
     elsif job_params.present?
-      @job = Job.new(job_template_id: job_params[:job_template_id]) 
+      Job.new(job_template_id: job_params[:job_template_id])
     else
-      @job = Job.new
+      Job.new
     end
 
     @job

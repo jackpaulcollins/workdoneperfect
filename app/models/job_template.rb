@@ -41,7 +41,7 @@ class JobTemplate < ApplicationRecord
 
   class << self
     def default_template
-      template = self.where(default_template: true)
+      template = where(default_template: true)
       template.present? ? template.first : nil
     end
   end
