@@ -2,12 +2,13 @@
 #
 # Table name: job_templates
 #
-#  id               :bigint           not null, primary key
-#  default_template :boolean          default(FALSE)
-#  title            :string           not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  account_id       :bigint           not null
+#  id                 :bigint           not null, primary key
+#  default_template   :boolean          default(FALSE)
+#  required_resources :string           default([]), is an Array
+#  title              :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  account_id         :bigint           not null
 #
 # Indexes
 #
@@ -29,8 +30,6 @@ class JobTemplate < ApplicationRecord
   has_many :job_attributes, index_errors: true, dependent: :destroy
 
   validates :title, presence: true, uniqueness: {scope: :account_id}
-  scope :default, -> { where(default_template: true) }
-
   accepts_nested_attributes_for :job_attributes, allow_destroy: true
 
   before_validation :maybe_unset_default
@@ -40,13 +39,20 @@ class JobTemplate < ApplicationRecord
   after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :job_templates, target: dom_id(self, :index) }
 
+  class << self
+    def default_template
+      template = where(default_template: true)
+      template.present? ? template.first : nil
+    end
+  end
+
   def job_count
     jobs.count
   end
 
   def maybe_unset_default
     if default_template_present? && default_template
-      JobTemplate.default.first.update(default_template: false)
+      JobTemplate.default_template.update(default_template: false)
     end
   end
 end

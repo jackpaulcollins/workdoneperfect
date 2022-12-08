@@ -10,12 +10,12 @@
     </div>
     <div class="grow mb-8">
       <%= form.label :required_roles, class: "w-full text-sm font-medium text-gray-700" %>
-      <%= form.collection_select :name,
-                              EmployeeTemplate.all,
-                              :title,
-                              :title,
-                              {prompt: true},
-                              {id: "employee-template-select", class: "form-control", data: {controller: "choices"}} %>
+      <%= form.collection_select :required_resources,
+                                  EmployeeTemplate.all,
+                                  :title,
+                                  :title,
+                                  {prompt: true, include_hidden: false},
+                                  {:multiple => true, id: "employee-template-select", class: "form-control", data: {controller: "choices"}} %>
     </div>
   <div class="flex flex-row items-center py-2 border-b">
     <h6>Job Attributes</h6>

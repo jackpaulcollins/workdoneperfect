@@ -22,7 +22,7 @@
         <% if company_resource.resource_schedules.any? %>
           <% company_resource.resource_schedules.each do |scheduled_job| %>
           <div class="sm:col-span-1">
-            <dt class="text-sm font-medium text-gray-500"><%scheduled_job.job_id %></dt>
+            <dt class="text-sm font-medium text-gray-500"><% scheduled_job.job_id %></dt>
             <dd class="mt-1 text-sm text-gray-900"><%= scheduled_job.job_id %></dd>
           </div>
           <% end %>

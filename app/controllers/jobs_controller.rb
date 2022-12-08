@@ -20,12 +20,15 @@ class JobsController < ApplicationController
 
   # GET /jobs/new
   def new
-    return @job = Job.new(job_template_id: job_params[:job_template_id]) if job_params.present?
+    @job = if JobTemplate.default_template.present? && job_params.blank?
+      Job.new(job_template: JobTemplate.default_template)
+    elsif job_params.present?
+      Job.new(job_template_id: job_params[:job_template_id])
+    else
+      Job.new
+    end
 
-    @job = Job.new(job_params)
-
-    # Uncomment to authorize with Pundit
-    # authorize @job
+    @job
   end
 
   # GET /jobs/1/edit

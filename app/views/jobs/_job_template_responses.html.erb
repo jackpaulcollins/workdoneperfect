@@ -8,14 +8,14 @@
           <input type="hidden" value="<%= answer.id %>" name="job[job_attribute_answers_attributes][][id]">
           <%= attribute.name %>
           </label>
-          <input autocomplete="off" value="<%= answer.answer %>" id="job_attribute_answers_attributes_answer" class="form-control" type=<%=attribute.input_field%> name="job[job_attribute_answers_attributes][][answer]">
+          <input autocomplete="off" value="<%= answer.answer %>" id="job_attribute_answers_attributes_answer" class="form-control" type="<%= attribute.input_field %>">
         <% else %>
           <%# otherwise we just need the attribute id %>
           <input type="hidden" value="<%= attribute.id %>" name="job[job_attribute_answers_attributes][][job_attribute_id]">
           <label for="job_attribute_answers_attributes_<%= attribute.id %>_answer">
           <%= attribute.name %>
           </label>
-          <input autocomplete="off" id="job_attribute_answers_attributes_answer" class="form-control" type=<%=attribute.input_field%> name="job[job_attribute_answers_attributes][][answer]">
+          <input autocomplete="off" id="job_attribute_answers_attributes_answer" class="form-control" type="<%= attribute.input_field %>">
         <% end %>
       </div>
     </div>
