@@ -57,11 +57,12 @@ class Job < ApplicationRecord
   # :draft, :scheduled, :staffed (employees added), :canceled or :completed
 
   state_machine :initial => :draft do
-
     event :schedule do
       transition :draft => :scheduled
     end
   end
+
+
 
   # class methods
   class << self
