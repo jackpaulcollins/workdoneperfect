@@ -49,7 +49,7 @@
                                {:multiple => true, data: {controller: 'choices'}} %>
   </div>
   <div>
-    <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
+    <%= form.button button_text("Schedule Job"), class: "btn btn-primary" %>
     <%= form.button button_text("Save as draft"), name: :draft, value: true, class: "btn btn-white" %>
 
     <% if form.object.new_record? %>
