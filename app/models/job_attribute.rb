@@ -35,10 +35,10 @@ class JobAttribute < ApplicationRecord
       "text_field"
     when "boolean"
       "checkbox"
-    when "number_field"
-      "number_field"
+    when "integer"
+      "number"
     else
-      raise NotImplementedError
+      "text_field"
     end
   end
 end
