@@ -1,15 +1,15 @@
 --- !ruby/object:Jumpstart::Configuration
 application_name: WorkDonePerfect
 business_name: WorkDonePerfect, LLC
-domain: https://workdoneperfect.com
+domain: https://workdoneperfect.herokuapp.com/
 support_email: jack@workdoneperfect.com
 default_from_email: jack@workdoneperfect.com
 business_address: |-
-  3850 N Mississippi Ave #A103
+  3850 N Mississippi Ave
   Portland, OR 97227
 background_job_processor: sidekiq
 email_provider: ''
-personal_accounts: true
+personal_accounts: false
 solargraph: true
 register_with_account: false
 apns: false
