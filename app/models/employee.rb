@@ -33,7 +33,7 @@ class Employee < ApplicationRecord
   belongs_to :account
   belongs_to :employee_template
   has_many :attribute_answers, dependent: :destroy
-  has_many :employee_jobs, dependent: :destroy
+  has_many :employee_jobs, inverse_of: :employee, dependent: :destroy
   has_many :jobs, through: :employee_jobs
 
   accepts_nested_attributes_for :attribute_answers

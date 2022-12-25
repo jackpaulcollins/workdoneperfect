@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :edit, :update, :destroy]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :staff, :add_employees]
   before_action :authenticate_user!
 
   # Uncomment to enforce Pundit authorization
@@ -33,6 +33,46 @@ class JobsController < ApplicationController
 
   # GET /jobs/1/edit
   def edit
+  end
+
+  def staff
+  end
+
+  def add_employees
+    if job_params[:employee_ids].length == 1 && @job.scheduled?
+      respond_to do |format|
+        format.html { redirect_to @job, notice: "Job was successfully unstaffed." }
+        format.json { render :show, status: :ok, location: @job }
+      end
+      return
+    end
+
+    if job_params[:employee_ids].length == 1
+      @job.reset_to_scheduled!
+
+      respond_to do |format|
+        if @job.update(job_params)
+          format.html { redirect_to @job, notice: "Job was successfully unstaffed." }
+          format.json { render :show, status: :ok, location: @job }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+          format.json { render json: @job.errors, status: :unprocessable_entity }
+        end
+      end
+
+      return
+    end
+
+    respond_to do |format|
+      if @job.update(job_params)
+        @job.staff! unless @job.staffed?
+        format.html { redirect_to @job, notice: "Job was successfully staffed." }
+        format.json { render :show, status: :ok, location: @job }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @job.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /jobs or /jobs.json
@@ -99,7 +139,8 @@ class JobsController < ApplicationController
       :total_hours,
       :revenue,
       job_attribute_answers_attributes: [:id, :job_attribute_id, :answer, :_destroy],
-      :company_resource_ids => []
+      :company_resource_ids => [],
+      :employee_ids => []
     )
   end
 end

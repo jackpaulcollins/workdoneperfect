@@ -50,6 +50,10 @@ class JobTemplatesController < ApplicationController
 
   # PATCH/PUT /job_templates/1 or /job_templates/1.json
   def update
+    if @job_template.required_resources.present? && job_template_params[:required_resources].nil?
+      @job_template.required_resources = nil
+    end
+
     respond_to do |format|
       if @job_template.update(job_template_params)
         format.html { redirect_to @job_template, notice: "Job template was successfully updated." }

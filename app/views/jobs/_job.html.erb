@@ -8,7 +8,7 @@
         <h1 class="text-2xl font-bold text-gray-900 hover:text-primary-500"><%= job.customer.name_and_email_or_email %></h1>
         <% end %>
         <div>
-          <p class="text-md font-medium text-gray-500">State: <%= job.state %></p>
+          <p class="text-md font-medium text-gray-500">State: <%= job.state_display %></p>
           <p class="text-sm font-medium text-gray-500"><%= job.date_and_time.to_formatted_s(:long) %></p>
         </div>
       </div>
@@ -19,6 +19,21 @@
         Email
       <% end %>
     </div>
+  </div>
+  <div>
+    <% if job.staffed? %>
+      <h5>Scheduled Employees:</h5>
+      <%= link_to "Edit staffing", staff_job_path(@job) %>
+
+      <% job.employee_jobs.each do |s| %>
+        <%= s.employee.first_name %>
+      <% end %>
+    <% end %>
+  </div>
+  <div>
+   <% if job.scheduled? %>
+    <%= link_to "Schedule Job", staff_job_path(@job) %>
+   <% end %>
   </div>
     <% if job&.job_template&.job_attributes&.any? %>
       <div class="min-w-full">

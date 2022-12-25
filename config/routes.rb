@@ -3,7 +3,13 @@ Rails.application.routes.draw do
   match "/employee_templates/bulk_upload", to: "employee_templates#bulk_upload", as: :bulk_upload, via: :get
   post "/employee_templates/bulk_upload", to: "employee_templates#process_bulk_upload"
 
-  resources :jobs
+  resources :jobs do
+    member do
+      get :staff
+      post :add_employees
+    end
+  end
+
   resources :job_templates
   resources :customers
   resources :employee_attributes
