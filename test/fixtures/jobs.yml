@@ -35,6 +35,17 @@ one:
   total_hours: 1.5
   revenue: 1.5
   job_template: jobs(:one)
+  state: scheduled
+
+account_one_two:
+  account: one
+  customer: one
+  date_and_time: 2022-10-12 22:48:39
+  estimated_hours: 1.5
+  total_hours: 1.5
+  revenue: 1.5
+  job_template: jobs(:one)
+  state: staffed
 
 two:
   account: two
@@ -44,3 +55,4 @@ two:
   total_hours: 1.5
   revenue: 1.5
   completed_at: 2022-10-12 23:48:39
+  state: draft
