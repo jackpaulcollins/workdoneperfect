@@ -436,6 +436,8 @@ GEM
       connection_pool (>= 2.2.5)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
+    simple_calendar (2.4.3)
+      rails (>= 3.0)
     sixarm_ruby_unaccent (1.2.0)
     smart_properties (1.17.0)
     smarter_csv (1.7.2)
@@ -583,6 +585,7 @@ DEPENDENCIES
   ruby-oembed (~> 0.16.0)
   selenium-webdriver
   sidekiq
+  simple_calendar (~> 2.4)
   smarter_csv (~> 1.1, >= 1.1.4)
   solargraph-rails (~> 0.2.0.pre)
   sprockets-rails (>= 3.4.1)
