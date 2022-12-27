@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'administrate/base_dashboard'
+require "administrate/base_dashboard"
 
 class AccountInvitationDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -11,7 +11,7 @@ class AccountInvitationDashboard < Administrate::BaseDashboard
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
     account: Field::BelongsTo,
-    invited_by: Field::BelongsTo.with_options(class_name: 'User'),
+    invited_by: Field::BelongsTo.with_options(class_name: "User"),
     id: Field::Number,
     invited_by_id: Field::Number,
     token: Field::String,

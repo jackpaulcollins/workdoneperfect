@@ -9,6 +9,6 @@ class JobTemplateValidator < ActiveModel::Validator
   def validate(record)
     return unless record.default_template && default_template_present?
 
-    record.errors.add :base, 'Default template is set'
+    record.errors.add :base, "Default template is set"
   end
 end

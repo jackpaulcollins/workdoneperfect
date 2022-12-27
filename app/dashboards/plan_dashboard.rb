@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'administrate/base_dashboard'
+require "administrate/base_dashboard"
 
 class PlanDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -17,7 +17,7 @@ class PlanDashboard < Administrate::BaseDashboard
     stripe_tax: Field::Boolean,
     unit: Field::String,
     currency: Field::Select.with_options(collection: Pay::Currency.all.map do |iso, v|
-                                                       ["#{iso.upcase} - #{v['name']}", iso]
+                                                       ["#{iso.upcase} - #{v["name"]}", iso]
                                                      end),
     interval: Field::Select.with_options(collection: %w[month year]),
     interval_count: Field::Number,

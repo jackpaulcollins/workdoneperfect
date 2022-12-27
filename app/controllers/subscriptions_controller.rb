@@ -9,7 +9,7 @@ class SubscriptionsController < ApplicationController
   before_action :set_subscription, only: %i[show edit update destroy]
   before_action :redirect_to_billing_address, only: [:new]
 
-  layout 'checkout', only: %i[new payment create]
+  layout "checkout", only: %i[new payment create]
 
   def index
     @billing_address = current_account.billing_address
@@ -56,7 +56,7 @@ class SubscriptionsController < ApplicationController
       plan: @plan.id_for_processor(payment_processor.processor),
       trial_period_days: @plan.trial_period_days
     )
-    redirect_to root_path, notice: t('.created')
+    redirect_to root_path, notice: t(".created")
   rescue Pay::ActionRequired => e
     redirect_to pay.payment_path(e.payment.id)
   rescue Pay::Error => e
@@ -75,7 +75,7 @@ class SubscriptionsController < ApplicationController
 
   def update
     @subscription.swap @plan.id_for_processor(current_account.payment_processor.processor)
-    redirect_to subscriptions_path, notice: t('.success')
+    redirect_to subscriptions_path, notice: t(".success")
   rescue Pay::Error => e
     edit # Reload plans
     flash[:alert] = e.message
@@ -84,7 +84,7 @@ class SubscriptionsController < ApplicationController
 
   def info
     current_account.update(info_params)
-    redirect_to subscriptions_path, notice: t('.info_updated')
+    redirect_to subscriptions_path, notice: t(".info_updated")
   end
 
   private
@@ -96,7 +96,7 @@ class SubscriptionsController < ApplicationController
   def require_payments_enabled
     return if Jumpstart.config.payments_enabled?
 
-    flash[:alert] = 'Jumpstart must be configured for payments before you can manage subscriptions.'
+    flash[:alert] = "Jumpstart must be configured for payments before you can manage subscriptions."
     redirect_back(fallback_location: root_path)
   end
 

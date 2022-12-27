@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rollbar'
+require "rollbar"
 
 Rollbar.configure do |config|
   config.access_token = Rails.application.credentials.dig(:rollbar, :access_token)

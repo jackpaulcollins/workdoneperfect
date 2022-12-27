@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'administrate/base_dashboard'
+require "administrate/base_dashboard"
 
 class AccountDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -10,10 +10,10 @@ class AccountDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    owner: Field::BelongsTo.with_options(class_name: 'User'),
-    pay_customers: Field::HasMany.with_options(class_name: 'Pay::Customer'),
-    charges: Field::HasMany.with_options(class_name: 'Pay::Charge'),
-    subscriptions: Field::HasMany.with_options(class_name: 'Pay::Subscription'),
+    owner: Field::BelongsTo.with_options(class_name: "User"),
+    pay_customers: Field::HasMany.with_options(class_name: "Pay::Customer"),
+    charges: Field::HasMany.with_options(class_name: "Pay::Charge"),
+    subscriptions: Field::HasMany.with_options(class_name: "Pay::Subscription"),
     account_users: Field::HasMany,
     users: Field::HasMany,
     avatar: Field::ActiveStorage,

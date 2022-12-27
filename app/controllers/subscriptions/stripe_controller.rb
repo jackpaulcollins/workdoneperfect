@@ -13,9 +13,9 @@ module Subscriptions
 
       if @subscription.active?
         current_account.set_payment_processor :stripe
-        redirect_to root_path, notice: t('subscriptions.created')
+        redirect_to root_path, notice: t("subscriptions.created")
       else
-        redirect_to root_path, alert: t('something_went_wrong')
+        redirect_to root_path, alert: t("something_went_wrong")
       end
     end
 

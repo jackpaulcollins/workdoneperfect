@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'administrate/base_dashboard'
+require "administrate/base_dashboard"
 
 module User
   class ConnectedAccountDashboard < Administrate::BaseDashboard

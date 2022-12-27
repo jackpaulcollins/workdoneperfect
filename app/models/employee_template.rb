@@ -26,14 +26,14 @@ class EmployeeTemplate < ApplicationRecord
   has_many :employees, dependent: :destroy
   has_many :employee_attributes, index_errors: true, dependent: :destroy
 
-  validates :title, presence: true, uniqueness: { scope: :account_id }
+  validates :title, presence: true, uniqueness: {scope: :account_id}
 
   accepts_nested_attributes_for :employee_attributes, allow_destroy: true
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit lambda {
-                        broadcast_prepend_later_to :employee_templates, partial: 'employee_templates/index',
-                                                                        locals: { employee_template: self }
+                        broadcast_prepend_later_to :employee_templates, partial: "employee_templates/index",
+                          locals: {employee_template: self}
                       }
   after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :employee_templates, target: dom_id(self, :index) }

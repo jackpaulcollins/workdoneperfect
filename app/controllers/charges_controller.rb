@@ -8,9 +8,9 @@ class ChargesController < ApplicationController
     respond_to do |format|
       format.pdf do
         send_data @charge.receipt,
-                  filename: @charge.filename,
-                  type: 'application/pdf',
-                  disposition: :inline
+          filename: @charge.filename,
+          type: "application/pdf",
+          disposition: :inline
       end
     end
   end
@@ -19,9 +19,9 @@ class ChargesController < ApplicationController
     respond_to do |format|
       format.pdf do
         send_data @charge.invoice,
-                  filename: @charge.invoice_filename,
-                  type: 'application/pdf',
-                  disposition: :inline
+          filename: @charge.invoice_filename,
+          type: "application/pdf",
+          disposition: :inline
       end
     end
   end

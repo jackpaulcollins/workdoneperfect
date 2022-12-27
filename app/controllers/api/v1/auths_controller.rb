@@ -12,12 +12,12 @@ module Api
         if user&.valid_password?(params[:password])
           if turbo_native_app?
             sign_in_user
-            render json: { token: token_by_name(ApiToken::APP_NAME) }
+            render json: {token: token_by_name(ApiToken::APP_NAME)}
           else
-            render json: { token: token_by_name(ApiToken::DEFAULT_NAME) }
+            render json: {token: token_by_name(ApiToken::DEFAULT_NAME)}
           end
         else
-          render json: { error: error_message }, status: :unauthorized
+          render json: {error: error_message}, status: :unauthorized
         end
       end
 
@@ -44,7 +44,7 @@ module Api
 
       def error_message
         keys = User.authentication_keys.join(I18n.translate(:"support.array.words_connector"))
-        I18n.t('devise.failure.invalid', authentication_keys: keys)
+        I18n.t("devise.failure.invalid", authentication_keys: keys)
       end
 
       def notification_token

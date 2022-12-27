@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module Jumpstart
   class SubscriptionsTest < ActionDispatch::IntegrationTest
@@ -9,7 +9,7 @@ module Jumpstart
       @admin = users(:one)
       @regular_user = users(:two)
       @plan = plans(:personal)
-      @card_token = 'tok_visa'
+      @card_token = "tok_visa"
     end
 
     class AdminUsers < Jumpstart::SubscriptionsTest
@@ -20,7 +20,7 @@ module Jumpstart
         end
       end
 
-      test 'can subscribe account' do
+      test "can subscribe account" do
         Jumpstart.config.stub(:payments_enabled?, true) do
           Jumpstart.config.stub(:collect_billing_address?, false) do
             get new_subscription_path(plan: @plan)
@@ -38,29 +38,29 @@ module Jumpstart
         end
       end
 
-      test 'cannot navigate to new_subscription page' do
+      test "cannot navigate to new_subscription page" do
         Jumpstart.config.stub(:payments_enabled?, true) do
           get new_subscription_path(plan: @plan)
           assert_redirected_to root_path
-          assert_equal I18n.t('must_be_an_admin'), flash[:alert]
+          assert_equal I18n.t("must_be_an_admin"), flash[:alert]
         end
       end
 
-      test 'cannot subscribe' do
+      test "cannot subscribe" do
         Jumpstart.config.stub(:payments_enabled?, true) do
           post subscriptions_path, params: {}
           assert_redirected_to root_path
-          assert_equal I18n.t('must_be_an_admin'), flash[:alert]
+          assert_equal I18n.t("must_be_an_admin"), flash[:alert]
         end
       end
 
-      test 'cannot delete subscription' do
+      test "cannot delete subscription" do
         @account.set_payment_processor :fake_processor, allow_fake: true
         subscription = @account.payment_processor.subscribe
         Jumpstart.config.stub(:payments_enabled?, true) do
           delete subscription_cancel_path(subscription)
           assert_redirected_to root_path
-          assert_equal I18n.t('must_be_an_admin'), flash[:alert]
+          assert_equal I18n.t("must_be_an_admin"), flash[:alert]
         end
       end
     end

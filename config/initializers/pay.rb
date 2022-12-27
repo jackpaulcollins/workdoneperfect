@@ -6,7 +6,7 @@ Pay.setup do |config|
   config.business_address = Jumpstart.config.business_address
   config.support_email = Jumpstart.config.support_email
 
-  config.routes_path = '/'
+  config.routes_path = "/"
 end
 
 module SubscriptionExtensions
@@ -19,7 +19,7 @@ module SubscriptionExtensions
   end
 
   def plan
-    @plan ||= Plan.where('details @> ?', { "#{customer.processor}_id": processor_plan }.to_json).first
+    @plan ||= Plan.where("details @> ?", {"#{customer.processor}_id": processor_plan}.to_json).first
   end
 
   def plan_interval
@@ -28,7 +28,7 @@ module SubscriptionExtensions
 
   def amount_with_currency(**options)
     total = quantity.zero? ? plan.amount : plan.amount * quantity
-    Pay::Currency.format(total, **{ currency: plan.currency }.merge(options))
+    Pay::Currency.format(total, **{currency: plan.currency}.merge(options))
   end
 end
 
