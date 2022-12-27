@@ -12,46 +12,46 @@ module Turbo
             require_authentication: false,
             tabs: [
               {
-                title: 'Home',
+                title: "Home",
                 path: root_path,
-                ios_system_image_name: 'house'
+                ios_system_image_name: "house"
               },
               {
                 title: "What's New",
                 path: announcements_path,
-                ios_system_image_name: 'megaphone'
+                ios_system_image_name: "megaphone"
               },
               {
-                title: 'Notifications',
+                title: "Notifications",
                 path: notifications_path,
-                ios_system_image_name: 'bell',
+                ios_system_image_name: "bell",
                 show_notification_badge: true
               }
             ]
           },
           rules: [
             {
-              patterns: ['/new$', '/edit$'],
+              patterns: ["/new$", "/edit$"],
               properties: {
-                presentation: 'modal'
+                presentation: "modal"
               }
             },
             {
-              patterns: ['/users/sign_up'],
+              patterns: ["/users/sign_up"],
               properties: {
-                flow: 'registration'
+                flow: "registration"
               }
             },
             {
-              patterns: ['/users/sign_in'],
+              patterns: ["/users/sign_in"],
               properties: {
-                flow: 'authentication'
+                flow: "authentication"
               }
             },
             {
-              patterns: ['/account/password/edit'],
+              patterns: ["/account/password/edit"],
               properties: {
-                flow: 'update_password'
+                flow: "update_password"
               }
             }
           ]

@@ -19,11 +19,12 @@ module Accounts
       end
     end
 
-    def edit; end
+    def edit
+    end
 
     def update
       if @account_invitation.update(invitation_params)
-        redirect_to @account, notice: t('.updated')
+        redirect_to @account, notice: t(".updated")
       else
         render :edit, status: :unprocessable_entity
       end
@@ -31,7 +32,7 @@ module Accounts
 
     def destroy
       @account_invitation.destroy
-      redirect_to @account, status: :see_other, notice: t('.destroyed')
+      redirect_to @account, status: :see_other, notice: t(".destroyed")
     end
 
     private

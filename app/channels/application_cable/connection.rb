@@ -14,13 +14,13 @@ module ApplicationCable
       set_request_details
       self.current_account = Current.account
 
-      logger.add_tags 'ActionCable', "User #{current_user.id}", "Account #{current_account.id}"
+      logger.add_tags "ActionCable", "User #{current_user.id}", "Account #{current_account.id}"
     end
 
     protected
 
     def find_verified_user
-      if (current_user = env['warden'].user(:user))
+      if (current_user = env["warden"].user(:user))
         current_user
       else
         reject_unauthorized_connection

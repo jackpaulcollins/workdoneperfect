@@ -34,7 +34,7 @@ class CreatePayV3Models < ActiveRecord::Migration[6.0]
     add_index :pay_merchants, %i[owner_type owner_id processor]
 
     create_table :pay_payment_methods do |t|
-      t.belongs_to :customer, foreign_key: { to_table: :pay_customers }, index: false
+      t.belongs_to :customer, foreign_key: {to_table: :pay_customers}, index: false
       t.string :processor_id
       t.boolean :default
       t.string :type
@@ -61,10 +61,10 @@ class CreatePayV3Models < ActiveRecord::Migration[6.0]
 
     remove_index :pay_charges, %i[processor processor_id] if index_exists?(:pay_charges, %i[processor processor_id])
     remove_index :pay_subscriptions, %i[processor processor_id] if index_exists?(:pay_subscriptions,
-                                                                                 %i[processor processor_id])
+      %i[processor processor_id])
 
-    add_reference :pay_charges, :customer, foreign_key: { to_table: :pay_customers }, index: false
-    add_reference :pay_subscriptions, :customer, foreign_key: { to_table: :pay_customers }, index: false
+    add_reference :pay_charges, :customer, foreign_key: {to_table: :pay_customers}, index: false
+    add_reference :pay_subscriptions, :customer, foreign_key: {to_table: :pay_customers}, index: false
     add_index :pay_charges, %i[customer_id processor_id], unique: true
     add_index :pay_subscriptions, %i[customer_id processor_id], unique: true
   end

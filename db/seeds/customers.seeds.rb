@@ -9,8 +9,8 @@ Account.all.each do |account|
     email = Faker::Internet.email(name: "#{first_name} #{last_name}")
     phone_number = Faker::PhoneNumber.cell_phone
     customer = account.customers.create({
-                                          email:
-                                        })
+      email:
+    })
 
     customer.update(first_name:) if [true, false].sample
     customer.update(last_name:) if [true, false].sample

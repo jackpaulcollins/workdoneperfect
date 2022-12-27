@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 module Jumpstart
   class AccountsAccountInvitationsTest < ActionDispatch::IntegrationTest
@@ -15,33 +15,33 @@ module Jumpstart
         sign_in @admin
       end
 
-      test 'can view invite form' do
+      test "can view invite form" do
         get new_account_account_invitation_path(@account)
         assert_response :success
       end
 
-      test 'can invite account members' do
-        name = 'Account Member'
-        email = 'new-member@example.com'
-        assert_difference '@account.account_invitations.count' do
+      test "can invite account members" do
+        name = "Account Member"
+        email = "new-member@example.com"
+        assert_difference "@account.account_invitations.count" do
           post account_account_invitations_path(@account),
-               params: { account_invitation: { name:, email:, admin: '0' } }
+            params: {account_invitation: {name:, email:, admin: "0"}}
         end
         assert_not @account.account_invitations.last.admin?
       end
 
-      test 'can invite account members with roles' do
-        name = 'Account Member'
-        email = 'new-member@example.com'
-        assert_difference '@account.account_invitations.count' do
+      test "can invite account members with roles" do
+        name = "Account Member"
+        email = "new-member@example.com"
+        assert_difference "@account.account_invitations.count" do
           post account_account_invitations_path(@account),
-               params: { account_invitation: { name:, email:, admin: '1' } }
+            params: {account_invitation: {name:, email:, admin: "1"}}
         end
         assert @account.account_invitations.last.admin?
       end
 
-      test 'can cancel invitation' do
-        assert_difference '@account.account_invitations.count', -1 do
+      test "can cancel invitation" do
+        assert_difference "@account.account_invitations.count", -1 do
           delete account_account_invitation_path(@account, @account.account_invitations.last)
         end
       end
@@ -52,20 +52,20 @@ module Jumpstart
         sign_in @regular_user
       end
 
-      test 'cannot view invite form' do
+      test "cannot view invite form" do
         get new_account_account_invitation_path(@account)
         assert_response :redirect
       end
 
-      test 'cannot invite account members' do
-        assert_no_difference '@account.account_invitations.count' do
+      test "cannot invite account members" do
+        assert_no_difference "@account.account_invitations.count" do
           post account_account_invitations_path(@account),
-               params: { account_invitation: { name: 'test', email: 'new-member@example.com', admin: '0' } }
+            params: {account_invitation: {name: "test", email: "new-member@example.com", admin: "0"}}
         end
       end
 
-      test 'can cancel invitation' do
-        assert_no_difference '@account.account_invitations.count' do
+      test "can cancel invitation" do
+        assert_no_difference "@account.account_invitations.count" do
           delete account_account_invitation_path(@account, @account.account_invitations.last)
         end
       end

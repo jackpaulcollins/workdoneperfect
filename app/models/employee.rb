@@ -43,15 +43,15 @@ class Employee < ApplicationRecord
   validates :email, format: User.email_regexp, allow_blank: true
   validates :first_name, presence: true
 
-  scope :active, ->(active = true) { where('final_date IS NULL OR final_date > ?', Date.today) if active }
+  scope :active, ->(active = true) { where("final_date IS NULL OR final_date > ?", Date.today) if active }
 
   def self.ransackable_scopes(_auth_object = nil)
     [:active]
   end
 
   ransacker :full_name do |parent|
-    Arel::Nodes::InfixOperation.new('||',
-                                    parent.table[:first_name], parent.table[:last_name])
+    Arel::Nodes::InfixOperation.new("||",
+      parent.table[:first_name], parent.table[:last_name])
   end
 
   def name
@@ -69,12 +69,12 @@ class Employee < ApplicationRecord
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit do
-    broadcast_prepend_later_to :employees, partial: 'employees/index', locals: { employee: self } # Append to index
+    broadcast_prepend_later_to :employees, partial: "employees/index", locals: {employee: self} # Append to index
   end
 
   after_update_commit do
     broadcast_replace_later_to self # Update the show
-    broadcast_replace_later_to :employees, target: dom_id(self, :index), partial: 'employees/index', locals: { employee: self } # Update the index
+    broadcast_replace_later_to :employees, target: dom_id(self, :index), partial: "employees/index", locals: {employee: self} # Update the index
   end
 
   after_destroy_commit do

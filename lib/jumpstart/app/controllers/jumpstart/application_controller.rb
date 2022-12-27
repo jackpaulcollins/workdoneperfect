@@ -9,7 +9,8 @@ module Jumpstart
     impersonates :user
 
     # Used for sharing flash between main app and gem
-    def current_account; end
+    def current_account
+    end
     helper_method :current_account
   end
 end

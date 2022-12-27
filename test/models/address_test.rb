@@ -21,7 +21,7 @@
 #
 #  index_addresses_on_addressable  (addressable_type,addressable_id)
 #
-require 'test_helper'
+require "test_helper"
 
 class AddressTest < ActiveSupport::TestCase
   # test "the truth" do

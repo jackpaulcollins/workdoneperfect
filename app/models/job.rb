@@ -48,10 +48,10 @@ class Job < ApplicationRecord
   before_validation :maybe_discard_stale_answers, if: :template_changing?
 
   # Broadcast changes in realtime with Hotwire
-  after_create_commit -> { broadcast_prepend_later_to :jobs, partial: 'jobs/index', locals: { job: self } }
+  after_create_commit -> { broadcast_prepend_later_to :jobs, partial: "jobs/index", locals: {job: self} }
   after_destroy_commit -> { broadcast_remove_to :jobs, target: dom_id(self, :index) }
 
-  scope :completed, ->(completed = true) { where('completed_at IS NOT NULL') if completed }
+  scope :completed, ->(completed = true) { where("completed_at IS NOT NULL") if completed }
 
   # :draft, :scheduled, :staffed (employees added), :canceled or :completed
 
@@ -110,8 +110,8 @@ class Job < ApplicationRecord
   end
 
   def state_display
-    if state == 'staffed'
-      'Scheduled & Staffed'
+    if state == "staffed"
+      "Scheduled & Staffed"
     else
       state.capitalize
     end

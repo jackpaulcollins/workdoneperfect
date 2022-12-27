@@ -4,7 +4,7 @@ ActionView::Base.field_error_proc = proc do |html_tag, instance|
   # This is the default Rails error wrapper, but it's not nice
   # html = %(<div class="field_with_errors">#{html_tag}</div>).html_safe
 
-  html = ''
+  html = ""
 
   form_fields = %w[
     textarea
@@ -12,25 +12,25 @@ ActionView::Base.field_error_proc = proc do |html_tag, instance|
     select
   ]
 
-  elements = Nokogiri::HTML::DocumentFragment.parse(html_tag).css "label, #{form_fields.join(', ')}"
+  elements = Nokogiri::HTML::DocumentFragment.parse(html_tag).css "label, #{form_fields.join(", ")}"
   elements.each do |e|
     if form_fields.include? e.node_name
       # Add the error class directly to the element
-      e.add_class('error')
+      e.add_class("error")
 
-      html = if e.get_attribute('type') == 'checkbox'
-               # Checkboxes can't have a border, so we'll need to skip these for now unless we make them more complicated
-               e.to_s
+      html = if e.get_attribute("type") == "checkbox"
+        # Checkboxes can't have a border, so we'll need to skip these for now unless we make them more complicated
+        e.to_s
 
-             elsif instance.error_message.respond_to? :each
-               # Add a hint error after the field
-               # If there were multiple errors on an element, we'll combine them into one string
-               %(#{e}<p class="form-hint error">&nbsp;#{instance.object.class.human_attribute_name(instance.send(:sanitized_method_name))} #{instance.error_message.uniq.to_sentence}</p>)
+      elsif instance.error_message.respond_to? :each
+        # Add a hint error after the field
+        # If there were multiple errors on an element, we'll combine them into one string
+        %(#{e}<p class="form-hint error">&nbsp;#{instance.object.class.human_attribute_name(instance.send(:sanitized_method_name))} #{instance.error_message.uniq.to_sentence}</p>)
 
-             else
-               # Add a hint error after the field
-               %(#{e}<p class="form-hint error">&nbsp;#{instance.object.class.human_attribute_name(instance.send(:sanitized_method_name))} #{instance.error_message}</p>)
-             end
+      else
+        # Add a hint error after the field
+        %(#{e}<p class="form-hint error">&nbsp;#{instance.object.class.human_attribute_name(instance.send(:sanitized_method_name))} #{instance.error_message}</p>)
+      end
 
     # Labels
     # if e.node_name.eql? "label"

@@ -29,8 +29,8 @@ class EmployeeAttribute < ApplicationRecord
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit lambda {
-                        broadcast_prepend_later_to :employee_attributes, partial: 'employee_attributes/index',
-                                                                         locals: { employee_attribute: self }
+                        broadcast_prepend_later_to :employee_attributes, partial: "employee_attributes/index",
+                          locals: {employee_attribute: self}
                       }
   after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :employee_attributes, target: dom_id(self, :index) }

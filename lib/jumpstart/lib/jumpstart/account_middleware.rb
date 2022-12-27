@@ -19,7 +19,7 @@ module Jumpstart
       _, account_id, request_path = request.path.split("/", 3)
 
       if /\d+/.match?(account_id)
-        return [302, { "Location" => "/" }, []] unless (account = Account.find_by(id: account_id))
+        return [302, {"Location" => "/"}, []] unless (account = Account.find_by(id: account_id))
 
         Current.account = account
 

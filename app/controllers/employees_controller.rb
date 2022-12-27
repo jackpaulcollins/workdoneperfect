@@ -19,7 +19,8 @@ class EmployeesController < ApplicationController
   end
 
   # GET /employees/1 or /employees/1.json
-  def show; end
+  def show
+  end
 
   # GET /employees/new
   def new
@@ -30,7 +31,8 @@ class EmployeesController < ApplicationController
   end
 
   # GET /employees/1/edit
-  def edit; end
+  def edit
+  end
 
   # POST /employees or /employees.json
   def create
@@ -41,7 +43,7 @@ class EmployeesController < ApplicationController
 
     respond_to do |format|
       if @employee.save
-        format.html { redirect_to @employee, notice: 'Employee was successfully created.' }
+        format.html { redirect_to @employee, notice: "Employee was successfully created." }
         format.json { render :show, status: :created, location: @employee }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +56,7 @@ class EmployeesController < ApplicationController
   def update
     respond_to do |format|
       if @employee.update(employee_params)
-        format.html { redirect_to @employee, notice: 'Employee was successfully updated.' }
+        format.html { redirect_to @employee, notice: "Employee was successfully updated." }
         format.json { render :show, status: :ok, location: @employee }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -67,7 +69,7 @@ class EmployeesController < ApplicationController
   def destroy
     @employee.destroy
     respond_to do |format|
-      format.html { redirect_to employees_url, status: :see_other, notice: 'Employee was successfully destroyed.' }
+      format.html { redirect_to employees_url, status: :see_other, notice: "Employee was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -87,14 +89,14 @@ class EmployeesController < ApplicationController
   def ensure_template
     return unless current_account.employee_templates.none?
 
-    flash[:notice] = 'Please Create a Template Before Creating Employee Records'
+    flash[:notice] = "Please Create a Template Before Creating Employee Records"
     redirect_to new_employee_template_path
   end
 
   # Only allow a list of trusted parameters through.
   def employee_params
     params.require(:employee).permit(:account_id, :employee_template_id, :email, :first_name, :last_name, :start_date,
-                                     :final_date, attribute_answers_attributes: %i[id employee_attribute_id answer])
+      :final_date, attribute_answers_attributes: %i[id employee_attribute_id answer])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:employee).permit(policy(@employee).permitted_attributes)

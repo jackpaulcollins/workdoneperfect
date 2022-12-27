@@ -25,7 +25,7 @@
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (invited_by_id => users.id)
 #
-require 'test_helper'
+require "test_helper"
 
 class AccountInvitationTest < ActiveSupport::TestCase
   setup do
@@ -33,14 +33,14 @@ class AccountInvitationTest < ActiveSupport::TestCase
     @account = @account_invitation.account
   end
 
-  test 'cannot invite same email twice' do
-    invitation = @account.account_invitations.create(name: 'whatever', email: @account_invitation.email)
+  test "cannot invite same email twice" do
+    invitation = @account.account_invitations.create(name: "whatever", email: @account_invitation.email)
     assert_not invitation.valid?
   end
 
-  test 'accept' do
+  test "accept" do
     user = users(:invited)
-    assert_difference 'AccountUser.count' do
+    assert_difference "AccountUser.count" do
       account_user = @account_invitation.accept!(user)
       assert account_user.persisted?
       assert_equal user, account_user.user
@@ -51,14 +51,14 @@ class AccountInvitationTest < ActiveSupport::TestCase
     end
   end
 
-  test 'reject' do
-    assert_difference 'AccountInvitation.count', -1 do
+  test "reject" do
+    assert_difference "AccountInvitation.count", -1 do
       @account_invitation.reject!
     end
   end
 
-  test 'accept sends notifications account owner and inviter' do
-    assert_difference 'Notification.count', 2 do
+  test "accept sends notifications account owner and inviter" do
+    assert_difference "Notification.count", 2 do
       account_invitations(:two).accept!(users(:invited))
     end
     assert_equal @account, Notification.last.account
