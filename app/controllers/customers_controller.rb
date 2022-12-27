@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CustomersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_customer, only: [:show, :edit, :update, :destroy]
+  before_action :set_customer, only: %i[show edit update destroy]
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized
@@ -15,8 +17,7 @@ class CustomersController < ApplicationController
   end
 
   # GET /customers/1 or /customers/1.json
-  def show
-  end
+  def show; end
 
   # GET /customers/new
   def new
@@ -27,8 +28,7 @@ class CustomersController < ApplicationController
   end
 
   # GET /customers/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /customers or /customers.json
   def create
@@ -39,7 +39,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
-        format.html { redirect_to @customer, notice: "Customer was successfully created." }
+        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class CustomersController < ApplicationController
   def update
     respond_to do |format|
       if @customer.update(customer_params)
-        format.html { redirect_to @customer, notice: "Customer was successfully updated." }
+        format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }
         format.json { render :show, status: :ok, location: @customer }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -65,7 +65,7 @@ class CustomersController < ApplicationController
   def destroy
     @customer.destroy
     respond_to do |format|
-      format.html { redirect_to customers_url, status: :see_other, notice: "Customer was successfully destroyed." }
+      format.html { redirect_to customers_url, status: :see_other, notice: 'Customer was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

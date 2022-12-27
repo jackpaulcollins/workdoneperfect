@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Agreement = Struct.new(:id, :title, :column, :updated, keyword_init: true) do
   def accepted_by?(user)
     accepted_at = user.public_send(column)

@@ -1,22 +1,26 @@
-require "test_helper"
+# frozen_string_literal: true
 
-class Jumpstart::AdminTest < ActionDispatch::IntegrationTest
-  test "cannot access /admin logged out" do
-    assert_raises ActionController::RoutingError do
-      get "/admin"
+require 'test_helper'
+
+module Jumpstart
+  class AdminTest < ActionDispatch::IntegrationTest
+    test 'cannot access /admin logged out' do
+      assert_raises ActionController::RoutingError do
+        get '/admin'
+      end
     end
-  end
 
-  test "cannot access /admin as regular user" do
-    assert_raises ActionController::RoutingError do
-      sign_in users(:one)
-      get "/admin"
+    test 'cannot access /admin as regular user' do
+      assert_raises ActionController::RoutingError do
+        sign_in users(:one)
+        get '/admin'
+      end
     end
-  end
 
-  test "can access /admin as admin user" do
-    sign_in users(:admin)
-    get "/admin"
-    assert_response :success
+    test 'can access /admin as admin user' do
+      sign_in users(:admin)
+      get '/admin'
+      assert_response :success
+    end
   end
 end

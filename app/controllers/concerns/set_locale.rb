@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Check out the Rails guides for setting locale by domain or subdomain
 # https://guides.rubyonrails.org/i18n.html#setting-the-locale-from-the-domain-name
 
@@ -30,11 +32,12 @@ module SetLocale
 
   def locale_from_user
     return unless user_signed_in?
+
     permit_locale(current_user.preferred_language)
   end
 
   def locale_from_header
-    permit_locale request.env.fetch("HTTP_ACCEPT_LANGUAGE", "").scan(/^[a-z]{2}/).first
+    permit_locale request.env.fetch('HTTP_ACCEPT_LANGUAGE', '').scan(/^[a-z]{2}/).first
   end
 
   # Makes sure locale is in the available locales list

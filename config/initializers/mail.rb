@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # Assign the from email address in all environments
 Rails.application.reloader.to_prepare do
-  ActionMailer::Base.default_options = {from: Jumpstart.config.default_from_email}
+  ActionMailer::Base.default_options = { from: Jumpstart.config.default_from_email }
 
   if Rails.env.production?
     ActionMailer::Base.default_url_options[:host] = Jumpstart.config.domain

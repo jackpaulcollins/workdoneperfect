@@ -1,14 +1,18 @@
-require "test_helper"
+# frozen_string_literal: true
 
-class Jumpstart::StaticTest < ActionDispatch::IntegrationTest
-  test "homepage" do
-    get root_path
-    assert_response :success
-  end
+require 'test_helper'
 
-  test "dashboard" do
-    sign_in users(:one)
-    get root_path
-    assert_select "h1", I18n.t("dashboard.show.title")
+module Jumpstart
+  class StaticTest < ActionDispatch::IntegrationTest
+    test 'homepage' do
+      get root_path
+      assert_response :success
+    end
+
+    test 'dashboard' do
+      sign_in users(:one)
+      get root_path
+      assert_select 'h1', I18n.t('dashboard.show.title')
+    end
   end
 end

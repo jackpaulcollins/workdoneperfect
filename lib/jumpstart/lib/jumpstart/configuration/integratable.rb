@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jumpstart
   class Configuration
     module Integratable
@@ -20,7 +22,7 @@ module Jumpstart
 
       attr_writer :integrations
 
-      AVAILABLE_PROVIDERS.values.each do |provider|
+      AVAILABLE_PROVIDERS.each_value do |provider|
         define_method(:"#{provider}?") do
           integrations.include?(provider)
         end
@@ -35,7 +37,7 @@ module Jumpstart
       end
 
       def self.credentials_for(integration)
-        Jumpstart.credentials.dig(Rails.env, integration.to_sym) || Jumpstart.credentials.dig(integration.to_sym) || {}
+        Jumpstart.credentials.dig(Rails.env, integration.to_sym) || Jumpstart.credentials[integration.to_sym] || {}
       end
     end
   end

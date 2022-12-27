@@ -1,27 +1,31 @@
-class Account::OwnershipNotification < ApplicationNotification
-  deliver_by :action_cable, format: :to_websocket, channel: "NotificationChannel"
+# frozen_string_literal: true
 
-  # Name of the previous owner. We only use the name in case the user gets deleted.
-  params :previous_owner
+module Account
+  class OwnershipNotification < ApplicationNotification
+    deliver_by :action_cable, format: :to_websocket, channel: 'NotificationChannel'
 
-  # Account being transferred
-  params :account
+    # Name of the previous owner. We only use the name in case the user gets deleted.
+    params :previous_owner
 
-  def to_websocket
-    {
-      html: ApplicationController.render(partial: "notifications/notification", locals: {notification: record})
-    }
-  end
+    # Account being transferred
+    params :account
 
-  def message
-    t "notifications.account_transferred", previous_owner: params[:previous_owner], account: record.account.name
-  end
+    def to_websocket
+      {
+        html: ApplicationController.render(partial: 'notifications/notification', locals: { notification: record })
+      }
+    end
 
-  def url
-    account_path(record.account)
-  end
+    def message
+      t 'notifications.account_transferred', previous_owner: params[:previous_owner], account: record.account.name
+    end
 
-  def user
-    params[:user]
+    def url
+      account_path(record.account)
+    end
+
+    def user
+      params[:user]
+    end
   end
 end

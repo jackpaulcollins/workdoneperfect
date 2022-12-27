@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class EmployeeTemplatesController < ApplicationController
-  before_action :set_employee_template, only: [:show, :edit, :update, :destroy, :form_fields]
+  before_action :set_employee_template, only: %i[show edit update destroy form_fields]
   before_action :authenticate_user_with_sign_up!
 
   # Uncomment to enforce Pundit authorization
@@ -15,8 +17,7 @@ class EmployeeTemplatesController < ApplicationController
   end
 
   # GET /employee_templates/1 or /employee_templates/1.json
-  def show
-  end
+  def show; end
 
   # GET /employee_templates/new
   def new
@@ -27,16 +28,19 @@ class EmployeeTemplatesController < ApplicationController
   end
 
   # GET /employee_templates/1/edit
-  def edit
-  end
+  def edit; end
 
-  def bulk_upload
-  end
+  def bulk_upload; end
 
   def process_bulk_upload
     op = ::EmployeeTemplateBulkUploadOp.submit!(account_id: current_account.id, data: params[:csv].tempfile)
 
-    op.failures ? flash[:alert] = "#{op.failures} templates failed to save" : flash[:notice] = "#{op.successes} templates created!"
+    if op.failures
+      flash[:alert] =
+        "#{op.failures} templates failed to save"
+    else
+      flash[:notice] = "#{op.successes} templates created!"
+    end
 
     redirect_to employee_templates_path
   end
@@ -50,7 +54,7 @@ class EmployeeTemplatesController < ApplicationController
 
     respond_to do |format|
       if @employee_template.save
-        format.html { redirect_to @employee_template, notice: "Employee template was successfully created." }
+        format.html { redirect_to @employee_template, notice: 'Employee template was successfully created.' }
         format.json { render :show, status: :created, location: @employee_template }
       else
         format.html do
@@ -65,7 +69,7 @@ class EmployeeTemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @employee_template.update(employee_template_params)
-        format.html { redirect_to @employee_template, notice: "Employee template was successfully updated." }
+        format.html { redirect_to @employee_template, notice: 'Employee template was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee_template }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -78,7 +82,9 @@ class EmployeeTemplatesController < ApplicationController
   def destroy
     @employee_template.destroy
     respond_to do |format|
-      format.html { redirect_to employee_templates_url, status: :see_other, notice: "Employee template was successfully destroyed." }
+      format.html do
+        redirect_to employee_templates_url, status: :see_other, notice: 'Employee template was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end
@@ -104,7 +110,8 @@ class EmployeeTemplatesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def employee_template_params
-    params.require(:employee_template).permit(:account_id, :title, :csv, employee_attributes_attributes: [:id, :name, :data_type, :required, :_destroy])
+    params.require(:employee_template).permit(:account_id, :title, :csv,
+                                              employee_attributes_attributes: %i[id name data_type required _destroy])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:employee_template).permit(policy(@employee_template).permitted_attributes)

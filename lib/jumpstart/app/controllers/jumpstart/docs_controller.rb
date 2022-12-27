@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pagy/extras/array"
 
 module Jumpstart
@@ -7,13 +9,13 @@ module Jumpstart
     end
 
     def icons
-      @icons = Dir.chdir(Rails.root.join("app/assets/images")) {
+      @icons = Dir.chdir(Rails.root.join("app/assets/images")) do
         Dir.glob("icons/*.svg").sort
-      }
+      end
     end
 
     def pagination
-      @pagy, _ = pagy_array([nil] * 1000)
+      @pagy, = pagy_array([nil] * 1000)
     end
   end
 end

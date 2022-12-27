@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: customers
@@ -28,7 +30,7 @@ class Customer < ApplicationRecord
   belongs_to :account
   has_many :jobs, dependent: :destroy
 
-  validates :email, presence: true, uniqueness: {scope: :account_id}
+  validates :email, presence: true, uniqueness: { scope: :account_id }
 
   def has_name?
     first_name.present? || last_name.present?
@@ -47,7 +49,9 @@ class Customer < ApplicationRecord
   end
 
   # Broadcast changes in realtime with Hotwire
-  after_create_commit -> { broadcast_prepend_later_to :customers, partial: "customers/index", locals: {customer: self} }
+  after_create_commit lambda {
+                        broadcast_prepend_later_to :customers, partial: 'customers/index', locals: { customer: self }
+                      }
   after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :customers, target: dom_id(self, :index) }
 end

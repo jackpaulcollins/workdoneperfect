@@ -1,4 +1,6 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+
+require 'administrate/base_dashboard'
 
 class PlanDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -14,8 +16,10 @@ class PlanDashboard < Administrate::BaseDashboard
     amount: Field::Number,
     stripe_tax: Field::Boolean,
     unit: Field::String,
-    currency: Field::Select.with_options(collection: Pay::Currency.all.map { |iso, v| ["#{iso.upcase} - #{v["name"]}", iso] }),
-    interval: Field::Select.with_options(collection: ["month", "year"]),
+    currency: Field::Select.with_options(collection: Pay::Currency.all.map do |iso, v|
+                                                       ["#{iso.upcase} - #{v['name']}", iso]
+                                                     end),
+    interval: Field::Select.with_options(collection: %w[month year]),
     interval_count: Field::Number,
     trial_period_days: Field::Number,
     details: Field::String.with_options(searchable: false),
@@ -34,59 +38,59 @@ class PlanDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :id,
-    :name,
-    :hidden,
-    :amount,
-    :currency,
-    :interval,
-    :interval_count,
-    :trial_period_days
+  COLLECTION_ATTRIBUTES = %i[
+    id
+    name
+    hidden
+    amount
+    currency
+    interval
+    interval_count
+    trial_period_days
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :id,
-    :name,
-    :description,
-    :hidden,
-    :unit,
-    :amount,
-    :stripe_tax,
-    :currency,
-    :interval,
-    :interval_count,
-    :trial_period_days,
-    :stripe_id,
-    :braintree_id,
-    :paddle_id,
-    :fake_processor_id,
-    :features,
-    :created_at,
-    :updated_at
+  SHOW_PAGE_ATTRIBUTES = %i[
+    id
+    name
+    description
+    hidden
+    unit
+    amount
+    stripe_tax
+    currency
+    interval
+    interval_count
+    trial_period_days
+    stripe_id
+    braintree_id
+    paddle_id
+    fake_processor_id
+    features
+    created_at
+    updated_at
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :name,
-    :description,
-    :hidden,
-    :unit,
-    :amount,
-    :stripe_tax,
-    :currency,
-    :interval,
-    :interval_count,
-    :trial_period_days,
-    :stripe_id,
-    :braintree_id,
-    :paddle_id,
-    :fake_processor_id,
-    :features
+  FORM_ATTRIBUTES = %i[
+    name
+    description
+    hidden
+    unit
+    amount
+    stripe_tax
+    currency
+    interval
+    interval_count
+    trial_period_days
+    stripe_id
+    braintree_id
+    paddle_id
+    fake_processor_id
+    features
   ].freeze
 
   # Overwrite this method to customize how plans are displayed

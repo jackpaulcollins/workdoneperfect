@@ -1,5 +1,7 @@
-gem "sidekiq"
+# frozen_string_literal: true
+
+gem 'sidekiq'
 
 group :development do
-  gem "solargraph-rails", "~> 0.2.0.pre"
+  gem 'solargraph-rails', '~> 0.2.0.pre'
 end

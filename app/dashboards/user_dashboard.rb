@@ -1,4 +1,6 @@
-require "administrate/base_dashboard"
+# frozen_string_literal: true
+
+require 'administrate/base_dashboard'
 
 class UserDashboard < Administrate::BaseDashboard
   # ATTRIBUTE_TYPES
@@ -16,7 +18,7 @@ class UserDashboard < Administrate::BaseDashboard
     password: Field::Password.with_options(searchable: false),
     password_confirmation: Field::Password.with_options(searchable: false),
     accounts: Field::HasMany,
-    connected_accounts: Field::HasMany.with_options(class_name: "User::ConnectedAccount"),
+    connected_accounts: Field::HasMany.with_options(class_name: 'User::ConnectedAccount'),
     avatar: Field::ActiveStorage,
     reset_password_token: Field::String,
     reset_password_sent_at: Field::DateTime,
@@ -45,51 +47,51 @@ class UserDashboard < Administrate::BaseDashboard
   #
   # By default, it's limited to four items to reduce clutter on index pages.
   # Feel free to add, remove, or rearrange items.
-  COLLECTION_ATTRIBUTES = [
-    :id,
-    :name,
-    :email,
-    :accounts,
-    :connected_accounts
+  COLLECTION_ATTRIBUTES = %i[
+    id
+    name
+    email
+    accounts
+    connected_accounts
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  SHOW_PAGE_ATTRIBUTES = [
-    :id,
-    :name,
-    :email,
-    :accounts,
-    :connected_accounts,
-    :time_zone,
-    :avatar,
-    :reset_password_token,
-    :reset_password_sent_at,
-    :remember_created_at,
-    :confirmation_token,
-    :confirmed_at,
-    :confirmation_sent_at,
-    :unconfirmed_email,
-    :admin,
-    :accepted_terms_at,
-    :accepted_privacy_at,
-    :created_at,
-    :updated_at,
-    :invitation_token,
-    :invitation_created_at,
-    :invitation_sent_at,
-    :invitation_accepted_at,
-    :invitation_limit,
-    :invitations_count
+  SHOW_PAGE_ATTRIBUTES = %i[
+    id
+    name
+    email
+    accounts
+    connected_accounts
+    time_zone
+    avatar
+    reset_password_token
+    reset_password_sent_at
+    remember_created_at
+    confirmation_token
+    confirmed_at
+    confirmation_sent_at
+    unconfirmed_email
+    admin
+    accepted_terms_at
+    accepted_privacy_at
+    created_at
+    updated_at
+    invitation_token
+    invitation_created_at
+    invitation_sent_at
+    invitation_accepted_at
+    invitation_limit
+    invitations_count
   ].freeze
 
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  FORM_ATTRIBUTES = [
-    :name,
-    :email,
-    :admin
+  FORM_ATTRIBUTES = %i[
+    name
+    email
+    admin
   ].freeze
 
   # Overwrite this method to customize how users are displayed

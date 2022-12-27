@@ -1,19 +1,23 @@
-class Users::MentionsController < ApplicationController
-  before_action :authenticate_user!
+# frozen_string_literal: true
 
-  def index
-    @users = searchable_users.search_by_full_name(params[:query]).with_attached_avatar.limit(10)
+module Users
+  class MentionsController < ApplicationController
+    before_action :authenticate_user!
 
-    respond_to do |format|
-      format.json
+    def index
+      @users = searchable_users.search_by_full_name(params[:query]).with_attached_avatar.limit(10)
+
+      respond_to do |format|
+        format.json
+      end
     end
-  end
 
-  private
+    private
 
-  # By default, we'll only show the users in the current account.
-  # You may want to use User.all instead to allow mentioning all users.
-  def searchable_users
-    current_account.users
+    # By default, we'll only show the users in the current account.
+    # You may want to use User.all instead to allow mentioning all users.
+    def searchable_users
+      current_account.users
+    end
   end
 end

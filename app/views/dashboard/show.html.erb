@@ -1,7 +1,13 @@
 <div class="container p-4 mx-auto">
-  <div class="my-8">
-    <%= month_calendar do |date| %>
-      <%= date %>
-    <% end %>
-  </div>
+<%= month_calendar(events: @jobs) do |date, jobs| %>
+  <%= date %>
+
+  <% jobs.each do |job| %>
+    <div>
+      <%= link_to job, class: "block hover:bg-gray-50" do %>
+        <%= job.customer.first_name %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
 </div>

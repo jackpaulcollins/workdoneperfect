@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
-class Jumpstart::Test < ActiveSupport::TestCase
-  test "truth" do
-    assert_kind_of Module, Jumpstart
+module Jumpstart
+  class Test < ActiveSupport::TestCase
+    test "truth" do
+      assert_kind_of Module, Jumpstart
+    end
   end
 end

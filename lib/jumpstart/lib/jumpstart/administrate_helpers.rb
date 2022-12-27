@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jumpstart
   module AdministrateHelpers
     def charge_processor_url(charge)

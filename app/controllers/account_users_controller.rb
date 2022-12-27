@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class AccountUsersController < Accounts::BaseController
   before_action :authenticate_user!
   before_action :set_account
   before_action :require_non_personal_account!
-  before_action :set_account_user, only: [:edit, :update, :destroy, :switch]
-  before_action :require_account_admin, except: [:index, :show]
+  before_action :set_account_user, only: %i[edit update destroy switch]
+  before_action :require_account_admin, except: %i[index show]
 
   # GET /accounts
   def index
@@ -16,13 +18,12 @@ class AccountUsersController < Accounts::BaseController
   end
 
   # GET /account_users/1/edit
-  def edit
-  end
+  def edit; end
 
   # PATCH/PUT /account_users/1
   def update
     if @account_user.update(account_user_params)
-      redirect_to @account, notice: t(".updated")
+      redirect_to @account, notice: t('.updated')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -31,7 +32,7 @@ class AccountUsersController < Accounts::BaseController
   # DELETE /account_users/1
   def destroy
     @account_user.destroy
-    redirect_to @account, status: :see_other, notice: t(".destroyed")
+    redirect_to @account, status: :see_other, notice: t('.destroyed')
   end
 
   private

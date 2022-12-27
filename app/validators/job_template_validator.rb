@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JobTemplateValidator < ActiveModel::Validator
   include DefaultTemplateConcern
 
@@ -5,8 +7,8 @@ class JobTemplateValidator < ActiveModel::Validator
   # but just in case
 
   def validate(record)
-    if record.default_template && default_template_present?
-      record.errors.add :base, "Default template is set"
-    end
+    return unless record.default_template && default_template_present?
+
+    record.errors.add :base, 'Default template is set'
   end
 end

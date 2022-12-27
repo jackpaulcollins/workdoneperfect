@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "jumpstart/credentials_generator"
 require "jumpstart/engine"
 
@@ -34,6 +36,7 @@ module Jumpstart
 
   def self.find_plan(id)
     return if id.nil?
+
     config.plans.find { |plan| plan["id"].to_s == id.to_s }
   end
 
@@ -49,9 +52,9 @@ module Jumpstart
   def self.post_install
     run_command("solargraph bundle") if config.solargraph?
 
-    if JobProcessor.delayed_job? && !File.exist?("bin/delayed_job")
-      run_command("rails g delayed_job:active_record")
-      run_command("rails db:migrate")
-    end
+    return unless JobProcessor.delayed_job? && !File.exist?("bin/delayed_job")
+
+    run_command("rails g delayed_job:active_record")
+    run_command("rails db:migrate")
   end
 end

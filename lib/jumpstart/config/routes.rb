@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Jumpstart::Engine.routes.draw do
   resource :admin, only: [:show]
   resource :config, only: [:create]

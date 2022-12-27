@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # ConvertKit API client
 # https://github.com/excid3/convertkit-ruby
 #

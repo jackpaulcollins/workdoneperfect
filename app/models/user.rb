@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -54,12 +56,13 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, andle :trackable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable, :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable,
+         :omniauthable
 
   has_noticed_notifications
   has_person_name
 
-  pg_search_scope :search_by_full_name, against: [:first_name, :last_name], using: {tsearch: {prefix: true}}
+  pg_search_scope :search_by_full_name, against: %i[first_name last_name], using: { tsearch: { prefix: true } }
 
   # ActiveStorage Associations
   has_one_attached :avatar

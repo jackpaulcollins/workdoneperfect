@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: job_attributes
@@ -23,22 +25,22 @@ class JobAttribute < ApplicationRecord
 
   validates :name, presence: true
   validates :job_template, presence: true
-  enum data_type: [:text, :required, :integer]
+  enum data_type: %i[text required integer]
 
   def fetch_answer(job_id)
-    job_attribute_answers.where(job_id: job_id).first
+    job_attribute_answers.where(job_id:).first
   end
 
   def input_field
     case data_type
-    when "text"
-      "text_field"
-    when "boolean"
-      "checkbox"
-    when "integer"
-      "number"
+    when 'text'
+      'text_field'
+    when 'boolean'
+      'checkbox'
+    when 'integer'
+      'number'
     else
-      "text_field"
+      'text_field'
     end
   end
 end

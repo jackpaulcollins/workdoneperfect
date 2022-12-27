@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Adds time-based One Time Passwords (TOTPs) for user authentication
 #
 # * otp_required_for_login:boolean
@@ -16,6 +18,7 @@ module TwoFactorAuthentication
 
   def set_otp_secret!
     return if otp_secret?
+
     update(otp_secret: ROTP::Base32.random)
   end
 
@@ -43,6 +46,7 @@ module TwoFactorAuthentication
     return false if code.blank?
     return consume_otp! if verify_otp(code)
     return consume_backup_code!(code) if verify_backup_code(code)
+
     false
   end
 

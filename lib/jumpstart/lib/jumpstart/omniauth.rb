@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Gem names are usually "google-oauth2"
 # Provider names are usually "google_oauth2" because symbols don't support hyphens
 
@@ -45,8 +47,8 @@ module Jumpstart
         default_options[:scope] = details[:scope] if details[:scope]
 
         enabled[provider] = {
-          public_key: credentials_for(provider).dig(:public_key),
-          private_key: credentials_for(provider).dig(:private_key),
+          public_key: credentials_for(provider)[:public_key],
+          private_key: credentials_for(provider)[:private_key],
           options: default_options.merge(options_for(provider))
         }
       end
@@ -62,8 +64,8 @@ module Jumpstart
 
     def self.has_credentials?(gem_name)
       provider = AVAILABLE_PROVIDERS.dig(gem_name, :provider)
-      credentials_for(provider).dig(:public_key).present? &&
-        credentials_for(provider).dig(:private_key).present?
+      credentials_for(provider)[:public_key].present? &&
+        credentials_for(provider)[:private_key].present?
     end
 
     # Look up credentials for a provider (assumes an underscored name)

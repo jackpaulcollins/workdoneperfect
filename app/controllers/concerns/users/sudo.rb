@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Sudo forces users to confirm their password when accessing an important part of your application
 #
 # Usage:
@@ -11,13 +13,15 @@ module Users
     # Default length of sudo sessions
     mattr_accessor :sudo_duration, default: 30.minutes
 
-    def sudo(**options)
+    def sudo(**_options)
       return if valid_sudo?
-      render "users/sudo/new"
+
+      render 'users/sudo/new'
     end
 
     def valid_sudo?
       return false if session[:sudo].blank?
+
       Time.parse(session[:sudo]) + @@sudo_duration > Time.current
     end
 

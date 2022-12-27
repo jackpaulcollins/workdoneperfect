@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 json.cache! [account] do
   json.extract! account, :id, :name, :personal, :owner_id, :created_at, :updated_at
   json.account_users do

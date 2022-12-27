@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: resources
@@ -18,7 +20,7 @@
 #
 #  fk_rails_...  (account_id => accounts.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class ResourceTest < ActiveSupport::TestCase
   # test "the truth" do

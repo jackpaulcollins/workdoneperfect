@@ -1,5 +1,7 @@
-require "subroutine/association_fields"
-require "smarter_csv"
+# frozen_string_literal: true
+
+require 'subroutine/association_fields'
+require 'smarter_csv'
 
 class EmployeeTemplateBulkUploadOp < ::Subroutine::Op
   include ::Subroutine::AssociationFields
@@ -19,7 +21,7 @@ class EmployeeTemplateBulkUploadOp < ::Subroutine::Op
   end
 
   def extract_csv
-    File.open(data, "r:bom|utf-8") do |f|
+    File.open(data, 'r:bom|utf-8') do |f|
       SmarterCSV.process(f)
     end
   end
@@ -28,9 +30,9 @@ class EmployeeTemplateBulkUploadOp < ::Subroutine::Op
     successes = []
     failures = []
 
-    hash.each_with_index do |row, index|
+    hash.each_with_index do |row, _index|
       t = EmployeeTemplate.new(
-        account: account,
+        account:,
         title: row[:template_title]
       )
 

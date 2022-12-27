@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: attribute_answers
@@ -24,11 +26,14 @@ class AttributeAnswer < ApplicationRecord
   belongs_to :employee_attribute
   belongs_to :employee
 
-  validates :employee_attribute, uniqueness: {scope: :employee_id}
+  validates :employee_attribute, uniqueness: { scope: :employee_id }
   validates :answer, presence: true
 
   # Broadcast changes in realtime with Hotwire
-  after_create_commit -> { broadcast_prepend_later_to :attribute_answers, partial: "attribute_answers/index", locals: {attribute_answer: self} }
+  after_create_commit lambda {
+                        broadcast_prepend_later_to :attribute_answers, partial: 'attribute_answers/index',
+                                                                       locals: { attribute_answer: self }
+                      }
   after_update_commit -> { broadcast_replace_later_to self }
   after_destroy_commit -> { broadcast_remove_to :attribute_answers, target: dom_id(self, :index) }
 end

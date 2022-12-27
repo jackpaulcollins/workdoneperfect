@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :turbo do
   namespace :android do
     resource :path_configuration, only: :show

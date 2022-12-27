@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class CompanyResourcesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_company_resource, only: [:show, :edit, :update, :destroy]
+  before_action :set_company_resource, only: %i[show edit update destroy]
 
   # Uncomment to enforce Pundit authorization
   # after_action :verify_authorized
@@ -14,8 +16,7 @@ class CompanyResourcesController < ApplicationController
   end
 
   # GET /company_resources/1 or /company_resources/1.json
-  def show
-  end
+  def show; end
 
   # GET /company_resources/new
   def new
@@ -26,8 +27,7 @@ class CompanyResourcesController < ApplicationController
   end
 
   # GET /company_resources/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /company_resources or /company_resources.json
   def create
@@ -38,7 +38,7 @@ class CompanyResourcesController < ApplicationController
 
     respond_to do |format|
       if @company_resource.save
-        format.html { redirect_to @company_resource, notice: "Company Resource was successfully created." }
+        format.html { redirect_to @company_resource, notice: 'Company Resource was successfully created.' }
         format.json { render :show, status: :created, location: @company_resource }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -51,7 +51,7 @@ class CompanyResourcesController < ApplicationController
   def update
     respond_to do |format|
       if @company_resource.update(company_resource_params)
-        format.html { redirect_to @company_resource, notice: "Company Resource was successfully updated." }
+        format.html { redirect_to @company_resource, notice: 'Company Resource was successfully updated.' }
         format.json { render :show, status: :ok, location: @company_resource }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -64,7 +64,9 @@ class CompanyResourcesController < ApplicationController
   def destroy
     @company_resource.destroy
     respond_to do |format|
-      format.html { redirect_to company_resources_url, status: :see_other, notice: "Company Resource was successfully destroyed." }
+      format.html do
+        redirect_to company_resources_url, status: :see_other, notice: 'Company Resource was successfully destroyed.'
+      end
       format.json { head :no_content }
     end
   end

@@ -1,28 +1,31 @@
-class Subscriptions::CancelsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :require_current_account_admin
-  before_action :set_subscription
+# frozen_string_literal: true
 
-  def show
-  end
+module Subscriptions
+  class CancelsController < ApplicationController
+    before_action :authenticate_user!
+    before_action :require_current_account_admin
+    before_action :set_subscription
 
-  def destroy
-    @subscription.cancel
+    def show; end
 
-    # Optionally, you can cancel immediately
-    # current_account.subscription.cancel_now!
+    def destroy
+      @subscription.cancel
 
-    redirect_to subscriptions_path, status: :see_other
-  rescue Pay::Error => e
-    flash[:alert] = e.message
-    render :show, status: :unprocessable_entity
-  end
+      # Optionally, you can cancel immediately
+      # current_account.subscription.cancel_now!
 
-  private
+      redirect_to subscriptions_path, status: :see_other
+    rescue Pay::Error => e
+      flash[:alert] = e.message
+      render :show, status: :unprocessable_entity
+    end
 
-  def set_subscription
-    @subscription = current_account.subscriptions.find_by_prefix_id!(params[:subscription_id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to subscriptions_path
+    private
+
+    def set_subscription
+      @subscription = current_account.subscriptions.find_by_prefix_id!(params[:subscription_id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to subscriptions_path
+    end
   end
 end
