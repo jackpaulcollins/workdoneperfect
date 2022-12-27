@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Jumpstart
   class Mailer
     attr_reader :config
@@ -16,9 +18,9 @@ module Jumpstart
       return sendinblue_settings if config.sendinblue?
       return ses_settings if config.ses?
       return sparkpost_settings if config.sparkpost?
+
       {}
     end
-    # rubocop: enable Metrics/AbcSize
 
     private
 
@@ -84,11 +86,11 @@ module Jumpstart
 
     def sendinblue_settings
       shared_settings.merge({
-        address: "smtp-relay.sendinblue.com",
-        authentication: "login",
-        user_name: get_credential(:sendinblue, :username),
-        password: get_credential(:sendinblue, :password)
-      })
+                              address: "smtp-relay.sendinblue.com",
+                              authentication: "login",
+                              user_name: get_credential(:sendinblue, :username),
+                              password: get_credential(:sendinblue, :password)
+                            })
     end
 
     def sendgrid_settings

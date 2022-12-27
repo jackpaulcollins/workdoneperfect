@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module Jumpstart
   module Omniauth
     module Callbacks
-      Devise.omniauth_configs.keys.each do |provider|
+      Devise.omniauth_configs.each_key do |provider|
         define_method provider do
           redirect_to root_path, alert: t("something_went_wrong") if auth.nil?
 
@@ -91,6 +93,7 @@ module Jumpstart
 
       def success_message!(kind:)
         return unless is_navigational_format?
+
         set_flash_message(:notice, :success, kind: t("shared.oauth.#{kind}"))
       end
 
@@ -113,7 +116,7 @@ module Jumpstart
           uid: auth.uid,
           access_token: auth.credentials.token,
           access_token_secret: auth.credentials.secret,
-          expires_at: expires_at,
+          expires_at:,
           refresh_token: auth.credentials.refresh_token,
           auth: auth_hash
         }

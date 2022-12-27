@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :staff, :add_employees]
+  before_action :set_job, only: %i[show edit update destroy staff add_employees]
   before_action :authenticate_user!
 
   # Uncomment to enforce Pundit authorization
@@ -15,33 +17,30 @@ class JobsController < ApplicationController
   end
 
   # GET /jobs/1 or /jobs/1.json
-  def show
-  end
+  def show; end
 
   # GET /jobs/new
   def new
     @job = if JobTemplate.default_template.present? && job_params.blank?
-      Job.new(job_template: JobTemplate.default_template)
-    elsif job_params.present?
-      Job.new(job_template_id: job_params[:job_template_id])
-    else
-      Job.new
-    end
+             Job.new(job_template: JobTemplate.default_template)
+           elsif job_params.present?
+             Job.new(job_template_id: job_params[:job_template_id])
+           else
+             Job.new
+           end
 
     @job
   end
 
   # GET /jobs/1/edit
-  def edit
-  end
+  def edit; end
 
-  def staff
-  end
+  def staff; end
 
   def add_employees
     if job_params[:employee_ids].length == 1 && @job.scheduled?
       respond_to do |format|
-        format.html { redirect_to @job, notice: "Job was successfully unstaffed." }
+        format.html { redirect_to @job, notice: 'Job was successfully unstaffed.' }
         format.json { render :show, status: :ok, location: @job }
       end
       return
@@ -52,7 +51,7 @@ class JobsController < ApplicationController
 
       respond_to do |format|
         if @job.update(job_params)
-          format.html { redirect_to @job, notice: "Job was successfully unstaffed." }
+          format.html { redirect_to @job, notice: 'Job was successfully unstaffed.' }
           format.json { render :show, status: :ok, location: @job }
         else
           format.html { render :edit, status: :unprocessable_entity }
@@ -66,7 +65,7 @@ class JobsController < ApplicationController
     respond_to do |format|
       if @job.update(job_params)
         @job.staff! unless @job.staffed?
-        format.html { redirect_to @job, notice: "Job was successfully staffed." }
+        format.html { redirect_to @job, notice: 'Job was successfully staffed.' }
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -85,7 +84,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        format.html { redirect_to @job, notice: "Job was successfully created." }
+        format.html { redirect_to @job, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -98,7 +97,7 @@ class JobsController < ApplicationController
   def update
     respond_to do |format|
       if @job.update(job_params)
-        format.html { redirect_to @job, notice: "Job was successfully updated." }
+        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -111,7 +110,7 @@ class JobsController < ApplicationController
   def destroy
     @job.destroy
     respond_to do |format|
-      format.html { redirect_to jobs_url, status: :see_other, notice: "Job was successfully destroyed." }
+      format.html { redirect_to jobs_url, status: :see_other, notice: 'Job was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -138,9 +137,9 @@ class JobsController < ApplicationController
       :estimated_hours,
       :total_hours,
       :revenue,
-      job_attribute_answers_attributes: [:id, :job_attribute_id, :answer, :_destroy],
-      :company_resource_ids => [],
-      :employee_ids => []
+      job_attribute_answers_attributes: %i[id job_attribute_id answer _destroy],
+      company_resource_ids: [],
+      employee_ids: []
     )
   end
 end

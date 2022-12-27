@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: user_connected_accounts
@@ -23,37 +25,39 @@
 #  fk_rails_...  (user_id => users.id)
 #
 
-require "test_helper"
+require 'test_helper'
 
-class User::ConnectedAccountTest < ActiveSupport::TestCase
-  test "handles access token secrets" do
-    ca = User::ConnectedAccount.new(access_token_secret: "test")
-    assert_equal "test", ca.access_token_secret
-  end
-
-  test "handles empty access token secrets" do
-    assert_nothing_raised do
-      User::ConnectedAccount.new(access_token_secret: "")
+module User
+  class ConnectedAccountTest < ActiveSupport::TestCase
+    test 'handles access token secrets' do
+      ca = User::ConnectedAccount.new(access_token_secret: 'test')
+      assert_equal 'test', ca.access_token_secret
     end
-  end
 
-  test "expired if token expired in the past" do
-    ca = User::ConnectedAccount.new(expires_at: 1.hour.ago)
-    assert ca.expired?
-  end
+    test 'handles empty access token secrets' do
+      assert_nothing_raised do
+        User::ConnectedAccount.new(access_token_secret: '')
+      end
+    end
 
-  test "expiring if token expires soon" do
-    ca = User::ConnectedAccount.new(expires_at: 4.minutes.from_now)
-    assert ca.expired?
-  end
+    test 'expired if token expired in the past' do
+      ca = User::ConnectedAccount.new(expires_at: 1.hour.ago)
+      assert ca.expired?
+    end
 
-  test "not expiring if token expires in the future" do
-    ca = User::ConnectedAccount.new(expires_at: 1.day.from_now)
-    assert_not ca.expired?
-  end
+    test 'expiring if token expires soon' do
+      ca = User::ConnectedAccount.new(expires_at: 4.minutes.from_now)
+      assert ca.expired?
+    end
 
-  test "not expiring if token has no expiration" do
-    ca = User::ConnectedAccount.new(expires_at: nil)
-    assert_not ca.expired?
+    test 'not expiring if token expires in the future' do
+      ca = User::ConnectedAccount.new(expires_at: 1.day.from_now)
+      assert_not ca.expired?
+    end
+
+    test 'not expiring if token has no expiration' do
+      ca = User::ConnectedAccount.new(expires_at: nil)
+      assert_not ca.expired?
+    end
   end
 end

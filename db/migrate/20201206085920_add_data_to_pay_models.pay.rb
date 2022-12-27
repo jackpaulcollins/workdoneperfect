@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from pay (originally 20200603134434)
 class AddDataToPayModels < ActiveRecord::Migration[4.2]
   def change

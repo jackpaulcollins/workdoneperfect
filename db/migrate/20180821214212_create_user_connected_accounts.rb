@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateUserConnectedAccounts < ActiveRecord::Migration[5.2]
   def change
     create_table :user_connected_accounts do |t|

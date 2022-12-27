@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from pay (originally 20170503131610)
 class AddFieldsToAccounts < ActiveRecord::Migration[4.2]
   def change

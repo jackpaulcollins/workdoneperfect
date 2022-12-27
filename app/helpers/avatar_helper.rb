@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AvatarHelper
   def avatar_url_for(user, opts = {})
     size = opts[:size] || 48
@@ -5,7 +7,7 @@ module AvatarHelper
     if user.respond_to?(:avatar) && user.avatar.attached? && user.avatar.variable?
       user.avatar.variant(resize_to_fit: [size, size])
     else
-      gravatar_url_for(user.email, size: size)
+      gravatar_url_for(user.email, size:)
     end
   end
 end

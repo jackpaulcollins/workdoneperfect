@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: addresses
@@ -24,18 +26,18 @@ class Address < ApplicationRecord
 
   validates :address_type, :line1, :city, :postal_code, :country, presence: true
 
-  enum address_type: [:billing, :shipping]
+  enum address_type: %i[billing shipping]
 
-  after_commit -> { addressable.pay_customers.each { |payment_processor| payment_processor.update_customer! } }
+  after_commit -> { addressable.pay_customers.each(&:update_customer!) }
 
   def to_stripe
     {
-      city: city,
-      country: country,
-      line1: line1,
-      line2: line2,
-      postal_code: postal_code,
-      state: state
+      city:,
+      country:,
+      line1:,
+      line2:,
+      postal_code:,
+      state:
     }
   end
 end

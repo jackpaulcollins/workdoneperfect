@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: announcements
@@ -11,7 +13,7 @@
 #
 
 class Announcement < ApplicationRecord
-  TYPES = %w[new fix improvement update]
+  TYPES = %w[new fix improvement update].freeze
 
   has_rich_text :description
 

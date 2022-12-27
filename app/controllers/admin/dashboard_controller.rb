@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class DashboardController < Admin::ApplicationController
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notification_tokens
@@ -13,14 +15,14 @@
 #
 #  index_notification_tokens_on_user_id  (user_id)
 #
-require "test_helper"
+require 'test_helper'
 
 class NotificationTokenTest < ActiveSupport::TestCase
-  test "ios" do
+  test 'ios' do
     assert_includes NotificationToken.ios, notification_tokens(:ios)
   end
 
-  test "android" do
+  test 'android' do
     assert_includes NotificationToken.android, notification_tokens(:android)
   end
 end

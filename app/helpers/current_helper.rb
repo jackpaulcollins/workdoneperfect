@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CurrentHelper
   def current_account
     Current.account

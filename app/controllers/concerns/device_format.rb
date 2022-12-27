@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DeviceFormat
   # Sets the request variant based upon the user agent
   #
@@ -14,8 +16,8 @@ module DeviceFormat
   private
 
   def set_variant_for_device
-    if turbo_native_app?
-      request.variant = :native
-    end
+    return unless turbo_native_app?
+
+    request.variant = :native
   end
 end

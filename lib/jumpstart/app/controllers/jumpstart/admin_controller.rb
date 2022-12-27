@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_dependency "jumpstart/application_controller"
 
 module Jumpstart

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationNotification < Noticed::Base
   # Delivery methods and helpers used by all notifications can be defined here.
   deliver_by :database, format: :to_database
@@ -23,6 +25,6 @@ class ApplicationNotification < Noticed::Base
 
   # Remove notification token when a user removes the app from their device
   def cleanup_device_token(token:, platform:)
-    NotificationToken.where(token: token, platform: (platform == "fcm" ? "Android" : platform)).destroy_all
+    NotificationToken.where(token:, platform: (platform == 'fcm' ? 'Android' : platform)).destroy_all
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: employee_jobs
@@ -19,7 +21,7 @@
 #  fk_rails_...  (employee_id => employees.id)
 #  fk_rails_...  (job_id => jobs.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class EmployeeJobTest < ActiveSupport::TestCase
   # test "the truth" do

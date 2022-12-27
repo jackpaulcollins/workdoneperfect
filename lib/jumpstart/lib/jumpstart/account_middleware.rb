@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ## Multitenant Account Middleware
 #
 # Included in the Rails engine if enabled.
@@ -17,11 +19,9 @@ module Jumpstart
       _, account_id, request_path = request.path.split("/", 3)
 
       if /\d+/.match?(account_id)
-        if (account = Account.find_by(id: account_id))
-          Current.account = account
-        else
-          return [302, {"Location" => "/"}, []]
-        end
+        return [302, { "Location" => "/" }, []] unless (account = Account.find_by(id: account_id))
+
+        Current.account = account
 
         request.script_name = "/#{account_id}"
         request.path_info = "/#{request_path}"

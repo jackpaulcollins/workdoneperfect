@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PaymentsController < ApplicationController
   def show
     @payment = Pay::Payment.from_id(params[:id])
@@ -6,6 +8,6 @@ class PaymentsController < ApplicationController
   def update
     @payment = Pay::Payment.from_id(params[:id])
     @payment.confirm
-    redirect_to root_path, notice: t(".success")
+    redirect_to root_path, notice: t('.success')
   end
 end

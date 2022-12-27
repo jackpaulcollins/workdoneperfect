@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Mailchimp API client
 # http://localhost:3000/jumpstart/docs/integrations
 #

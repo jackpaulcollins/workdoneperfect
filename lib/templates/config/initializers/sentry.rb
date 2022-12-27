@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if Rails.env.production? || Rails.env.staging?
   Sentry.init do |config|
     config.dsn = Rails.application.credentials.dig(:sentry, :dsn)

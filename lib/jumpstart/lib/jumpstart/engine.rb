@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "pagy"
 require "pagy/extras/trim"
 
@@ -35,9 +37,7 @@ module Jumpstart
         config.assets.precompile << "jumpstart_manifest.js"
       end
 
-      if Jumpstart::Multitenancy.path? || Rails.env.test?
-        app.config.middleware.use Jumpstart::AccountMiddleware
-      end
+      app.config.middleware.use Jumpstart::AccountMiddleware if Jumpstart::Multitenancy.path? || Rails.env.test?
     end
   end
 end

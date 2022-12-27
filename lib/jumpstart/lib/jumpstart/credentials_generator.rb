@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Credentials Generator override
 # This handles the shared credentials file
 require "rails/generators"

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MigrateAccessTokenEncryption < ActiveRecord::Migration[7.0]
   def self.up
     add_column :user_connected_accounts, :access_token, :string
@@ -42,13 +44,13 @@ class MigrateAccessTokenEncryption < ActiveRecord::Migration[7.0]
     value = Base64.decode64 account.send(name)
     iv = Base64.decode64 account.send(:"#{name}_iv")
 
-    cipher = OpenSSL::Cipher.new("aes-256-gcm")
+    cipher = OpenSSL::Cipher.new('aes-256-gcm')
     cipher.decrypt
     cipher.iv = iv
     cipher.key = key
 
     cipher.auth_tag = value[-16..]
-    cipher.auth_data = ""
+    cipher.auth_data = ''
 
     cipher.update(value[0..-17]) + cipher.final
   end

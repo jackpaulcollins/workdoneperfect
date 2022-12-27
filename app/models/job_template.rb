@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: job_templates
@@ -29,15 +31,10 @@ class JobTemplate < ApplicationRecord
   has_many :jobs
   has_many :job_attributes, index_errors: true, dependent: :destroy
 
-  validates :title, presence: true, uniqueness: {scope: :account_id}
+  validates :title, presence: true, uniqueness: { scope: :account_id }
   accepts_nested_attributes_for :job_attributes, allow_destroy: true
 
   before_validation :maybe_unset_default
-
-  # Broadcast changes in realtime with Hotwire
-  after_create_commit -> { broadcast_prepend_later_to :job_templates, partial: "job_templates/index", locals: {job_template: self} }
-  after_update_commit -> { broadcast_replace_later_to self }
-  after_destroy_commit -> { broadcast_remove_to :job_templates, target: dom_id(self, :index) }
 
   class << self
     def default_template
@@ -51,8 +48,8 @@ class JobTemplate < ApplicationRecord
   end
 
   def maybe_unset_default
-    if default_template_present? && default_template
-      JobTemplate.default_template.update(default_template: false)
-    end
+    return unless default_template_present? && default_template
+
+    JobTemplate.default_template.update(default_template: false)
   end
 end

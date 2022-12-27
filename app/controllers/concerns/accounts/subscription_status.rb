@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Accounts
   module SubscriptionStatus
     extend ActiveSupport::Concern
@@ -8,11 +10,11 @@ module Accounts
     end
 
     def subscribed?(name: Pay.default_product_name)
-      user_signed_in? && current_account.payment_processor&.subscribed?(name: name)
+      user_signed_in? && current_account.payment_processor&.subscribed?(name:)
     end
 
     def not_subscribed?(name: Pay.default_product_name)
-      !subscribed?(name: name)
+      !subscribed?(name:)
     end
   end
 end

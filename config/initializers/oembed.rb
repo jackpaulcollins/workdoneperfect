@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # See the Ruby OEmbed GitHub for more details
 # https://github.com/ruby-oembed/ruby-oembed
 
@@ -12,5 +14,5 @@ OEmbed::Providers.register_fallback(
 
 Rails.application.config.to_prepare do
   ActionText::ContentHelper.allowed_tags += %w[iframe script blockquote time]
-  ActionText::ContentHelper.allowed_attributes += ["data-id", "data-flickr-embed", "target"]
+  ActionText::ContentHelper.allowed_attributes += %w[data-id data-flickr-embed target]
 end

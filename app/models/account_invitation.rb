@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: account_invitations
@@ -29,20 +31,20 @@ class AccountInvitation < ApplicationRecord
   include Rolified
 
   belongs_to :account
-  belongs_to :invited_by, class_name: "User", optional: true
+  belongs_to :invited_by, class_name: 'User', optional: true
   has_secure_token
 
   validates :name, :email, presence: true
-  validates :email, uniqueness: {scope: :account_id, message: :invited}
+  validates :email, uniqueness: { scope: :account_id, message: :invited }
 
   def save_and_send_invite
-    if save
-      AccountInvitationsMailer.with(account_invitation: self).invite.deliver_later
-    end
+    return unless save
+
+    AccountInvitationsMailer.with(account_invitation: self).invite.deliver_later
   end
 
   def accept!(user)
-    account_user = account.account_users.new(user: user, roles: roles)
+    account_user = account.account_users.new(user:, roles:)
     if account_user.valid?
       ApplicationRecord.transaction do
         account_user.save!
@@ -50,7 +52,7 @@ class AccountInvitation < ApplicationRecord
       end
 
       [account.owner, invited_by].uniq.each do |recipient|
-        AcceptedInvite.with(account: account, user: user).deliver_later(recipient)
+        AcceptedInvite.with(account:, user:).deliver_later(recipient)
       end
 
       account_user

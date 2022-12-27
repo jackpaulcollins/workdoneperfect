@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -18,27 +20,27 @@
 #  index_notifications_on_account_id                       (account_id)
 #  index_notifications_on_recipient_type_and_recipient_id  (recipient_type,recipient_id)
 #
-require "test_helper"
+require 'test_helper'
 
 class NotificationTest < ActiveSupport::TestCase
   setup do
     Notification.delete_all
   end
 
-  test "notifications with user param are destroyed when user destroyed" do
+  test 'notifications with user param are destroyed when user destroyed' do
     user = users(:one)
-    AcceptedInvite.with(user: user, account: accounts(:one)).deliver(users(:two))
+    AcceptedInvite.with(user:, account: accounts(:one)).deliver(users(:two))
 
-    assert_difference "Notification.count", -1 do
+    assert_difference 'Notification.count', -1 do
       user.destroy
     end
   end
 
-  test "notifications with account are destroyed when account destroyed" do
+  test 'notifications with account are destroyed when account destroyed' do
     account = accounts(:one)
-    AcceptedInvite.with(user: users(:one), account: account).deliver(users(:two))
+    AcceptedInvite.with(user: users(:one), account:).deliver(users(:two))
 
-    assert_difference "Notification.count", -1 do
+    assert_difference 'Notification.count', -1 do
       account.destroy
     end
   end

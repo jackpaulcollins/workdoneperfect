@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "jumpstart/configuration/gemfile"
 require "jumpstart/configuration/mailable"
 require "jumpstart/configuration/integratable"
@@ -16,14 +18,8 @@ module Jumpstart
 
     # Attributes
     attr_accessor :application_name
-    attr_accessor :business_name
-    attr_accessor :business_address
-    attr_accessor :domain
-    attr_accessor :background_job_processor
-    attr_accessor :email_provider
-    attr_accessor :default_from_email
-    attr_accessor :support_email
-    attr_accessor :multitenancy
+    attr_accessor :business_name, :business_address, :domain, :background_job_processor, :email_provider,
+                  :default_from_email, :support_email, :multitenancy
     attr_writer :omniauth_providers
 
     def self.load!
@@ -31,6 +27,7 @@ module Jumpstart
         config_yaml = ERB.new(File.read(config_path)).result
         config = Psych.safe_load(config_yaml, permitted_classes: [Hash, Jumpstart::Configuration])
         return config if config.is_a?(Jumpstart::Configuration)
+
         new(config)
       else
         new
@@ -136,62 +133,36 @@ module Jumpstart
     end
 
     def copy_configs
-      if job_processor == :sidekiq
-        copy_template("config/sidekiq.yml")
-      end
+      copy_template("config/sidekiq.yml") if job_processor == :sidekiq
 
-      if airbrake?
-        copy_template("config/initializers/airbrake.rb")
-      end
+      copy_template("config/initializers/airbrake.rb") if airbrake?
 
-      if appsignal?
-        copy_template("config/appsignal.yml")
-      end
+      copy_template("config/appsignal.yml") if appsignal?
 
-      if bugsnag?
-        copy_template("config/initializers/bugsnag.rb")
-      end
+      copy_template("config/initializers/bugsnag.rb") if bugsnag?
 
-      if convertkit?
-        copy_template("config/initializers/convertkit.rb")
-      end
+      copy_template("config/initializers/convertkit.rb") if convertkit?
 
-      if drip?
-        copy_template("config/initializers/drip.rb")
-      end
+      copy_template("config/initializers/drip.rb") if drip?
 
-      if honeybadger?
-        copy_template("config/honeybadger.yml")
-      end
+      copy_template("config/honeybadger.yml") if honeybadger?
 
-      if intercom?
-        copy_template("config/initializers/intercom.rb")
-      end
+      copy_template("config/initializers/intercom.rb") if intercom?
 
-      if mailchimp?
-        copy_template("config/initializers/mailchimp.rb")
-      end
+      copy_template("config/initializers/mailchimp.rb") if mailchimp?
 
-      if rollbar?
-        copy_template("config/initializers/rollbar.rb")
-      end
+      copy_template("config/initializers/rollbar.rb") if rollbar?
 
-      if scout?
-        copy_template("config/scout_apm.yml")
-      end
+      copy_template("config/scout_apm.yml") if scout?
 
-      if sentry?
-        copy_template("config/initializers/sentry.rb")
-      end
+      copy_template("config/initializers/sentry.rb") if sentry?
 
-      if skylight?
-        copy_template("config/skylight.yml")
-      end
+      copy_template("config/skylight.yml") if skylight?
 
-      if solargraph?
-        URI.open "https://gist.githubusercontent.com/castwide/28b349566a223dfb439a337aea29713e/raw/715473535f11cf3eeb9216d64d01feac2ea37ac0/rails.rb" do |gist|
-          File.write(Rails.root.join("config/definitions.rb"), gist.read)
-        end
+      return unless solargraph?
+
+      URI.open "https://gist.githubusercontent.com/castwide/28b349566a223dfb439a337aea29713e/raw/715473535f11cf3eeb9216d64d01feac2ea37ac0/rails.rb" do |gist|
+        File.write(Rails.root.join("config/definitions.rb"), gist.read)
       end
     end
 
@@ -205,19 +176,18 @@ module Jumpstart
 
         Rails::Generators::EncryptionKeyFileGenerator.new.add_key_file_silently(key_path)
         Rails::Generators::EncryptionKeyFileGenerator.new.ignore_key_file_silently(key_path)
-        Rails::Generators::EncryptedFileGenerator.new.add_encrypted_file_silently(credentials_path, key_path, Jumpstart::Credentials.template)
+        Rails::Generators::EncryptedFileGenerator.new.add_encrypted_file_silently(credentials_path, key_path,
+                                                                                  Jumpstart::Credentials.template)
 
         # Add the credentials if we're in a git repo
-        if File.directory?(".git")
-          system("git add #{credentials_path}")
-        end
+        system("git add #{credentials_path}") if File.directory?(".git")
       end
     end
 
     private
 
     def procfile_content(dev: false)
-      content = {web: "bundle exec rails s"}
+      content = { web: "bundle exec rails s" }
 
       # Background workers
       if (worker_command = Jumpstart::JobProcessor.command(job_processor))
@@ -247,9 +217,9 @@ module Jumpstart
 
     def copy_template(filename)
       # Safely copy template, so we don't blow away any customizations you made
-      unless File.exist?(filename)
-        FileUtils.cp(template_path(filename), Rails.root.join(filename))
-      end
+      return if File.exist?(filename)
+
+      FileUtils.cp(template_path(filename), Rails.root.join(filename))
     end
 
     def template_path(filename)

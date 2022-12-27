@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This migration comes from pay (originally 20190816015720)
 class AddStatusToSubscriptions < ActiveRecord::Migration[5.2]
   def self.up

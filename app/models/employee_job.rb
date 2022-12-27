@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: employee_jobs
@@ -23,5 +25,5 @@ class EmployeeJob < ApplicationRecord
   belongs_to :job
   belongs_to :employee
 
-  validates :job, uniqueness: {scope: :employee_id}
+  validates :job, uniqueness: { scope: :employee_id }
 end
