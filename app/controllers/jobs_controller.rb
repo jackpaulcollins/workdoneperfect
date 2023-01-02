@@ -1,26 +1,21 @@
 # frozen_string_literal: true
 
 class JobsController < ApplicationController
+  include Jobs::StaffingConcern
+
   before_action :set_job, only: %i[show edit update destroy staff add_employees]
   before_action :authenticate_user!
 
-  # Uncomment to enforce Pundit authorization
-  # after_action :verify_authorized
-  # rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  # handles logic for changing job state depending on appropriate staffing changes
+  before_action :process_staffing_changes, only: :add_employees
 
-  # GET /jobs
   def index
     @pagy, @jobs = pagy(Job.sort_by_params(params[:sort], sort_direction))
-
-    # Uncomment to authorize with Pundit
-    # authorize @jobs
   end
 
-  # GET /jobs/1 or /jobs/1.json
   def show
   end
 
-  # GET /jobs/new
   def new
     @job = if JobTemplate.default_template.present? && job_params.blank?
       Job.new(job_template: JobTemplate.default_template)
@@ -33,7 +28,6 @@ class JobsController < ApplicationController
     @job
   end
 
-  # GET /jobs/1/edit
   def edit
   end
 
@@ -41,30 +35,6 @@ class JobsController < ApplicationController
   end
 
   def add_employees
-    if job_params[:employee_ids].length == 1 && @job.scheduled?
-      respond_to do |format|
-        format.html { redirect_to @job, notice: "Job was successfully unstaffed." }
-        format.json { render :show, status: :ok, location: @job }
-      end
-      return
-    end
-
-    if job_params[:employee_ids].length == 1
-      @job.reset_to_scheduled!
-
-      respond_to do |format|
-        if @job.update(job_params)
-          format.html { redirect_to @job, notice: "Job was successfully unstaffed." }
-          format.json { render :show, status: :ok, location: @job }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-          format.json { render json: @job.errors, status: :unprocessable_entity }
-        end
-      end
-
-      return
-    end
-
     respond_to do |format|
       if @job.update(job_params)
         @job.staff! unless @job.staffed?
@@ -77,16 +47,13 @@ class JobsController < ApplicationController
     end
   end
 
-  # POST /jobs or /jobs.json
   def create
     @job = Job.new(job_params)
-    # Uncomment to authorize with Pundit
-    # authorize @job
-
-    @job.schedule unless job_params.include?(:draft)
 
     respond_to do |format|
       if @job.save
+        @job.schedule unless params.include?(:draft)
+
         format.html { redirect_to @job, notice: "Job was successfully created." }
         format.json { render :show, status: :created, location: @job }
       else
@@ -96,7 +63,6 @@ class JobsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /jobs/1 or /jobs/1.json
   def update
     respond_to do |format|
       if @job.update(job_params)
@@ -109,7 +75,6 @@ class JobsController < ApplicationController
     end
   end
 
-  # DELETE /jobs/1 or /jobs/1.json
   def destroy
     @job.destroy
     respond_to do |format|
@@ -120,17 +85,12 @@ class JobsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_job
     @job = Job.find(params[:id])
-
-    # Uncomment to authorize with Pundit
-    # authorize @job
   rescue ActiveRecord::RecordNotFound
     redirect_to jobs_path
   end
 
-  # Only allow a list of trusted parameters through.
   def job_params
     params.fetch(:job, {}).permit(
       :job_template_id,

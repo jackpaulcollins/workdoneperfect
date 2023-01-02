@@ -50,8 +50,7 @@
   </div>
   <div>
     <%= form.button button_text("Schedule Job"), class: "btn btn-primary" %>
-    <%= form.button button_text("Save as Draft"), name: :draft, value: true, class: "btn btn-white" %>
-
+    <%= button_to "Save as Draft", new_job_path, params: {draft: "true"}, class: "btn btn-white" %>
     <% if form.object.new_record? %>
       <%= link_to t("cancel"), jobs_path, class: "btn btn-white" %>
     <% else %>

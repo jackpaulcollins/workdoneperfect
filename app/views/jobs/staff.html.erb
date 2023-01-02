@@ -1,22 +1,38 @@
-<div>
-  <% if @job.job_template.required_resources.present? %>
-    <h4>Job Staffing Requirements</h4>
-    <% @job.job_template.required_resources.each do |r| %>
-      <p><%= r.singularize %></p>
-    <% end %>
-  <% end %>
-</div>
+<div class="bg-white shadow sm:rounded-lg">
+  <div class="px-4 py-5 sm:p-6">
+    <div class="form-group">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">Schedule Employees for Job</h3>
+      <%= form_for @job, url: add_employees_job_path, method: :post do |form| %>
+        <%= render "shared/error_messages", resource: form.object %>
+        <div>
+          <% if @job.job_template.required_resources.present? %>
+            <h4>Job Staffing Requirements</h4>
+            <% @job.job_template.required_resources.each do |r| %>
+              <p><%= r.singularize %></p>
+            <% end %>
+            <div class="form-group">
+              <%= form.label :employee_ids, "Employees meeting requirements for job", class: "block text-sm font-medium text-gray-700" %>
+              <%= form.collection_select :employee_ids,
+                                        Employee.joins(:employee_template).where("employee_templates.title IN (?)", @job.job_template.required_resources),
+                                        :id,
+                                        :name,
+                                        {:prompt => "Employees"},
+                                        {:multiple => true, data: {controller: 'choices'}} %>
+            </div>
+          <% end %>
+        </div>
 
-<%= form_for @job, url: add_employees_job_path, method: :post do |form| %>
-  <%= render "shared/error_messages", resource: form.object %>
-  <div class="form-group">
-    <%= form.label :employee_ids, "Employees required for job type" %>
-    <%= form.collection_select :employee_ids,
-                               Employee.joins(:employee_template).where("employee_templates.title IN (?)", @job.job_template.required_resources),
-                               :id,
-                               :name,
-                               {:prompt => "Employees"},
-                               {:multiple => true, data: {controller: 'choices'}} %>
+        <div class="form-group">
+          <%= form.label :employee_ids, "All Employees" %>
+          <%= form.collection_select :employee_ids,
+                                    Employee.all,
+                                    :id,
+                                    :name,
+                                    {:prompt => "Employees"},
+                                    {:multiple => true, data: {controller: 'choices'}} %>
+        </div>
+        <%= form.button button_text("Save Staffing Selections"), class: "btn btn-primary" %>
+      <% end %>
+    </div>
   </div>
-  <%= form.button button_text("Save Staffing Selections"), class: "btn btn-primary" %>
-<% end %>
+</div>
