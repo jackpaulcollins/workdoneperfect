@@ -1,0 +1,12 @@
+<ul role="list" class="flex flex-row w-full">
+  <% employees.each do |e| %>
+  <%= link_to employee_path(e.employee.id) do %>
+      <li class="flex items-center py-4 mr-4 ml-4">
+          <img class="h-10 w-10 rounded-full" src="<%= gravatar_url_for(e.employee.email, size: 64) %>" alt="">
+          <div class="ml-3">
+          <p class="text-sm font-medium text-gray-900"><%= e.employee.first_name %></p>
+          </div>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
