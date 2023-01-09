@@ -52,7 +52,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        @job.schedule unless params.include?(:draft)
+        @job.schedule unless params[:draft].present?
 
         format.html { redirect_to @job, notice: "Job was successfully created." }
         format.json { render :show, status: :created, location: @job }
@@ -100,6 +100,7 @@ class JobsController < ApplicationController
       :estimated_hours,
       :total_hours,
       :revenue,
+      :state,
       job_attribute_answers_attributes: %i[id job_attribute_id answer _destroy],
       company_resource_ids: [],
       employee_ids: []

@@ -5,16 +5,19 @@ module Jobs
     def process_staffing_changes
       employee_ids = job_params[:employee_ids]
 
-      # the employee_ids parameter will always be >= 1
-      # so for exaclty 1 we know the job
-      # is being un-staffed
-      # in the case the job is 'scheduled'
-      # check before resetting to prevent a state error
+      # rails multiple entry form fields contain an empty string when there's
+      # no value, so we check to see if there's anything other than
+      # an empty string to determine if we have any changes to
+      # send to the db
 
-      case employee_ids.length
-      when 1 && @job.scheduled?
+      changes = employee_ids.any? { |value| value != "" }
+
+      if changes && @job.staffed?
         update_job
-      when 1
+      elsif changes && @job.scheduled?
+        @job.staff
+        update_job
+      elsif !changes && @job.staffed?
         @job.reset_to_scheduled!
         update_job
       end

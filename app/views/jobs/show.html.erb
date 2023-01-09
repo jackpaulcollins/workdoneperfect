@@ -8,6 +8,12 @@
       <span class="text-gray-400 font-light mx-2">\</span>
       Job #<%= @job.id %>
     </h1>
+    <% if @job.draft? %>
+      <%= form_for @job do |f| %>
+        <%= f.hidden_field :state, value: "scheduled" %>
+        <%= f.submit "Save job to Schedule!", class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
     <%= link_to t("edit"), edit_job_path(@job), class: "btn btn-white" %>
   </div>
 
