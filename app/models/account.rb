@@ -88,7 +88,7 @@ class Account < ApplicationRecord
   # Previous owner roles are unchanged
   def transfer_ownership(user_id)
     previous_owner = owner
-    account_user = account_users.find_by!(user_id:)
+    account_user = account_users.find_by!(user_id: user_id)
     user = account_user.user
 
     ApplicationRecord.transaction do
