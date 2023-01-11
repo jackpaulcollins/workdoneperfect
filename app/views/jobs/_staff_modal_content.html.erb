@@ -13,7 +13,7 @@
           <div class="form-group">
             <%= form.label :employee_ids, "Employees meeting requirements for job", class: "block text-sm font-medium text-gray-700" %>
             <%= form.collection_select :employee_ids,
-                                        Employee.joins(:employee_template).where("employee_templates.title IN (?)", @job.job_template.required_resources),
+                                        Employee.joins(:employee_template).where(employee_templates: {title: @job.job_template.required_resources}),
                                         :id,
                                         :name,
                                         {:prompt => "Employees"},
@@ -25,7 +25,8 @@
       <div class="form-group">
         <%= form.label :employee_ids, "Employees not required by job type" %>
         <%= form.collection_select :employee_ids,
-                                  Employee.joins(:employee_template).where("employee_templates.title NOT IN (?)", @job.job_template.required_resources),
+                                  # Employee.joins(:employee_template).where("employee_templates.title NOT IN (?)", @job.job_template.required_resources || "[\"\"]"),
+                                  Employee.joins(:employee_template).where.not(employee_templates: {title: @job.job_template.required_resources}),
                                   :id,
                                   :name,
                                   {:prompt => "Employees"},
