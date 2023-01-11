@@ -26,7 +26,7 @@ class JobsTest < ApplicationSystemTestCase
     fill_in "Revenue", with: 100
     fill_in "Estimated hours", with: 8
     fill_in "Total hours", with: 8
-    click_on "Schedule Job"
+    click_on "Save to Schedule"
 
     assert_text "Job was successfully created"
     assert_selector "h1", text: "Jobs"
@@ -39,7 +39,7 @@ class JobsTest < ApplicationSystemTestCase
     find("option[value='#{@job_template.id}']").click
     fill_in "Estimated hours", with: @job.estimated_hours + 1
     fill_in "Total hours", with: @job.total_hours
-    click_on "Schedule Job"
+    click_on "Save to Schedule"
 
     assert_text "Job was successfully updated"
     assert_selector "h1", text: "Jobs"

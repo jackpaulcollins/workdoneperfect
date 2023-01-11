@@ -3,7 +3,7 @@
 Account.all.each do |account|
   next if account.jobs.any?
 
-  rand(500..1000).times do
+  rand(50..100).times do
     estimated_hours = rand(1..16)
     job = account.jobs.create({
       job_template_id: account.job_templates.sample.id,
