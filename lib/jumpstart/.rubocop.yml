@@ -4,5 +4,3 @@ Style/DoubleNegation:
   Enabled: false
 Style/StringLiterals:
   Enabled: false
-Style/ClassAndModuleChildren:
-  Enabled: false
