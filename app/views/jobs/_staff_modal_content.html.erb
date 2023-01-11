@@ -31,9 +31,9 @@
                                   {:prompt => "Employees"},
                                   {:multiple => true, data: {controller: 'choices'}} %>
       </div>
-      <div class="flex justify-end items-center flex-wrap mt-8">
+      <div class="flex flex-wrap items-center justify-end mt-8">
         <%= form.button button_text("Save Staffing Selections"), class: "btn btn-primary" %>
-        <button class="btn btn-primary ml-2" data-action="click->modal#close">Cancel</button>
+        <button class="ml-2 btn btn-primary" data-action="click->modal#close">Cancel</button>
       </div>
     <% end %>
   </div>
