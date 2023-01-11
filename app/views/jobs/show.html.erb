@@ -5,13 +5,18 @@
   <div class="flex items-center justify-between mb-4">
     <h1 class="h3">
       <%= link_to "Jobs", jobs_path, class: "text-black" %>
-      <span class="text-gray-400 font-light mx-2">\</span>
+      <span class="mx-2 font-light text-gray-400">\</span>
       Job #<%= @job.id %>
     </h1>
     <% if @job.draft? %>
       <%= form_for @job do |f| %>
         <%= f.hidden_field :state, value: "scheduled" %>
         <%= f.submit "Save job to Schedule!", class: "btn btn-primary" %>
+      <% end %>
+    <% elsif @job.scheduled? %>
+      <%= form_for @job do |f| %>
+        <%= f.hidden_field :state, value: "draft" %>
+        <%= f.submit "Remove job from schedule", class: "btn btn-primary" %>
       <% end %>
     <% end %>
     <%= link_to t("edit"), edit_job_path(@job), class: "btn btn-white" %>
