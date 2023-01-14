@@ -8,18 +8,17 @@
       <span class="mx-2 font-light text-gray-400">\</span>
       Job #<%= @job.id %>
     </h1>
-    <% if @job.draft? %>
-      <%= form_for @job do |f| %>
-        <%= f.hidden_field :state, value: "scheduled" %>
-        <%= f.submit "Save job to Schedule!", class: "btn btn-primary" %>
-      <% end %>
-    <% elsif @job.scheduled? %>
-      <%= form_for @job do |f| %>
-        <%= f.hidden_field :state, value: "draft" %>
-        <%= f.submit "Remove job from schedule", class: "btn btn-primary" %>
-      <% end %>
-    <% end %>
-    <%= link_to t("edit"), edit_job_path(@job), class: "btn btn-white" %>
+    <div class="flex">
+      <div class="mr-4">
+        <% if @job.draft? %>
+          <%= form_for @job do |f| %>
+            <%= f.hidden_field :state, value: "scheduled" %>
+            <%= f.submit "Save Job to Schedule!", class: "btn btn-primary" %>
+          <% end %>
+        <% end %>
+      </div>
+      <%= link_to t("edit"), edit_job_path(@job), class: "btn btn-white" %>
+    </div>
   </div>
 
   <div class="p-8 bg-white rounded shadow">

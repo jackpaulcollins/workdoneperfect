@@ -7,7 +7,17 @@
       <span class="text-gray-400 font-light mx-2">\</span>
       <%= t("shared.scaffold.edit.title", model: "Job") %>
     </h1>
-    <%= button_to t("delete"), @job, method: :delete, class: "btn btn-white", form: { data: { turbo_confirm: t("are_you_sure") } } %>
+    <div class="flex">
+      <div class="mr-4">
+        <% if @job.scheduled? %>
+          <%= form_for @job do |f| %>
+            <%= f.hidden_field :state, value: "draft" %>
+            <%= f.submit "Set Job to Draft", class: "btn btn-primary" %>
+          <% end %>
+        <% end %>
+      </div>
+      <%= button_to t("delete"), @job, method: :delete, class: "btn btn-white", form: { data: { turbo_confirm: t("are_you_sure") } } %>
+    </div>
   </div>
 
   <div class="p-8 bg-white rounded shadow">
