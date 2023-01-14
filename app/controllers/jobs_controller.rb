@@ -5,9 +5,10 @@ class JobsController < ApplicationController
 
   before_action :set_job, only: %i[show edit update destroy staff add_employees]
   before_action :authenticate_user!
-
   # handles logic for changing job state depending on appropriate staffing changes
   before_action :process_staffing_changes, only: :add_employees
+
+  helper_method :job_required_staff_list, :job_not_required_staff_list
 
   def index
     @pagy, @jobs = pagy(Job.sort_by_params(params[:sort], sort_direction))
@@ -89,6 +90,14 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     redirect_to jobs_path
+  end
+
+  def job_required_staff_list
+    Employee.joins(:employee_template).where(employee_templates: {title: @job.job_template.required_resources})
+  end
+
+  def job_not_required_staff_list
+    Employee.joins(:employee_template).where.not(employee_templates: {title: @job.job_template.required_resources})
   end
 
   def job_params

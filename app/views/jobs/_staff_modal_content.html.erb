@@ -3,39 +3,37 @@
     <%= form_for @job, url: add_employees_job_path, method: :post do |form| %>
       <%= render "shared/error_messages", resource: form.object %>
       <div>
-        <div class="mt-2 mb-8">
-          <% if @job.job_template.required_resources.present? %>
+        <% if @job.job_template.required_resources.present? %>
+          <div class="mt-2 mb-8">
             <h4>Job Staffing Requirements</h4>
             <% @job.job_template.required_resources.each do |r| %>
               <p><%= r.singularize %></p>
             <% end %>
-        </div>
+          </div>
           <div class="form-group">
             <%= form.label :employee_ids, "Employees meeting requirements for job", class: "block text-sm font-medium text-gray-700" %>
             <%= form.collection_select :employee_ids,
-                                        Employee.joins(:employee_template).where(employee_templates: {title: @job.job_template.required_resources}),
+                                        job_required_staff_list,
                                         :id,
                                         :name,
                                         {:prompt => "Employees"},
                                         {:multiple => true, data: {controller: 'choices'}} %>
-          </div>
-        <% end %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :employee_ids, "Employees not required by job type" %>
-        <%= form.collection_select :employee_ids,
-                                  # Employee.joins(:employee_template).where("employee_templates.title NOT IN (?)", @job.job_template.required_resources || "[\"\"]"),
-                                  Employee.joins(:employee_template).where.not(employee_templates: {title: @job.job_template.required_resources}),
-                                  :id,
-                                  :name,
-                                  {:prompt => "Employees"},
-                                  {:multiple => true, data: {controller: 'choices'}} %>
-      </div>
-      <div class="flex flex-wrap items-center justify-end mt-8">
-        <%= form.button button_text("Save Staffing Selections"), class: "btn btn-primary" %>
-        <button class="ml-2 btn btn-primary" data-action="click->modal#close">Cancel</button>
-      </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="form-group">
+          <%= form.label :employee_ids, "Employees not required by job type" %>
+          <%= form.collection_select :employee_ids,
+                                    job_not_required_staff_list,
+                                    :id,
+                                    :name,
+                                    {:prompt => "Employees"},
+                                    {:multiple => true, data: {controller: 'choices'}} %>
+        </div>
+        <div class="flex flex-wrap items-center justify-end mt-8">
+          <%= form.button button_text("Save Staffing Selections"), class: "btn btn-primary" %>
+          <button class="ml-2 btn btn-primary" data-action="click->modal#close">Cancel</button>
+        </div>
     <% end %>
   </div>
 </div>
