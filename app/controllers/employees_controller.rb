@@ -20,7 +20,7 @@ class EmployeesController < ApplicationController
 
   # GET /employees/1 or /employees/1.json
   def show
-    if @employee.claimed_by.nil?
+    if @employee.unclaimed?
       @account_invitation = AccountInvitation.new
     end
   end
