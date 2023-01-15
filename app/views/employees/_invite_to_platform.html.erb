@@ -1,7 +1,8 @@
 <%= form_with model: account_invitation, url: "/accounts/#{employee.account_id}/invitations", method: :post  do |form| %>
   <%= form.hidden_field :name, value: @employee.name %>
   <%= form.hidden_field :email, value: employee.email %>
-  <%= form.hidden_field :employee %>
+  <%= form.hidden_field :employee, value: :true %>
+  <%= form.hidden_field :admin, value: :false %>
   <%= form.hidden_field :employee_id, value: @employee.id %>
   <%= form.submit "Invite User to Platform", class: "btn btn-primary" %>
 <% end %>

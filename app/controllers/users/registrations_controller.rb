@@ -3,7 +3,7 @@
 module Users
   class RegistrationsController < Devise::RegistrationsController
     invisible_captcha only: :create
-    before_action :maybe_claim_employee, only: :create
+    #before_action :maybe_claim_employee, only: :create
 
     protected
 
@@ -37,6 +37,7 @@ module Users
 
       # If user registered through an invitation, automatically accept it after signing in
       return unless @account_invitation
+      maybe_claim_employee
       @account_invitation.accept!(current_user)
 
       # Clear redirect to account invitation since it's already been accepted
@@ -51,8 +52,9 @@ module Users
       return unless params[:invite]
 
       if (@employee = Employee.find_by(email: params[:user][:email]))
-        @employee.claimed_by = current_user
+        @employee.claimed_by_id = current_user.id
         @employee.claim
+        @employee.save
       else
         flash[:alert] = "Email address not found. Try again or contact your employer"
         redirect_to "/users/sign_up?invite=#{params[:invite]}" and return
