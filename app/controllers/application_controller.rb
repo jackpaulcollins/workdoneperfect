@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   include DeviceFormat
   include Users::AgreementUpdates
   include Authorization
+  include Pundit
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 

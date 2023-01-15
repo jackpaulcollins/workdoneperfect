@@ -11,20 +11,24 @@
 #  last_name            :string
 #  slug                 :string
 #  start_date           :datetime
+#  state                :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  account_id           :bigint           not null
+#  claimed_by_id        :bigint
 #  employee_template_id :bigint           not null
 #
 # Indexes
 #
 #  index_employees_on_account_id            (account_id)
+#  index_employees_on_claimed_by_id         (claimed_by_id) UNIQUE
 #  index_employees_on_employee_template_id  (employee_template_id)
 #  index_employees_on_slug                  (slug) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (claimed_by_id => users.id)
 #  fk_rails_...  (employee_template_id => employee_templates.id)
 #
 class Employee < ApplicationRecord
@@ -34,6 +38,7 @@ class Employee < ApplicationRecord
   acts_as_tenant :account
   belongs_to :account
   belongs_to :employee_template
+  belongs_to :claimed_by, class_name: "User", optional: true
   has_many :attribute_answers, dependent: :destroy
   has_many :employee_jobs, inverse_of: :employee, dependent: :destroy
   has_many :jobs, through: :employee_jobs
@@ -44,6 +49,16 @@ class Employee < ApplicationRecord
   validates :first_name, presence: true
 
   scope :active, ->(active = true) { where("final_date IS NULL OR final_date > ?", Date.today) if active }
+
+  state_machine initial: :unclaimed do
+    event :mark_pending_invite do
+      transition unclaimed: :pending
+    end
+
+    event :claim do
+      transition pending: :claimed
+    end
+  end
 
   def self.ransackable_scopes(_auth_object = nil)
     [:active]

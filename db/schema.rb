@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_08_054608) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_15_020801) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -204,7 +204,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_054608) do
     t.datetime "updated_at", null: false
     t.string "email"
     t.string "slug"
+    t.bigint "claimed_by_id"
+    t.string "state"
     t.index ["account_id"], name: "index_employees_on_account_id"
+    t.index ["claimed_by_id"], name: "index_employees_on_claimed_by_id", unique: true
     t.index ["employee_template_id"], name: "index_employees_on_employee_template_id"
     t.index ["slug"], name: "index_employees_on_slug", unique: true
   end
@@ -463,6 +466,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_08_054608) do
   add_foreign_key "employee_templates", "accounts"
   add_foreign_key "employees", "accounts"
   add_foreign_key "employees", "employee_templates"
+  add_foreign_key "employees", "users", column: "claimed_by_id"
   add_foreign_key "job_attribute_answers", "job_attributes"
   add_foreign_key "job_attribute_answers", "jobs"
   add_foreign_key "job_attributes", "job_templates"

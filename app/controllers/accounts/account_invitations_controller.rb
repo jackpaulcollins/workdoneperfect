@@ -5,15 +5,24 @@ module Accounts
     before_action :set_account
     before_action :require_account_admin
     before_action :set_account_invitation, only: %i[edit update destroy]
+    before_action :set_employee, only: %i[create]
 
     def new
       @account_invitation = AccountInvitation.new
     end
 
     def create
-      @account_invitation = AccountInvitation.new(invitation_params)
+      @account_invitation = AccountInvitation.new(invitation_params.except(:employee_id))
       if @account_invitation.save_and_send_invite
-        redirect_to @account
+        @employee.mark_pending_invite!
+
+        if @employee
+          flash[:notice] = "Employee was successfully invited"
+          redirect_to @employee
+        else
+          redirect_to @account
+        end
+
       else
         render :new, status: :unprocessable_entity
       end
@@ -45,10 +54,14 @@ module Accounts
       @account_invitation = @account.account_invitations.find_by!(token: params[:id])
     end
 
+    def set_employee
+      @employee = Employee.find_by_id(invitation_params[:employee_id])
+    end
+
     def invitation_params
       params
         .require(:account_invitation)
-        .permit(:name, :email, AccountUser::ROLES)
+        .permit(:name, :email, AccountUser::ROLES, :employee_id)
         .merge(account: @account, invited_by: current_user)
     end
   end

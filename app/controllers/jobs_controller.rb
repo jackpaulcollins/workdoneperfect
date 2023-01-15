@@ -12,6 +12,7 @@ class JobsController < ApplicationController
 
   def index
     @pagy, @jobs = pagy(Job.sort_by_params(params[:sort], sort_direction))
+    authorize @jobs
   end
 
   def show
