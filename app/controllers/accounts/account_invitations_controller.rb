@@ -14,15 +14,14 @@ module Accounts
     def create
       @account_invitation = AccountInvitation.new(invitation_params.except(:employee_id))
       if @account_invitation.save_and_send_invite
-        @employee.mark_pending_invite!
 
         if @employee
+          @employee.mark_pending_invite!
           flash[:notice] = "Employee was successfully invited"
           redirect_to @employee
         else
           redirect_to @account
         end
-
       else
         render :new, status: :unprocessable_entity
       end
