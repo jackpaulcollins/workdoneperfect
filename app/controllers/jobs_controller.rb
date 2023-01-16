@@ -56,7 +56,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
 
     begin
-     authorize @job
+      authorize @job
     rescue Pundit::NotAuthorizedError
       redirect_to jobs_path, alert: "You are not authorized to create jobs." and return
     end

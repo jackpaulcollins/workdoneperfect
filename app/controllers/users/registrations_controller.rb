@@ -3,7 +3,6 @@
 module Users
   class RegistrationsController < Devise::RegistrationsController
     invisible_captcha only: :create
-    #before_action :maybe_claim_employee, only: :create
 
     protected
 
