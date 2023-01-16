@@ -3,19 +3,25 @@
     <% employees = job.employee_jobs %>
     <h5>Scheduled Employees:</h5>
     <%= render partial: "job_employee_list", locals: { employees: employees } %>
-    <button class="btn btn-primary" data-action="click->modal#open">Change staffing</button>
+    <% if current_account_user.admin? %>
+      <button class="btn btn-primary" data-action="click->modal#open">Change staffing</button>
+    <% end %>
   <% end %>
 
   <% if job.scheduled? %>
     <% employees = job.employee_jobs %>
-    <button class="btn btn-primary" data-action="click->modal#open">Add Staffing</button>
+    <% if current_account_user.admin? %>
+      <button class="btn btn-primary" data-action="click->modal#open">Add Staffing</button>
+    <% end %>
   <% end %>
 
-  <% if job.completed? %>
+  <% if job.complete? %>
     <% employees = job.employee_jobs %>
     <h5>Job Completed By:</h5>
     <%= render partial: "job_employee_list", locals: { employees: employees } %>
-    <button class="btn btn-primary" data-action="click->modal#open">Change Staffing</button>
+    <% if current_account_user.admin? %>
+      <button class="btn btn-primary" data-action="click->modal#open">Change Staffing</button>
+    <% end %>
   <% end %>
 
   <div data-modal-target="container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="fixed inset-0 flex items-center justify-center hidden overflow-y-auto animated fadeIn" style="z-index: 9999;">

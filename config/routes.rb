@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     member do
       get :staff
       post :add_employees
+      patch "/jobs/:id/complete", to: "jobs#complete", as: "complete_job"
     end
   end
 

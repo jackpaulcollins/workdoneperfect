@@ -3,7 +3,7 @@
 class JobsController < ApplicationController
   include Jobs::StaffingConcern
 
-  before_action :set_job, only: %i[show edit update destroy staff add_employees]
+  before_action :set_job, only: %i[show edit update destroy staff add_employees complete]
   before_action :authenticate_user!
   # handles logic for changing job state depending on appropriate staffing changes
   before_action :process_staffing_changes, only: :add_employees
@@ -37,6 +37,15 @@ class JobsController < ApplicationController
   end
 
   def staff
+  end
+
+  def complete
+    if @job.can_complete?
+      @job.complete!
+      redirect_to @job, notice: "Job was successfully completed."
+    else
+      redirect_to @job, alert: "Job can not be completed."
+    end
   end
 
   def add_employees

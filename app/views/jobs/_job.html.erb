@@ -13,21 +13,28 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-col-reverse mt-6 space-y-4 space-y-reverse justify-stretch sm:flex-row-reverse sm:justify-end sm:space-y-0 sm:space-x-3 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
-      <%= link_to "mailto:#{job.customer.email}", class: "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100" do %>
-        <i class="mr-3 fa-regular fa-envelope"></i>
-        Email
-      <% end %>
-    </div>
+    <% if current_account_user.admin? %>
+      <div class="flex flex-col-reverse mt-6 space-y-4 space-y-reverse justify-stretch sm:flex-row-reverse sm:justify-end sm:space-y-0 sm:space-x-3 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+        <%= link_to "mailto:#{job.customer.email}", class: "inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-100" do %>
+          <i class="mr-3 fa-regular fa-envelope"></i>
+          Email
+        <% end %>
+      </div>
+    <% end %>
   </div>
-
   <div class="mt-4">
     <%= render partial: "staffing_component", locals: { job: job} %>
   </div>
-
   <% if job&.job_template&.job_attributes&.any? %>
     <div class="min-w-full">
       <%= render "job_template_answers_table", job: job, attributes: job.attributes_and_answers %>
+    </div>
+  <% end %>
+  <% if job.can_complete? %>
+    <div>
+    <%= form_with(model: @job, url: complete_job_job_path(@job), method: :patch) do %>
+     <%= submit_tag "Complete Job", class: "btn btn-primary" %>
+    <% end %>
     </div>
   <% end %>
 </div>
