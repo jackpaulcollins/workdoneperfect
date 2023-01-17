@@ -14,6 +14,8 @@ module Users
           flash[:alert] = "Email address not found. Try again or contact your employer"
           redirect_to "/users/sign_up?invite=#{params[:invite]}"
         end
+
+        return
       end
 
       super
@@ -48,13 +50,13 @@ module Users
 
     def sign_up(resource_name, resource)
       sign_in(resource_name, resource)
-      # If user registered through an invitation, automatically accept it after signing in
 
       if @account_invitation && @employee
         @account_invitation.accept!(current_user)
         @employee.claimed_by = current_user
         @employee.claim
       end
+
       # Clear redirect to account invitation since it's already been accepted
       stored_location_for(:user)
     end
