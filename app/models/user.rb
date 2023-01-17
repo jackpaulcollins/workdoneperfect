@@ -66,6 +66,7 @@ class User < ApplicationRecord
 
   # ActiveStorage Associations
   has_one_attached :avatar
+  has_one :employee, foreign_key: :claimed_by_id, dependent: :nullify
 
   # Associations
   has_many :api_tokens, dependent: :destroy

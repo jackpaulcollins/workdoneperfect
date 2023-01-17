@@ -3,7 +3,7 @@
 class JobsController < ApplicationController
   include Jobs::StaffingConcern
 
-  before_action :set_job, only: %i[show edit update destroy staff add_employees]
+  before_action :set_job, only: %i[show edit update destroy staff add_employees complete]
   before_action :authenticate_user!
   # handles logic for changing job state depending on appropriate staffing changes
   before_action :process_staffing_changes, only: :add_employees
@@ -11,10 +11,14 @@ class JobsController < ApplicationController
   helper_method :job_required_staff_list, :job_not_required_staff_list
 
   def index
-    @pagy, @jobs = pagy(Job.sort_by_params(params[:sort], sort_direction))
+    @pagy, @jobs = pagy(policy_scope(Job).sort_by_params(params[:sort], sort_direction))
+    authorize @jobs
   end
 
   def show
+    authorize @job
+  rescue Pundit::NotAuthorizedError
+    redirect_to jobs_path, alert: "You are not authorized to view this job."
   end
 
   def new
@@ -35,6 +39,15 @@ class JobsController < ApplicationController
   def staff
   end
 
+  def complete
+    if @job.can_complete?
+      @job.complete!
+      redirect_to @job, notice: "Job was successfully completed."
+    else
+      redirect_to @job, alert: "Job can not be completed."
+    end
+  end
+
   def add_employees
     respond_to do |format|
       if @job.update(job_params)
@@ -50,6 +63,12 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params)
+
+    begin
+      authorize @job
+    rescue Pundit::NotAuthorizedError
+      redirect_to jobs_path, alert: "You are not authorized to create jobs." and return
+    end
 
     respond_to do |format|
       if @job.save
@@ -77,6 +96,7 @@ class JobsController < ApplicationController
   end
 
   def destroy
+    authorize @job
     @job.destroy
     respond_to do |format|
       format.html { redirect_to jobs_url, status: :see_other, notice: "Job was successfully destroyed." }

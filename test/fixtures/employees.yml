@@ -9,20 +9,24 @@
 #  last_name            :string
 #  slug                 :string
 #  start_date           :datetime
+#  state                :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  account_id           :bigint           not null
+#  claimed_by_id        :bigint
 #  employee_template_id :bigint           not null
 #
 # Indexes
 #
 #  index_employees_on_account_id            (account_id)
+#  index_employees_on_claimed_by_id         (claimed_by_id) UNIQUE
 #  index_employees_on_employee_template_id  (employee_template_id)
 #  index_employees_on_slug                  (slug) UNIQUE
 #
 # Foreign Keys
 #
 #  fk_rails_...  (account_id => accounts.id)
+#  fk_rails_...  (claimed_by_id => users.id)
 #  fk_rails_...  (employee_template_id => employee_templates.id)
 #
 
@@ -34,6 +38,8 @@ one:
   email: one@email.com
   start_date: 2022-10-12 22:27:29
   final_date: 2022-10-12 22:27:29
+  claimed_by_id: nil
+  state: unclaimed
 
 two:
   account: two
@@ -43,12 +49,16 @@ two:
   email: two@email.com
   start_date: 2022-10-12 22:27:29
   final_date: 2022-10-12 22:27:29
+  claimed_by_id: nil
+  state: unclaimed
 
 three:
   account: one
   employee_template: three
   first_name: MyString
   last_name: MyString
-  email: tree@email.com
+  email: "new@inviteduser.com"
   start_date: 2022-10-12 22:27:29
   final_date: 2022-10-12 22:27:29
+  claimed_by_id: nil
+  state: pending
