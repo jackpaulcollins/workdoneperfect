@@ -6,13 +6,17 @@ module Users
     before_action :build_resource, only: :create
 
     def create
-      # only continue with the create method if we can find the email the employer set
-      if (@employee = Employee.pending.find_by(email: params[:user][:email]))
-        super
-      else
-        flash[:alert] = "Email address not found. Try again or contact your employer"
-        redirect_to "/users/sign_up?invite=#{params[:invite]}"
+      if params[:invite].present?
+        # only continue with the create method if we can find the email the employer set
+        if (@employee = Employee.pending.find_by(email: params[:user][:email]))
+          super
+        else
+          flash[:alert] = "Email address not found. Try again or contact your employer"
+          redirect_to "/users/sign_up?invite=#{params[:invite]}"
+        end
       end
+
+      super
     end
 
     protected
@@ -45,9 +49,12 @@ module Users
     def sign_up(resource_name, resource)
       sign_in(resource_name, resource)
       # If user registered through an invitation, automatically accept it after signing in
-      @account_invitation.accept!(current_user)
-      @employee.claimed_by = current_user
-      @employee.claim
+
+      if @account_invitation && @employee
+        @account_invitation.accept!(current_user)
+        @employee.claimed_by = current_user
+        @employee.claim
+      end
       # Clear redirect to account invitation since it's already been accepted
       stored_location_for(:user)
     end
