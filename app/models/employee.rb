@@ -49,6 +49,7 @@ class Employee < ApplicationRecord
   validates :first_name, presence: true
 
   scope :active, ->(active = true) { where("final_date IS NULL OR final_date > ?", Date.today) if active }
+  scope :pending, -> { where(state: "pending") }
 
   state_machine initial: :unclaimed do
     event :mark_pending_invite do
