@@ -39,6 +39,10 @@ class JobPolicy < ApplicationPolicy
     account_user.admin?
   end
 
+  def new?
+    account_user.admin?
+  end
+
   def update?
     account_user.admin? || record.employee_jobs.pluck(:employee_id).include?(employee.id)
   end

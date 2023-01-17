@@ -13,6 +13,8 @@ class JobsController < ApplicationController
   def index
     @pagy, @jobs = pagy(policy_scope(Job).sort_by_params(params[:sort], sort_direction))
     authorize @jobs
+  rescue Pundit::NotAuthorizedError
+    redirect_to jobs_path, alert: "You are not authorized to view jobs."
   end
 
   def show
@@ -30,13 +32,17 @@ class JobsController < ApplicationController
       Job.new
     end
 
-    @job
+    authorize @job
+
+  rescue Pundit::NotAuthorizedError
+    redirect_to jobs_path, alert: "You are not authorized to create jobs."
   end
 
   def edit
-  end
+    authorize @job
 
-  def staff
+  rescue Pundit::NotAuthorizedError
+    redirect_to jobs_path, alert: "You are not authorized to edit jobs."
   end
 
   def complete
@@ -49,6 +55,12 @@ class JobsController < ApplicationController
   end
 
   def add_employees
+    begin
+      authorize @job
+    rescue Pundit::NotAuthorizedError
+      redirect_to jobs_path, alert: "You are not authorized to add employees to jobs." and return
+    end
+  
     respond_to do |format|
       if @job.update(job_params)
         @job.staff! unless @job.staffed?
@@ -84,6 +96,12 @@ class JobsController < ApplicationController
   end
 
   def update
+    begin
+      authorize @job
+    rescue Pundit::NotAuthorizedError
+      redirect_to jobs_path, alert: "You are not authorized to update jobs." and return
+    end
+
     respond_to do |format|
       if @job.update(job_params)
         format.html { redirect_to @job, notice: "Job was successfully updated." }
@@ -96,7 +114,12 @@ class JobsController < ApplicationController
   end
 
   def destroy
-    authorize @job
+    begin
+      authorize @job
+    rescue Pundit::NotAuthorizedError
+      redirect_to jobs_path, alert: "You are not authorized to delete jobs." and return
+    end
+
     @job.destroy
     respond_to do |format|
       format.html { redirect_to jobs_url, status: :see_other, notice: "Job was successfully destroyed." }

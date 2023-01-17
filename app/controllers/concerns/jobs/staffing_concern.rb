@@ -7,8 +7,7 @@ module Jobs
 
       # rails multiple entry form fields contain an empty string when there's
       # no value, so we check to see if there's anything other than
-      # an empty string to determine if we have any changes to
-      # send to the db
+      # an empty string to determine if we have any changes to send to the db
 
       changes = employee_ids.any? { |value| value != "" }
 

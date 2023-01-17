@@ -5,19 +5,22 @@
   <div class="flex items-center justify-between mb-4">
     <div>
       <h1 class="h3">Jobs</h1>
-
-      <div class="text-sm font-medium">
-        <span class="text-gray-500">Sort by:</span>
-        <%= sortable @jobs, :customer_id, "Customer", class: "text-gray-700 mr-1" %>
-        <%= sortable @jobs, :date_and_time, "Date and time", class: "text-gray-700 mr-1" %>
-        <%= sortable @jobs, :estimated_hours, "Estimated hours", class: "text-gray-700 mr-1" %>
-        <%= sortable @jobs, :total_hours, "Total hours", class: "text-gray-700 mr-1" %>
-        <%= sortable @jobs, :revenue, "Revenue", class: "text-gray-700 mr-1" %>
-      </div>
+      <% if @jobs.any? %>
+        <div class="text-sm font-medium">
+          <span class="text-gray-500">Sort by:</span>
+          <%= sortable @jobs, :customer_id, "Customer", class: "text-gray-700 mr-1" %>
+          <%= sortable @jobs, :date_and_time, "Date and time", class: "text-gray-700 mr-1" %>
+          <%= sortable @jobs, :estimated_hours, "Estimated hours", class: "text-gray-700 mr-1" %>
+          <%= sortable @jobs, :total_hours, "Total hours", class: "text-gray-700 mr-1" %>
+          <%= sortable @jobs, :revenue, "Revenue", class: "text-gray-700 mr-1" %>
+        </div>
+      <% end %>
     </div>
     <div>
-      <%= link_to t("shared.scaffold.new.title", model: "Job Type"), new_job_template_path, class: "btn btn-white" %>
-      <%= link_to t("shared.scaffold.new.title", model: "Job"), new_job_path, class: "btn btn-white" %>
+      <% if current_account_user.admin? %>
+        <%= link_to t("shared.scaffold.new.title", model: "Job Type"), new_job_template_path, class: "btn btn-white" %>
+        <%= link_to t("shared.scaffold.new.title", model: "Job"), new_job_path, class: "btn btn-white" %>
+      <% end %>
     </div>
   </div>
 
@@ -30,13 +33,15 @@
       </div>
     <% end %>
 
-    <div class="hidden only:flex flex-col items-center justify-between lg:flex-row">
-      <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
-      <div class="flex-1 text-center">
-        <p class="mb-4 h3">Create your first Job</p>
-        <%= link_to t("shared.scaffold.new.title", model: "Job"), new_job_path, class: "btn btn-primary" %>
+      <div class="hidden only:flex flex-col items-center justify-between lg:flex-row">
+        <%= image_tag "empty.svg", class: "mb-4 lg:w-1/2" %>
+        <div class="flex-1 text-center">
+          <% if current_account_user.admin? %>
+            <p class="mb-4 h3">Create your first Job</p>
+            <%= link_to t("shared.scaffold.new.title", model: "Job"), new_job_path, class: "btn btn-primary" %>
+          <% end %>
+        </div>
       </div>
-    </div>
   <% end %>
 
   <% if @pagy.pages > 1 %>
