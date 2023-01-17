@@ -33,14 +33,12 @@ class JobsController < ApplicationController
     end
 
     authorize @job
-
   rescue Pundit::NotAuthorizedError
     redirect_to jobs_path, alert: "You are not authorized to create jobs."
   end
 
   def edit
     authorize @job
-
   rescue Pundit::NotAuthorizedError
     redirect_to jobs_path, alert: "You are not authorized to edit jobs."
   end
@@ -60,7 +58,7 @@ class JobsController < ApplicationController
     rescue Pundit::NotAuthorizedError
       redirect_to jobs_path, alert: "You are not authorized to add employees to jobs." and return
     end
-  
+
     respond_to do |format|
       if @job.update(job_params)
         @job.staff! unless @job.staffed?
