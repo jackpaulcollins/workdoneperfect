@@ -32,6 +32,12 @@ two:
   roles:
     admin: true
 
+three:
+  user: three
+  account: one
+  roles:
+    employee: true
+
 company_admin:
   account: company
   user: one

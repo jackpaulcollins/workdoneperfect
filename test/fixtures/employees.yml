@@ -57,8 +57,30 @@ three:
   employee_template: three
   first_name: MyString
   last_name: MyString
-  email: "new@inviteduser.com"
+  email: new@inviteduser.com
   start_date: 2022-10-12 22:27:29
   final_date: 2022-10-12 22:27:29
   claimed_by_id: nil
   state: pending
+
+four:
+  account: one
+  employee_template: three
+  first_name: MyString
+  last_name: MyString
+  email: claimed@user.com
+  start_date: 2022-10-12 22:27:29
+  final_date: 2022-10-12 22:27:29
+  claimed_by: two
+  state: claimed
+
+five:
+  account: one
+  employee_template: three
+  first_name: MyString
+  last_name: MyString
+  email: claimed@user.com
+  start_date: 2022-10-12 22:27:29
+  final_date: 2022-10-12 22:27:29
+  claimed_by: three
+  state: claimed
