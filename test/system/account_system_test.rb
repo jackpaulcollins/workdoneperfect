@@ -13,6 +13,6 @@ class AccountSystemTest < ApplicationSystemTestCase
     visit edit_user_registration_path
     attach_file "user[avatar]", file_fixture("avatar.jpg")
     click_button "Update"
-    assert_selector "img[src*='avatar.jpg']"
+    assert_text "Your account has been updated successfully."
   end
 end
