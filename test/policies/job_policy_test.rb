@@ -10,6 +10,15 @@ class JobPolicyTest < ActionDispatch::IntegrationTest
   end
 
   def test_scope
+    EmployeeJob.destroy_all
+    EmployeeJob.create!(job: @job, employee: @employee_two)
+
+    jobs = Pundit.policy_scope(@employee_two.claimed_by.account_users.last, Job)
+    assert_equal @employee_two.jobs.count, jobs.count
+    assert employee_scope_only_contains_employee_jobs?(jobs, @employee_two.employee_jobs)
+
+    jobs = Pundit.policy_scope(@admin, Job)
+    assert_equal jobs.count, Job.count
   end
 
   def test_show
@@ -36,5 +45,13 @@ class JobPolicyTest < ActionDispatch::IntegrationTest
     assert_permit(@admin, :job, :destroy)
     refute_permit(@employee_two.claimed_by.account_users.last, :job, :destroy)
     refute_permit(@employee.claimed_by.account_users.last, :job, :destroy)
+  end
+
+  private
+
+  def employee_scope_only_contains_employee_jobs?(jobs, employee_jobs)
+    employee_jobs.zip(jobs).all? do |employee_job, job|
+      employee_job.job_id == job.id
+    end
   end
 end
