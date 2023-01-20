@@ -62,8 +62,8 @@ module Jumpstart
     test "it redirects when the user/employer emails do not match" do
       get account_invitation_path(@account_invitation)
       post user_registration_path(invite: @account_invitation.token),
-      params: {user: {name: "Invited User", email: "wrong email", password: "password",
-                      password_confirmation: "password", terms_of_service: "1"}}
+        params: {user: {name: "Invited User", email: "wrong email", password: "password",
+                        password_confirmation: "password", terms_of_service: "1"}}
       assert_redirected_to new_user_registration_path(invite: @account_invitation.token)
     end
   end

@@ -139,3 +139,33 @@ user_without_billing_address:
   accepted_privacy_at: <%= Time.current %>
   time_zone: "Central Time (US & Canada)"
   confirmed_at: <%= Time.current %>
+
+user_with_employee_no_admin:
+  email: employee@email.com
+  first_name: Employee
+  last_name: NotAdmin
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "Central Time (US & Canada)"
+  confirmed_at: <%= Time.current %>
+
+user_with_employee_and_admin:
+  email: employeeandadmin@email.com
+  first_name: Employee
+  last_name: Admin
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "Central Time (US & Canada)"
+  confirmed_at: <%= Time.current %>
+
+user_with_admin_not_employee:
+  email: admin@email.com
+  first_name: Admin
+  last_name: NoEmployee
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  accepted_terms_at: <%= Time.current %>
+  accepted_privacy_at: <%= Time.current %>
+  time_zone: "Central Time (US & Canada)"
+  confirmed_at: <%= Time.current %>

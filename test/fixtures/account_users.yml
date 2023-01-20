@@ -51,3 +51,25 @@ company_regular_user:
 invited_user:
   account: invited
   user: invited
+
+employee_not_admin:
+  user: user_with_employee_no_admin
+  account: one
+  roles:
+    employee: true
+    admin: false
+  
+employee_and_admin:
+  user: user_with_employee_and_admin
+  account: one
+  roles:
+    employee: true
+    admin: true
+
+admin_not_employee:
+  user: user_with_admin_not_employee
+  account: one
+  roles:
+    employee: false
+    admin: true
+
