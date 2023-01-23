@@ -23,9 +23,7 @@ class JobsTest < ApplicationSystemTestCase
     find("#job_job_template_id").click
     find("option[value='#{@job_template.id}']").click
     fill_in "Date and time", with: @job.date_and_time
-    fill_in "Revenue", with: 100
     fill_in "Estimated hours", with: 8
-    fill_in "Total hours", with: 8
     click_on "Save to Schedule"
 
     assert_text "Job was successfully created"
