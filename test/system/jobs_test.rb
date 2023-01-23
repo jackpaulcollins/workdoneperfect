@@ -77,4 +77,12 @@ class JobsTest < ApplicationSystemTestCase
     find("#complete-submit", wait: 2).click
     assert_text "Job was successfully completed."
   end
+
+  test "Can complete a job when everything ok" do
+    @job.update_columns(estimated_hours: 8, revenue: 100, total_hours: 8)
+    visit job_url(@job)
+    assert has_button?("Complete Job")
+    find("#complete-submit", wait: 2).click
+    assert_text "Job was successfully completed."
+  end
 end
