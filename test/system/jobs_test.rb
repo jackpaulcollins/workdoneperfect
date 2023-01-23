@@ -50,4 +50,9 @@ class JobsTest < ApplicationSystemTestCase
 
     assert_text "Job was successfully destroyed"
   end
+
+  # test "Completing a job" do
+  #   visit job_url(@job)
+  #   assert_text "Complete Job"
+  # end
 end

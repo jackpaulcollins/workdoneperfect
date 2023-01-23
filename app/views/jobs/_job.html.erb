@@ -30,6 +30,9 @@
   <div class="mt-4">
     <%= render partial: "staffing_component", locals: { job: job} %>
   </div>
+  <div>
+    <%= render "job_details_table", job: job %>
+  </div>
   <% if job&.job_template&.job_attributes&.any? %>
     <div class="min-w-full">
       <%= render "job_template_answers_table", job: job, attributes: job.attributes_and_answers %>
