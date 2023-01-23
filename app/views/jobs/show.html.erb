@@ -20,7 +20,7 @@
       <% if @job.can_complete? %>
         <div>
           <%= form_with(model: @job, url: complete_job_job_path(@job), method: :patch) do %>
-            <%= submit_tag "Complete Job", class: "btn btn-secondary" %>
+            <%= submit_tag "Complete Job", class: "btn btn-secondary", id: "complete-submit" %>
           <% end %>
         </div>
       <% end %>

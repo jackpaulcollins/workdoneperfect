@@ -4,7 +4,7 @@ require "application_system_test_case"
 
 class JobsTest < ApplicationSystemTestCase
   setup do
-    @job = jobs(:one)
+    @job = jobs(:incomplete)
     @user = users(:one)
     @job_template = job_templates(:one)
     login_as(@user)
@@ -51,8 +51,30 @@ class JobsTest < ApplicationSystemTestCase
     assert_text "Job was successfully destroyed"
   end
 
-  # test "Completing a job" do
-  #   visit job_url(@job)
-  #   assert_text "Complete Job"
-  # end
+  test "Cannot complete a job when details are missing" do
+    @job.update_columns(estimated_hours: nil, revenue: nil, total_hours: nil)
+    visit job_url(@job)
+    assert has_button?("Complete Job")
+    click_on "Complete Job"
+    assert_text "Job is missing revenue and/or total hours"
+  end
+
+  test "Can complete a job after filling in missing details" do
+    @job.update_columns(estimated_hours: nil, revenue: nil, total_hours: nil)
+    visit job_url(@job)
+    assert has_button?("Complete Job")
+    click_on "Complete Job"
+    assert_text "Job is missing revenue and/or total hours"
+
+    find("#job_total_hours").fill_in with: 2
+    find("#total-hours-form > div > input.text-primary-500.underline.transition.cursor-pointer.ml-4").click
+    assert_text "Job was successfully updated."
+
+    find("#job_revenue").fill_in with: 100
+    find("#revenue-form > div > input.text-primary-500.underline.transition.cursor-pointer.ml-4").click
+    assert_text "Job was successfully updated."
+
+    find("#complete-submit", wait: 2).click
+    assert_text "Job was successfully completed."
+  end
 end

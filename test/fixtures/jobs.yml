@@ -56,3 +56,13 @@ two:
   revenue: 1.5
   completed_at: 2022-10-12 23:48:39
   state: draft
+
+incomplete:
+  account: one
+  customer: one
+  date_and_time: 2022-10-12 22:48:39
+  estimated_hours: nil
+  total_hours: nil
+  revenue: nil
+  job_template: one
+  state: scheduled
