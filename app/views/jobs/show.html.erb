@@ -18,10 +18,11 @@
         <% end %>
       </div>
       <% if @job.can_complete? %>
-        <%= form_for @job do |f| %>
-          <%= f.hidden_field :state, value: "complete" %>
-          <%= f.submit "Mark Job Complete", class: "btn btn-secondary mr-4" %>
-        <% end %>
+        <div>
+          <%= form_with(model: @job, url: complete_job_job_path(@job), method: :patch) do %>
+            <%= submit_tag "Complete Job", class: "btn btn-secondary" %>
+          <% end %>
+        </div>
       <% end %>
       <%= link_to t("edit"), edit_job_path(@job), class: "btn btn-white" %>
     </div>

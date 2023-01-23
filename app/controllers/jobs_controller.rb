@@ -44,6 +44,10 @@ class JobsController < ApplicationController
   end
 
   def complete
+    if @job.revenue.nil? || @job.total_hours.nil?
+      redirect_to @job, alert: "Job is missing revenue and/or total hours" and return
+    end
+
     if @job.can_complete?
       @job.complete!
       redirect_to @job, notice: "Job was successfully completed."
@@ -99,7 +103,6 @@ class JobsController < ApplicationController
     rescue Pundit::NotAuthorizedError
       redirect_to jobs_path, alert: "You are not authorized to update jobs." and return
     end
-
     respond_to do |format|
       if @job.update(job_params)
         format.html { redirect_to @job, notice: "Job was successfully updated." }

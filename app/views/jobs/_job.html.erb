@@ -30,11 +30,4 @@
       <%= render "job_template_answers_table", job: job, attributes: job.attributes_and_answers %>
     </div>
   <% end %>
-  <% if job.can_complete? %>
-    <div>
-    <%= form_with(model: @job, url: complete_job_job_path(@job), method: :patch) do %>
-     <%= submit_tag "Complete Job", class: "btn btn-primary" %>
-    <% end %>
-    </div>
-  <% end %>
 </div>
