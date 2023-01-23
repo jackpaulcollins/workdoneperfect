@@ -1,40 +1,40 @@
 <div class="min-w-full">
-	<div class="mt-5 border-t border-gray-200">
-		<dl class="sm:divide-y sm:divide-gray-200">
-			<div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-				<dt class="text-sm font-medium text-gray-500">Estimated Hours</dt>
-				<dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= job.estimated_hours %></dd>
-			</div>
-			<div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-				<dt class="text-sm font-medium text-gray-500">Total Hours</dt>
-				<dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-					<% if job.total_hours.nil? %>
-						<%= form_with(model: job, method: :patch, id: "total-hours-form", data: { controller: "edit-form" }) do |f| %>
-								<div class="w-full flex flex-row">
-								<%= f.number_field :total_hours, value: job.total_hours, class: "form-control w-12" %>
-								<%= f.submit "update", class: "text-primary-500 underline transition cursor-pointer ml-4" %>
-								</div>
-						<% end %>
-						<% else %>
-							<%= job.total_hours %>
-					<% end %>
-				</dd>
-			</div>
-			<div class="pt-4 pb-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5 pb-0">
-					<dt class="text-sm font-medium text-gray-500">Revenue</dt>
-						<dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-								<% if job.revenue.nil? %>
-								<%= form_with(model: job, method: :patch, id: "revenue-form", data: { controller: "edit-form" }) do |f| %>
-										<div class="w-full flex flex-row">
-										<%= f.number_field :revenue, value: job.revenue, class: "form-control w-12" %>
-										<%= f.submit "update", class: "text-primary-500 underline transition cursor-pointer ml-4" %>
-										</div>
-								<% end %>
-								<% else %>
-								<%= job.revenue %>
-								<% end %>
-						</dd>
-				</div>
-		</dl>
-	</div>
+  <div class="mt-5 border-t border-gray-200">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+        <dt class="text-sm font-medium text-gray-500">Estimated Hours</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= job.estimated_hours %></dd>
+      </div>
+      <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
+        <dt class="text-sm font-medium text-gray-500">Total Hours</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+          <% if job.total_hours.nil? %>
+            <%= form_with(model: job, method: :patch, id: "total-hours-form", data: { controller: "edit-form" }) do |f| %>
+                <div class="w-full flex flex-row">
+                <%= f.number_field :total_hours, value: job.total_hours, class: "form-control w-12" %>
+                <%= f.submit "update", class: "text-primary-500 underline transition cursor-pointer ml-4" %>
+                </div>
+            <% end %>
+            <% else %>
+              <%= job.total_hours %>
+          <% end %>
+        </dd>
+      </div>
+      <div class="pt-4 pb-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5 pb-0">
+          <dt class="text-sm font-medium text-gray-500">Revenue</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+                <% if job.revenue.nil? %>
+                <%= form_with(model: job, method: :patch, id: "revenue-form", data: { controller: "edit-form" }) do |f| %>
+                    <div class="w-full flex flex-row">
+                    <%= f.number_field :revenue, value: job.revenue, class: "form-control w-12" %>
+                    <%= f.submit "update", class: "text-primary-500 underline transition cursor-pointer ml-4" %>
+                    </div>
+                <% end %>
+                <% else %>
+                <%= job.revenue %>
+                <% end %>
+            </dd>
+        </div>
+    </dl>
+  </div>
 </div>
