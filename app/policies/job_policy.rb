@@ -51,6 +51,10 @@ class JobPolicy < ApplicationPolicy
     account_user.admin?
   end
 
+  def add_employees?
+    account_user.admin?
+  end
+
   # https://github.com/varvet/pundit#strong-parameters
   def permitted_attributes
     if account_user.admin?

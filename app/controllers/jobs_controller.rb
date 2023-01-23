@@ -65,7 +65,6 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.update(job_params)
-        @job.staff! unless @job.staffed?
         format.html { redirect_to @job, notice: "Job was successfully staffed." }
         format.json { render :show, status: :ok, location: @job }
       else

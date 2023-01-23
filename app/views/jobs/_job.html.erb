@@ -8,7 +8,12 @@
         <h1 class="text-2xl font-bold text-gray-900 hover:text-primary-500"><%= job.customer.name_and_email_or_email %></h1>
         <% end %>
         <div>
-          <p class="text-md font-medium text-gray-500">State: <%= job.state_display %></p>
+          <div class="inline flex items-center">
+            <p class="text-md font-medium text-gray-500">State: <%= job.state_display %></p>
+            <% if job.complete? %>
+              <i class="fa-solid fa-circle-check text-green-500 ml-2"></i>
+            <% end %>
+          </div>
           <p class="text-sm font-medium text-gray-500"><%= job.date_and_time.to_formatted_s(:long) %></p>
         </div>
       </div>
