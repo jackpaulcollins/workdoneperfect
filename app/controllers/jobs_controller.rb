@@ -46,7 +46,9 @@ class JobsController < ApplicationController
   def complete
     if @job.can_complete?
       @job.complete!
-      redirect_to @job, notice: "Job was successfully completed."
+      redirect_to @job, notice: "Job was successfully marked complete."
+    else
+      redirect_to @job, notice: "Job unable to be marked as complete."
     end
   rescue StateMachines::InvalidTransition
     redirect_to @job, alert: @job.errors.full_messages.join(", ")
