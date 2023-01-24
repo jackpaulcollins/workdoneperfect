@@ -46,6 +46,7 @@ class Job < ApplicationRecord
   # when a template is being changed
   # before we validate the object
   before_validation :maybe_discard_stale_answers, if: :template_changing?
+  validates :total_hours, :revenue, presence: true, if: :complete?
 
   # Broadcast changes in realtime with Hotwire
   after_create_commit -> { broadcast_prepend_later_to :jobs, partial: "jobs/index", locals: {job: self} }
@@ -83,6 +84,10 @@ class Job < ApplicationRecord
     def incomplete
       completed.invert_where
     end
+  end
+
+  def can_save_as_draft?
+    scheduled? || draft?
   end
 
   def completed?

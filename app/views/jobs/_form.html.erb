@@ -51,12 +51,6 @@
                                {:multiple => true, data: {controller: 'choices'}} %>
   </div>
   <div>
-    <%= button_tag "Save to Schedule", class: "btn btn-primary" %>
-    <%= button_tag "Save as Draft", name: "draft", value: "true", class: "btn btn-white" %>
-    <% if form.object.new_record? %>
-      <%= link_to t("cancel"), jobs_path, class: "btn btn-white" %>
-    <% else %>
-      <%= link_to t("cancel"), job_path(@job), class: "btn btn-white" %>
-    <% end %>
+    <%= render "job_form_buttons", job: @job, form: form %>
   </div>
 <% end %>

@@ -1,6 +1,5 @@
 <%= content_for :title, "Jobs ##{@job.id}" %>
 <%= turbo_stream_from @job %>
-
 <div class="container px-4 mx-auto my-8">
   <div class="flex items-center justify-between mb-4">
     <h1 class="h3">
@@ -20,14 +19,16 @@
       <% if @job.can_complete? %>
         <div>
           <%= form_with(model: @job, url: complete_job_job_path(@job), method: :patch) do %>
-            <%= submit_tag "Complete Job", class: "btn btn-secondary", id: "complete-submit" %>
+          <button class="btn btn-secondary mr-2 p-2">
+              <%= submit_tag "Mark Complete", id: "complete-submit" %>
+              <i class="fa-solid fa-check ml-2"></i>
+            </button>
           <% end %>
         </div>
       <% end %>
       <%= link_to t("edit"), edit_job_path(@job), class: "btn btn-white" %>
     </div>
   </div>
-
   <div class="p-8 bg-white rounded shadow">
     <%= render @job %>
   </div>

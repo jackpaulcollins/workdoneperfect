@@ -37,7 +37,7 @@ class JobsTest < ApplicationSystemTestCase
     find("option[value='#{@job_template.id}']").click
     fill_in "Estimated hours", with: @job.estimated_hours + 1
     fill_in "Total hours", with: @job.total_hours
-    click_on "Save to Schedule"
+    click_on "Save"
 
     assert_text "Job was successfully updated"
     assert_selector "h1", text: "Jobs"
@@ -54,17 +54,17 @@ class JobsTest < ApplicationSystemTestCase
   test "Cannot complete a job when details are missing" do
     @job.update_columns(estimated_hours: nil, revenue: nil, total_hours: nil)
     visit job_url(@job)
-    assert has_button?("Complete Job")
-    click_on "Complete Job"
-    assert_text "Job is missing revenue and/or total hours"
+    assert has_button?("Mark Complete")
+    click_on "Mark Complete"
+    assert_text "Total hours can't be blank, Revenue can't be blank"
   end
 
   test "Can complete a job after filling in missing details" do
     @job.update_columns(estimated_hours: nil, revenue: nil, total_hours: nil)
     visit job_url(@job)
-    assert has_button?("Complete Job")
-    click_on "Complete Job"
-    assert_text "Job is missing revenue and/or total hours"
+    assert has_button?("Mark Complete")
+    click_on "Mark Complete"
+    assert_text "Total hours can't be blank, Revenue can't be blank"
 
     # submitted either should update both values
     find("#total-hours-field").fill_in with: 2
@@ -78,7 +78,7 @@ class JobsTest < ApplicationSystemTestCase
   test "Can complete a job when everything ok" do
     @job.update_columns(estimated_hours: 8, revenue: 100, total_hours: 8)
     visit job_url(@job)
-    assert has_button?("Complete Job")
+    assert has_button?("Mark Complete")
     find("#complete-submit", wait: 2).click
     assert_text "Job was successfully completed."
   end

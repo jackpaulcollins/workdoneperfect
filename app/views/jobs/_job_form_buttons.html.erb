@@ -1,0 +1,16 @@
+<% if form.object.new_record? %>
+  <%= button_tag "Save to Schedule", class: "btn btn-primary" %>
+<% else %>
+  <%= button_tag "Save Changes", class: "btn btn-primary" %>
+<% end %>
+
+<%# no need to show the 'save as draft button when editting a draft, just use save because it will save changes w/o changing from draft state' %>
+<% if @job.can_save_as_draft? && action_name != "edit" %>
+  <%= button_tag "Save as Draft", name: "draft", value: "true", class: "btn btn-white" %>
+<% end %>
+
+<% if form.object.new_record? %>
+    <%= link_to t("cancel"), jobs_path, class: "btn btn-white" %>
+<% else %>
+    <%= link_to t("cancel"), job_path(@job), class: "btn btn-white" %>
+<% end %>

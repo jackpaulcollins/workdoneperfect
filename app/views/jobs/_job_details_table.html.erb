@@ -5,33 +5,35 @@
         <dt class="text-sm font-medium text-gray-500">Estimated Hours</dt>
         <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"><%= job.estimated_hours %></dd>
       </div>
-      <%= form_with(model: job, method: :patch, id: "total-hours-form") do |f| %>
-        <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-5">
-          <dt class="text-sm font-medium text-gray-500">Total Hours</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-            <% if job.total_hours.nil? %>
-              <div class="w-full flex flex-row">
-                <%= f.number_field :total_hours, value: job.total_hours, id: "total-hours-field", class: "form-control w-12" %>
-                <%= f.submit "update", id: "total-hours-field-sbumit", class: "text-primary-500 underline transition cursor-pointer ml-4" %>
-              </div>
-            <% else %>
-              <%= job.total_hours %>
-            <% end %>
-          </dd>
-        </div>
-        <div class="pt-4 pb-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5 pb-0 border-t border-gray-200">
-          <dt class="text-sm font-medium text-gray-500">Revenue</dt>
-          <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
-            <% if job.revenue.nil? %>
-              <div class="w-full flex flex-row">
-                <%= f.number_field :revenue, value: job.revenue, id: "revenue-field", class: "form-control w-12" %>
-                <%= f.submit "update", id: "revenue-field-sbumit", class: "text-primary-500 underline transition cursor-pointer ml-4" %>
-              </div>
-            <% else %>
-              <%= job.revenue %>
-            <% end %>
-          </dd>
-        </div>
+      <% unless job.draft? %>
+        <%= form_with(model: job, method: :patch, id: "total-hours-form") do |f| %>
+          <div class="py-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:py-4 items-center">
+            <dt class="text-sm font-medium text-gray-500">Total Hours</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <% if job.total_hours.nil? %>
+                <div class="w-full flex flex-row">
+                  <%= f.number_field :total_hours, value: job.total_hours, id: "total-hours-field", class: "form-control w-12" %>
+                  <%= f.submit "update", id: "total-hours-field-sbumit", class: "text-primary-500 underline transition cursor-pointer ml-4" %>
+                </div>
+              <% else %>
+                <%= job.total_hours %>
+              <% end %>
+            </dd>
+          </div>
+          <div class="pt-4 pb-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:pt-5 pb-0 border-t border-gray-200 items-center">
+            <dt class="text-sm font-medium text-gray-500">Revenue</dt>
+            <dd class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+              <% if job.revenue.nil? %>
+                <div class="w-full flex flex-row">
+                  <%= f.number_field :revenue, value: job.revenue, id: "revenue-field", class: "form-control w-12" %>
+                  <%= f.submit "update", id: "revenue-field-sbumit", class: "text-primary-500 underline transition cursor-pointer ml-4" %>
+                </div>
+              <% else %>
+                <%= job.revenue %>
+              <% end %>
+            </dd>
+          </div>
+        <% end %>
       <% end %>
     </dl>
   </div>

@@ -44,16 +44,12 @@ class JobsController < ApplicationController
   end
 
   def complete
-    if @job.revenue.nil? || @job.total_hours.nil?
-      redirect_to @job, alert: "Job is missing revenue and/or total hours" and return
-    end
-
     if @job.can_complete?
       @job.complete!
       redirect_to @job, notice: "Job was successfully completed."
-    else
-      redirect_to @job, alert: "Job can not be completed."
     end
+  rescue StateMachines::InvalidTransition
+    redirect_to @job, alert: @job.errors.full_messages.join(", ")
   end
 
   def add_employees
