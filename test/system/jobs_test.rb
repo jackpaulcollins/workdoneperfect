@@ -66,14 +66,11 @@ class JobsTest < ApplicationSystemTestCase
     click_on "Complete Job"
     assert_text "Job is missing revenue and/or total hours"
 
-    find("#job_total_hours").fill_in with: 2
-    find("#total-hours-form > div > input.text-primary-500.underline.transition.cursor-pointer.ml-4").click
+    # submitted either should update both values
+    find("#total-hours-field").fill_in with: 2
+    find("#revenue-field").fill_in with: 100
+    find("#total-hours-field-sbumit").click
     assert_text "Job was successfully updated."
-
-    find("#job_revenue").fill_in with: 100
-    find("#revenue-form > div > input.text-primary-500.underline.transition.cursor-pointer.ml-4").click
-    assert_text "Job was successfully updated."
-
     find("#complete-submit", wait: 2).click
     assert_text "Job was successfully completed."
   end
