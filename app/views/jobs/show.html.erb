@@ -18,10 +18,19 @@
       </div>
       <% if @job.can_complete? %>
         <div>
-          <%= form_with(model: @job, url: complete_job_job_path(@job), method: :patch) do %>
-          <button class="btn btn-secondary mr-2 p-2">
+          <%= form_with(model: @job, url: complete_job_path(@job), method: :patch) do %>
+            <button class="btn btn-secondary mr-2 p-2">
               <%= submit_tag "Mark Complete", id: "complete-submit" %>
               <i class="fa-solid fa-check ml-2"></i>
+            </button>
+          <% end %>
+        </div>
+      <% end %>
+      <% if @job.can_mark_incomplete? %>
+        <div>
+          <%= form_with(model: @job, url: incomplete_job_path(@job), method: :patch) do %>
+            <button class="btn btn-primary mr-2 p-2">
+              <%= submit_tag "Mark Incomplete", id: "mark-incomplete-submit" %>
             </button>
           <% end %>
         </div>

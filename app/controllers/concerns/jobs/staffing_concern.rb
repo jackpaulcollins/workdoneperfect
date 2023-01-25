@@ -18,8 +18,13 @@ module Jobs
         update_job
       elsif !changes && @job.staffed?
         @job.reset_to_scheduled!
+        maybe_destroy_employee_jobs
         update_job
       end
+    end
+
+    def maybe_destroy_employee_jobs
+      @job.employee_jobs.destroy_all if @job.employee_jobs.any?
     end
 
     def update_job

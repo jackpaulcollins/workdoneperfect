@@ -3,7 +3,7 @@
 class JobsController < ApplicationController
   include Jobs::StaffingConcern
 
-  before_action :set_job, only: %i[show edit update destroy staff add_employees complete]
+  before_action :set_job, only: %i[show edit update destroy staff add_employees complete incomplete]
   before_action :authenticate_user!
   # handles logic for changing job state depending on appropriate staffing changes
   before_action :process_staffing_changes, only: :add_employees
@@ -49,6 +49,17 @@ class JobsController < ApplicationController
       redirect_to @job, notice: "Job was successfully marked complete."
     else
       redirect_to @job, notice: "Job unable to be marked as complete."
+    end
+  rescue StateMachines::InvalidTransition
+    redirect_to @job, alert: @job.errors.full_messages.join(", ")
+  end
+
+  def incomplete
+    if @job.can_mark_incomplete?
+      @job.employee_jobs.any? ? @job.reset_to_staffed! : @job.reset_to_scheduled!
+      redirect_to @job, notice: "Job was successfully marked incomplete."
+    else
+      redirect_to @job, notice: "Job unable to be marked as incomplete."
     end
   rescue StateMachines::InvalidTransition
     redirect_to @job, alert: @job.errors.full_messages.join(", ")

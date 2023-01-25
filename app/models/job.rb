@@ -67,7 +67,7 @@ class Job < ApplicationRecord
     end
 
     event :reset_to_scheduled do
-      transition staffed: :scheduled
+      transition %i[complete staffed] => :scheduled
     end
 
     event :reset_to_draft do
@@ -76,6 +76,10 @@ class Job < ApplicationRecord
 
     event :complete do
       transition %i[staffed scheduled] => :complete
+    end
+
+    event :reset_to_staffed do
+      transition %i[complete] => :staffed
     end
   end
 
@@ -88,6 +92,10 @@ class Job < ApplicationRecord
 
   def can_save_as_draft?
     scheduled? || draft?
+  end
+
+  def can_mark_incomplete?
+    complete?
   end
 
   def completed?
