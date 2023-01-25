@@ -72,7 +72,7 @@ class JobsTest < ApplicationSystemTestCase
     find("#total-hours-field-sbumit").click
     assert_text "Job was successfully updated."
     find("#complete-submit", wait: 2).click
-    assert_text "Job was successfully completed."
+    assert_text "Job was successfully marked complete."
   end
 
   test "Can complete a job when everything ok" do
@@ -80,6 +80,6 @@ class JobsTest < ApplicationSystemTestCase
     visit job_url(@job)
     assert has_button?("Mark Complete")
     find("#complete-submit", wait: 2).click
-    assert_text "Job was successfully completed."
+    assert_text "Job was successfully marked complete."
   end
 end
