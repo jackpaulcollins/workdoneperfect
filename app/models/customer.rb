@@ -36,6 +36,24 @@ class Customer < ApplicationRecord
     first_name.present? || last_name.present?
   end
 
+  def has_both_names?
+    first_name.present? && last_name.present?
+  end
+
+  def available_name
+    first_name || last_name
+  end
+
+  # Used for the calendar display
+  # Preferred: first & last, second: first or last, last resort: just email
+  def name_or_email
+    if has_name?
+      has_both_names? ? name : available_name
+    else
+      email
+    end
+  end
+
   def name_and_email_or_email
     has_name? ? "#{first_name} #{last_name} #{email}" : email
   end

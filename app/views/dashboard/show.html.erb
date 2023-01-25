@@ -6,7 +6,7 @@
   <% jobs.each do |job| %>
     <div>
       <%= link_to job, class: "block hover:bg-gray-50" do %>
-        <%= job.customer.first_name %>
+        <%= job.customer.name_or_email %>
       <% end %>
     </div>
   <% end %>
