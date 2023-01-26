@@ -1,0 +1,17 @@
+<% bottom_left_day = range.count - 1 - 6 %>
+<% bottom_right_day = range.count - 1 %>
+
+<% range.each_with_index do |date, index| %>
+	<% round_class = case index 
+		when 0; "rounded-tl-lg";
+		when 6; "rounded-tr-lg";
+		when bottom_left_day; "rounded-bl-lg";
+		when bottom_right_day; "rounded-br-lg";
+		%>
+	
+	<% button_class = anchor_date.month == date.month ? "bg-white" : "bg-gray-50" %>
+	<% today_class = Date.today == date ? "font-semibold text-indigo-600" : "" %>
+	<% selected_class = date == anchor_date ? "bg-gray-900 font-semibold text-white" : "" %>
+	<% combined = [] %>
+
+<% end %>

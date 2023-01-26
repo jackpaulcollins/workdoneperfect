@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :calendars, only: :show
   resources :job_templates
   resources :customers
   resources :employee_attributes
