@@ -39,7 +39,7 @@ class Job < ApplicationRecord
   has_many :job_attribute_answers, dependent: :destroy
   has_many :resource_schedules, dependent: :delete_all
   has_many :company_resources, through: :resource_schedules
-  validates :date_and_time, presence: true
+  validates :date_and_time, :estimated_hours, presence: true
   accepts_nested_attributes_for :job_attribute_answers, allow_destroy: true
 
   # since we index on answer_job, we need to destroy outgoing answers
