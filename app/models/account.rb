@@ -107,7 +107,7 @@ class Account < ApplicationRecord
   # Uncomment this to add generic trials (without a card or plan)
   #
   # after_create :start_trial
-  #
+
   # def start_trial(length: 14.days)
   #   trial_ends_at = length.from_now
   #   set_payment_processor :fake_processor, allow_fake: true

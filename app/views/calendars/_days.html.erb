@@ -1,17 +1,149 @@
-<% bottom_left_day = range.count - 1 - 6 %>
-<% bottom_right_day = range.count - 1 %>
+<% today_class = "border-b" %>
 
-<% range.each_with_index do |date, index| %>
-	<% round_class = case index 
-		when 0; "rounded-tl-lg";
-		when 6; "rounded-tr-lg";
-		when bottom_left_day; "rounded-bl-lg";
-		when bottom_right_day; "rounded-br-lg";
-		%>
-	
-	<% button_class = anchor_date.month == date.month ? "bg-white" : "bg-gray-50" %>
-	<% today_class = Date.today == date ? "font-semibold text-indigo-600" : "" %>
-	<% selected_class = date == anchor_date ? "bg-gray-900 font-semibold text-white" : "" %>
-	<% combined = [] %>
+<div style="width: 165%" class="flex flex-col flex-none max-w-full sm:max-w-none md:max-w-full">
+	<div class="sticky top-0 z-30 flex-none bg-white shadow ring-1 ring-black ring-opacity-5 sm:pr-8">
+		<div class="grid grid-cols-7 text-sm leading-6 text-gray-500 sm:hidden">
+			<% range.each do |date| %>
+				<button type="button" class="flex flex-col items-center pt-2 pb-3 <%= date == Date.today ? "border-b-2 border-primary-500" : "" %>"><%= date.strftime("%a").chars.first %> <span class="flex items-center justify-center w-8 h-8 mt-1 font-semibold text-gray-900"><%= date.strftime("%d") %></span></button>
+			<% end %>
+		</div>
 
-<% end %>
+		<div class="hidden grid-cols-7 -mr-px text-sm leading-6 text-gray-500 border-r border-gray-100 divide-x divide-gray-100 sm:grid">
+			<div class="col-end-1 w-14"></div>
+			<% range.each do |date| %>
+				<div class="flex items-center justify-center py-3">
+					<span class="<%= date == Date.today ? "border-b-2 border-primary-500" : "" %>"><%= date.strftime("%a") %> <span class="items-center justify-center font-semibold text-gray-900"><%= date.strftime("%d") %></span></span>
+				</div>
+			<% end %>
+		</div>
+	</div>
+	<div class="flex flex-auto">
+		<div class="sticky left-0 z-10 flex-none bg-white w-14 ring-1 ring-gray-100"></div>
+		<div class="grid flex-auto grid-cols-1 grid-rows-1">
+			<!-- Horizontal lines -->
+			<div class="grid col-start-1 col-end-2 row-start-1 divide-y divide-gray-100" style="grid-template-rows: repeat(48, minmax(3.5rem, 1fr))">
+				<div class="row-end-1 h-7"></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">12AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">1AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">2AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">3AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">4AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">5AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">6AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">7AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">8AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">9AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">10AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">11AM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">12PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">1PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">2PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">3PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">4PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">5PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">6PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">7PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">8PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">9PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">10PM</div>
+				</div>
+				<div></div>
+				<div>
+					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">11PM</div>
+				</div>
+				<div></div>
+			</div>
+
+			<!-- Vertical lines -->
+			<div class="hidden grid-cols-7 col-start-1 col-end-2 grid-rows-1 row-start-1 divide-x divide-gray-100 sm:grid sm:grid-cols-7">
+				<div class="col-start-1 row-span-full"></div>
+				<div class="col-start-2 row-span-full"></div>
+				<div class="col-start-3 row-span-full"></div>
+				<div class="col-start-4 row-span-full"></div>
+				<div class="col-start-5 row-span-full"></div>
+				<div class="col-start-6 row-span-full"></div>
+				<div class="col-start-7 row-span-full"></div>
+				<div class="w-8 col-start-8 row-span-full"></div>
+			</div>
+
+			<!-- Events -->
+			<ol class="grid grid-cols-1 col-start-1 col-end-2 row-start-1 sm:grid-cols-7 sm:pr-8" style="grid-template-rows: 1.75rem repeat(288, minmax(0, 1fr)) auto">
+				<% Job.where(date_and_time: range).each do |job| %>
+					<li class="relative flex mt-px sm:col-start-3" style="grid-row: <%= job.start_minute / 5 %> / span <%= (job.estimated_hours * 60 / 5).to_i %>">
+						<%= link_to job_path(job), class: "absolute flex flex-col p-2 overflow-y-auto text-xs leading-5 rounded-lg group inset-1 bg-pink-50 hover:bg-pink-100", data: { turbo_frame: "_top" } do %>
+							<p class="order-1 font-semibold text-pink-700"><%= job.customer.name %></p>
+							<p class="text-pink-500 group-hover:text-pink-700"><time datetime="<%= job.date_and_time.strftime("%Y-%m-%dT%H:%M") %>"><%= job.date_and_time.strftime("%l:%M %p") %></time></p>
+						<% end %>
+					</li>
+				<% end %>
+			</ol>
+		</div>
+	</div>
+</div>
