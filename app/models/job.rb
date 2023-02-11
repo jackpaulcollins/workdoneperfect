@@ -54,6 +54,7 @@ class Job < ApplicationRecord
 
   scope :completed, ->(completed = true) { where("completed_at IS NOT NULL") if completed }
   scope :by_employee, ->(employee_id) { joins(:employee_jobs).where(employee_jobs: {employee_id: employee_id}) }
+  scope :by_date_range, ->(date_range) { where("date(date_and_time) >= ? AND date(date_and_time) <= ?", date_range.first, date_range.last) }
 
   # :draft, :scheduled, :staffed (employees added), :canceled or :completed
 
