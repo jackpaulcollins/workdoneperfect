@@ -136,7 +136,7 @@
 			<!-- Events -->
 			<ol class="grid grid-cols-1 col-start-1 col-end-2 row-start-1 sm:grid-cols-7 sm:pr-8" style="grid-template-rows: 1.75rem repeat(288, minmax(0, 1fr)) auto">
 				<% Job.by_date_range(range).each do |job| %>
-					<li class="relative flex mt-px sm:col-start-<%= job.date_and_time.wday + 1 %>" style="grid-row: <%= job.start_minute / 5 %> / span <%= (job.estimated_hours * 60 / 5).to_i %>">
+					<li class="relative flex mt-px col-start-<%= job.date_and_time.wday + 1 %> col-end-<%= job.date_and_time.wday + 2 %>" style="grid-row: <%= job.start_minute / 5 %> / span <%= (job.estimated_hours * 60 / 5).to_i %>">
 						<%= link_to job_path(job), class: "absolute flex flex-col p-2 overflow-y-auto text-xs leading-5 rounded-lg group inset-1 bg-primary-50 hover:bg-primary-100", data: { turbo_frame: "_top" } do %>
 							<p class="text-primary-500 group-hover:text-primary-700"><time datetime="<%= job.date_and_time.strftime("%Y-%m-%dT%H:%M") %>"><%= job.date_and_time.strftime("%l:%M %p") %></time></p>
 							<p class="font-semibold text-primary-700"><%= job.customer.name %></p>
