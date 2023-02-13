@@ -136,8 +136,4 @@ class Job < ApplicationRecord
   def start_time
     date_and_time
   end
-
-  def start_minute
-    (date_and_time.to_i - date_and_time.beginning_of_day.to_i) / 60
-  end
 end

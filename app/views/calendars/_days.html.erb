@@ -21,32 +21,8 @@
 		<div class="sticky left-0 z-10 flex-none bg-white w-14 ring-1 ring-gray-100"></div>
 		<div class="grid flex-auto grid-cols-1 grid-rows-1">
 			<!-- Horizontal lines -->
-			<div class="grid col-start-1 col-end-2 row-start-1 divide-y divide-gray-100" style="grid-template-rows: repeat(48, minmax(3.5rem, 1fr))">
+			<div class="grid col-start-1 col-end-2 row-start-1 divide-y divide-gray-100" style="grid-template-rows: repeat(32, minmax(3.5rem, 1fr))">
 				<div class="row-end-1 h-7"></div>
-				<div>
-					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">12AM</div>
-				</div>
-				<div></div>
-				<div>
-					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">1AM</div>
-				</div>
-				<div></div>
-				<div>
-					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">2AM</div>
-				</div>
-				<div></div>
-				<div>
-					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">3AM</div>
-				</div>
-				<div></div>
-				<div>
-					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">4AM</div>
-				</div>
-				<div></div>
-				<div>
-					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">5AM</div>
-				</div>
-				<div></div>
 				<div>
 					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">6AM</div>
 				</div>
@@ -115,10 +91,6 @@
 					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">10PM</div>
 				</div>
 				<div></div>
-				<div>
-					<div class="sticky left-0 z-20 -mt-2.5 -ml-14 w-14 pr-2 text-right text-xs leading-5 text-gray-400">11PM</div>
-				</div>
-				<div></div>
 			</div>
 
 			<!-- Vertical lines -->
@@ -134,10 +106,10 @@
 			</div>
 
 			<!-- Events -->
-			<ol class="grid grid-cols-1 col-start-1 col-end-2 row-start-1 sm:grid-cols-7 sm:pr-8" style="grid-template-rows: repeat(48, minmax(3.5rem, 1fr))">
+			<ol class="grid grid-cols-1 col-start-1 col-end-2 row-start-1 sm:grid-cols-7 sm:pr-8" style="grid-template-rows: repeat(16, minmax(3.5rem, 1fr))">
 				<div class="row-end-1 h-7"></div>
 				<% Job.by_date_range(range).each do |job| %>
-					<li class="relative flex -mt-1 col-start-<%= job.date_and_time.wday + 1 %> col-end-<%= job.date_and_time.wday + 2 %>" style="grid-row: <%= (job.start_time.hour + 10) %> / span <%= (job.estimated_hours * 2).to_i %>">
+					<li class="relative flex -mt-1 col-start-<%= job.date_and_time.wday + 1 %> col-end-<%= job.date_and_time.wday + 2 %>" style="grid-row: <%= job.start_time.in_time_zone(current_user.time_zone).hour - System::CALENDAR_HOUR_OFFSET %> / span <%= (job.estimated_hours).to_i %>">
 						<%= link_to job_path(job), class: "absolute flex flex-col p-2 overflow-y-auto text-xs leading-5 rounded-lg group inset-1 bg-primary-50 hover:bg-primary-100", data: { turbo_frame: "_top" } do %>
 							<p class="text-primary-500 group-hover:text-primary-700"><time datetime="<%= job.date_and_time.strftime("%Y-%m-%dT%H:%M") %>"><%= job.date_and_time.strftime("%l:%M %p") %></time></p>
 							<p class="font-semibold text-primary-700"><%= job.customer.name %></p>
