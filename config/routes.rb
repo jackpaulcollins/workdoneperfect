@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/calendars/get_jobs', to: 'calendars#show'
+  get "/calendars/get_jobs", to: "calendars#show"
   resources :job_templates
   resources :customers
   resources :employee_attributes
