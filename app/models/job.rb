@@ -134,24 +134,7 @@ class Job < ApplicationRecord
     end
   end
 
-  # for simple_calendar
-  def start_time
-    date_and_time
-  end
-
-  def start_minute
-    (date_and_time.hour * 60 + date_and_time.min)
-  end
-
-  def minutes_since_six_am
-    start_minute - SIX_AM_MINUTE
-  end
-
-  def fifteen_minute_increment_beyond_six_am
-    minutes_since_six_am / 60
-  end
-
-  def duration_minutes
-    estimated_hours / 60
+  def end_hour
+    date_and_time + estimated_hours.hours
   end
 end
