@@ -2,6 +2,13 @@
   "name": "jumpstart-app",
   "private": true,
   "dependencies": {
+    "@fullcalendar/core": "^6.1.4",
+    "@fullcalendar/daygrid": "^6.1.4",
+    "@fullcalendar/list": "^6.1.4",
+    "@fullcalendar/resource": "^6.1.4",
+    "@fullcalendar/resource-timegrid": "^6.1.4",
+    "@fullcalendar/resource-timeline": "^6.1.4",
+    "@fullcalendar/timegrid": "^6.1.4",
     "@gorails/ninja-keys": "^1.2.1",
     "@hotwired/stimulus": "^3.0.1",
     "@hotwired/turbo-rails": "^7.2.0",

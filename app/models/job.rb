@@ -56,6 +56,8 @@ class Job < ApplicationRecord
   scope :by_employee, ->(employee_id) { joins(:employee_jobs).where(employee_jobs: {employee_id: employee_id}) }
   scope :by_date_range, ->(date_range) { where("date(date_and_time) >= ? AND date(date_and_time) <= ?", date_range.first, date_range.last) }
 
+  SIX_AM_MINUTE = 360
+
   # :draft, :scheduled, :staffed (employees added), :canceled or :completed
 
   state_machine initial: :draft do
@@ -135,5 +137,21 @@ class Job < ApplicationRecord
   # for simple_calendar
   def start_time
     date_and_time
+  end
+
+  def start_minute
+    (date_and_time.hour * 60 + date_and_time.min)
+  end
+
+  def minutes_since_six_am
+    start_minute - SIX_AM_MINUTE
+  end
+
+  def fifteen_minute_increment_beyond_six_am
+    minutes_since_six_am / 60
+  end
+
+  def duration_minutes
+    estimated_hours / 60
   end
 end

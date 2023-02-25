@@ -1,6 +1,14 @@
 class CalendarsController < ApplicationController
   def show
-    date = Date.parse(params[:date])
-    render partial: "calendars/calendar", locals: {anchor_date: date}
+    jobs = Job.all.map do |job|
+      {
+        id: job.id,
+        resourceId: 'a',
+        title: job.customer.email,
+        start: job.date_and_time.iso8601,
+        end: (job.date_and_time + 8.hours).iso8601
+      }
+    end
+    render json: jobs
   end
 end
