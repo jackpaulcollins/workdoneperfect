@@ -13,18 +13,17 @@ class BillingAddressesController < ApplicationController
     @billing_address = current_account.build_billing_address(billing_address_params)
 
     if @billing_address.save
-      redirect_to subscriptions_path, notice: t("subscriptions.billing_address.created")
+      redirect_to subscriptions_path, notice: t('subscriptions.billing_address.created')
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @billing_address.update(billing_address_params)
-      redirect_to subscriptions_path, notice: t("subscriptions.billing_address.updated")
+      redirect_to subscriptions_path, notice: t('subscriptions.billing_address.updated')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -32,7 +31,7 @@ class BillingAddressesController < ApplicationController
 
   def destroy
     @billing_address.destroy
-    redirect_to subscriptions_path, status: :see_other, notice: t("subscriptions.billing_address.destroyed")
+    redirect_to subscriptions_path, status: :see_other, notice: t('subscriptions.billing_address.destroyed')
   end
 
   private

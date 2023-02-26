@@ -10,7 +10,7 @@ module Users
         # Enforce that we stay on the same host
         redirect_to URI.parse(params[:redirect_to]).path
       else
-        flash[:alert] = I18n.t("users.sudo.invalid_password")
+        flash[:alert] = I18n.t('users.sudo.invalid_password')
         render :new, status: :unprocessable_entity
       end
     end

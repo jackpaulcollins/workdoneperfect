@@ -6,7 +6,7 @@ module Accounts
       account_user = @account.account_users.find_by(user: current_user)
       return if account_user&.admin?
 
-      redirect_to @account, alert: t("accounts.admin_required")
+      redirect_to @account, alert: t('accounts.admin_required')
     end
   end
 end

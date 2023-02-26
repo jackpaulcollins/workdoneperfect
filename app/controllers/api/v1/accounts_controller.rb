@@ -5,7 +5,7 @@ module Api
     class AccountsController < Api::BaseController
       def index
         @accounts = current_user.accounts
-        render "accounts/index"
+        render 'accounts/index'
       end
     end
   end

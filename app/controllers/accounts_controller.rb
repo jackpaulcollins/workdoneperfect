@@ -12,8 +12,7 @@ class AccountsController < Accounts::BaseController
   end
 
   # GET /accounts/1
-  def show
-  end
+  def show; end
 
   # GET /accounts/new
   def new
@@ -21,8 +20,7 @@ class AccountsController < Accounts::BaseController
   end
 
   # GET /accounts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /accounts
   def create
@@ -38,11 +36,11 @@ class AccountsController < Accounts::BaseController
       # Fetch requests / pushState doesn't work between (sub)domains
       # so we'll just link to switch to the new account in the notice instead
       if request.format == :turbo_stream && Jumpstart::Multitenancy.subdomain? && @account.subdomain?
-        redirect_to @account, notice: t(".created_and_switch_html", link: root_url(subdomain: @account.subdomain))
+        redirect_to @account, notice: t('.created_and_switch_html', link: root_url(subdomain: @account.subdomain))
 
       else
         # Automatically switch to the new account on the next request
-        flash[:notice] = t(".created")
+        flash[:notice] = t('.created')
         switch
       end
     else
@@ -53,7 +51,7 @@ class AccountsController < Accounts::BaseController
   # PATCH/PUT /accounts/1
   def update
     if @account.update(account_params)
-      redirect_to @account, notice: t(".updated")
+      redirect_to @account, notice: t('.updated')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -62,7 +60,7 @@ class AccountsController < Accounts::BaseController
   # DELETE /accounts/1
   def destroy
     @account.destroy
-    redirect_to accounts_url, status: :see_other, notice: t(".destroyed")
+    redirect_to accounts_url, status: :see_other, notice: t('.destroyed')
   end
 
   # Current account will not change until the next request
@@ -103,6 +101,6 @@ class AccountsController < Accounts::BaseController
   def prevent_personal_account_deletion
     return unless @account.personal?
 
-    redirect_to account_path(@account), alert: t(".personal.cannot_delete")
+    redirect_to account_path(@account), alert: t('.personal.cannot_delete')
   end
 end

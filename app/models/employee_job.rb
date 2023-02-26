@@ -25,5 +25,5 @@ class EmployeeJob < ApplicationRecord
   belongs_to :job
   belongs_to :employee
 
-  validates :job, uniqueness: {scope: :employee_id}
+  validates :job, uniqueness: { scope: :employee_id }
 end

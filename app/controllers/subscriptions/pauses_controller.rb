@@ -6,8 +6,7 @@ module Subscriptions
     before_action :require_current_account_admin
     before_action :set_subscription
 
-    def show
-    end
+    def show; end
 
     def update
       @subscription.pause

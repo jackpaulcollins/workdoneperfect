@@ -19,42 +19,42 @@
 #  updated_at        :datetime         not null
 #
 
-require "test_helper"
+require 'test_helper'
 
 class PlanTest < ActiveSupport::TestCase
-  test "find_interval_plan" do
+  test 'find_interval_plan' do
     assert_equal annual, monthly.find_interval_plan
     assert_equal monthly, annual.find_interval_plan
   end
 
-  test "monthly?" do
+  test 'monthly?' do
     assert monthly.monthly?
     refute annual.monthly?
   end
 
-  test "annual?" do
+  test 'annual?' do
     assert annual.annual?
     refute monthly.annual?
   end
 
-  test "yearly?" do
+  test 'yearly?' do
     assert annual.yearly?
     refute monthly.yearly?
   end
 
-  test "monthly_version" do
+  test 'monthly_version' do
     assert_equal monthly, annual.monthly_version
   end
 
-  test "yearly_version" do
+  test 'yearly_version' do
     assert_equal annual, monthly.yearly_version
   end
 
-  test "annual_version" do
+  test 'annual_version' do
     assert_equal annual, monthly.annual_version
   end
 
-  test "default scope only has visible plans" do
+  test 'default scope only has visible plans' do
     assert_not_includes Plan.visible, plans(:hidden)
     assert_equal Plan.visible.count, Plan.count - Plan.hidden.count
   end
@@ -69,12 +69,12 @@ class PlanTest < ActiveSupport::TestCase
     assert_not_includes Plan.hidden, plans(:personal)
   end
 
-  test "plan converts stripe_tax to boolean" do
+  test 'plan converts stripe_tax to boolean' do
     plan = Plan.first
-    plan.stripe_tax = "1"
+    plan.stripe_tax = '1'
     assert plan.stripe_tax
 
-    plan.stripe_tax = "0"
+    plan.stripe_tax = '0'
     refute plan.stripe_tax
   end
 

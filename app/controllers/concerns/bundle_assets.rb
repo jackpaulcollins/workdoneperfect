@@ -12,8 +12,8 @@ module BundleAssets
   private
 
   def ensure_assets_bundled
-    return unless ["application.js", "application.css"].any? { |path| !Rails.application.asset_precompiled?(path) }
+    return unless ['application.js', 'application.css'].any? { |path| !Rails.application.asset_precompiled?(path) }
 
-    system("bin/yarn run build && bin/yarn run build:css")
+    system('bin/yarn run build && bin/yarn run build:css')
   end
 end

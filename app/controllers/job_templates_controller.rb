@@ -17,8 +17,7 @@ class JobTemplatesController < ApplicationController
   end
 
   # GET /job_templates/1 or /job_templates/1.json
-  def show
-  end
+  def show; end
 
   # GET /job_templates/new
   def new
@@ -28,8 +27,7 @@ class JobTemplatesController < ApplicationController
   end
 
   # GET /job_templates/1/edit
-  def edit
-  end
+  def edit; end
 
   def create
     @job_template = JobTemplate.new(job_template_params)
@@ -39,7 +37,7 @@ class JobTemplatesController < ApplicationController
 
     respond_to do |format|
       if @job_template.save
-        format.html { redirect_to @job_template, notice: "Job template was successfully created." }
+        format.html { redirect_to @job_template, notice: 'Job template was successfully created.' }
         format.json { render :show, status: :created, location: @job_template }
       else
         format.html do
@@ -58,7 +56,7 @@ class JobTemplatesController < ApplicationController
 
     respond_to do |format|
       if @job_template.update(job_template_params)
-        format.html { redirect_to @job_template, notice: "Job template was successfully updated." }
+        format.html { redirect_to @job_template, notice: 'Job template was successfully updated.' }
         format.json { render :show, status: :ok, location: @job_template }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -72,7 +70,7 @@ class JobTemplatesController < ApplicationController
     @job_template.destroy
     respond_to do |format|
       format.html do
-        redirect_to job_templates_url, status: :see_other, notice: "Job template was successfully destroyed."
+        redirect_to job_templates_url, status: :see_other, notice: 'Job template was successfully destroyed.'
       end
       format.json { head :no_content }
     end
@@ -100,7 +98,7 @@ class JobTemplatesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def job_template_params
     params.require(:job_template).permit(:account_id, :title, :default_template, required_resources: [],
-      job_attributes_attributes: %i[id name data_type required _destroy])
+                                                                                 job_attributes_attributes: %i[id name data_type required _destroy])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:job_template).permit(policy(@job_template).permitted_attributes)

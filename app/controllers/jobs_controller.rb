@@ -14,67 +14,67 @@ class JobsController < ApplicationController
     @pagy, @jobs = pagy(policy_scope(Job).sort_by_params(params[:sort], sort_direction))
     authorize @jobs
   rescue Pundit::NotAuthorizedError
-    redirect_to jobs_path, alert: "You are not authorized to view jobs."
+    redirect_to jobs_path, alert: 'You are not authorized to view jobs.'
   end
 
   def show
     authorize @job
   rescue Pundit::NotAuthorizedError
-    redirect_to jobs_path, alert: "You are not authorized to view this job."
+    redirect_to jobs_path, alert: 'You are not authorized to view this job.'
   end
 
   def new
     @job = if JobTemplate.default_template.present? && job_params.blank?
-      Job.new(job_template: JobTemplate.default_template)
-    elsif job_params.present?
-      Job.new(job_template_id: job_params[:job_template_id])
-    else
-      Job.new
-    end
+             Job.new(job_template: JobTemplate.default_template)
+           elsif job_params.present?
+             Job.new(job_template_id: job_params[:job_template_id])
+           else
+             Job.new
+           end
 
     authorize @job
   rescue Pundit::NotAuthorizedError
-    redirect_to jobs_path, alert: "You are not authorized to create jobs."
+    redirect_to jobs_path, alert: 'You are not authorized to create jobs.'
   end
 
   def edit
     authorize @job
   rescue Pundit::NotAuthorizedError
-    redirect_to jobs_path, alert: "You are not authorized to edit jobs."
+    redirect_to jobs_path, alert: 'You are not authorized to edit jobs.'
   end
 
   def complete
     if @job.can_complete?
       @job.complete!
-      redirect_to @job, notice: "Job was successfully marked complete."
+      redirect_to @job, notice: 'Job was successfully marked complete.'
     else
-      redirect_to @job, notice: "Job unable to be marked as complete."
+      redirect_to @job, notice: 'Job unable to be marked as complete.'
     end
   rescue StateMachines::InvalidTransition
-    redirect_to @job, alert: @job.errors.full_messages.join(", ")
+    redirect_to @job, alert: @job.errors.full_messages.join(', ')
   end
 
   def incomplete
     if @job.can_mark_incomplete?
       @job.employee_jobs.any? ? @job.reset_to_staffed! : @job.reset_to_scheduled!
-      redirect_to @job, notice: "Job was successfully marked incomplete."
+      redirect_to @job, notice: 'Job was successfully marked incomplete.'
     else
-      redirect_to @job, notice: "Job unable to be marked as incomplete."
+      redirect_to @job, notice: 'Job unable to be marked as incomplete.'
     end
   rescue StateMachines::InvalidTransition
-    redirect_to @job, alert: @job.errors.full_messages.join(", ")
+    redirect_to @job, alert: @job.errors.full_messages.join(', ')
   end
 
   def add_employees
     begin
       authorize @job
     rescue Pundit::NotAuthorizedError
-      redirect_to jobs_path, alert: "You are not authorized to add employees to jobs." and return
+      redirect_to jobs_path, alert: 'You are not authorized to add employees to jobs.' and return
     end
 
     respond_to do |format|
       if @job.update(job_params)
-        format.html { redirect_to @job, notice: "Job was successfully staffed." }
+        format.html { redirect_to @job, notice: 'Job was successfully staffed.' }
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -89,14 +89,14 @@ class JobsController < ApplicationController
     begin
       authorize @job
     rescue Pundit::NotAuthorizedError
-      redirect_to jobs_path, alert: "You are not authorized to create jobs." and return
+      redirect_to jobs_path, alert: 'You are not authorized to create jobs.' and return
     end
 
     respond_to do |format|
       if @job.save
         @job.schedule unless params[:draft].present?
 
-        format.html { redirect_to @job, notice: "Job was successfully created." }
+        format.html { redirect_to @job, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -109,11 +109,11 @@ class JobsController < ApplicationController
     begin
       authorize @job
     rescue Pundit::NotAuthorizedError
-      redirect_to jobs_path, alert: "You are not authorized to update jobs." and return
+      redirect_to jobs_path, alert: 'You are not authorized to update jobs.' and return
     end
     respond_to do |format|
       if @job.update(job_params)
-        format.html { redirect_to @job, notice: "Job was successfully updated." }
+        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -126,12 +126,12 @@ class JobsController < ApplicationController
     begin
       authorize @job
     rescue Pundit::NotAuthorizedError
-      redirect_to jobs_path, alert: "You are not authorized to delete jobs." and return
+      redirect_to jobs_path, alert: 'You are not authorized to delete jobs.' and return
     end
 
     @job.destroy
     respond_to do |format|
-      format.html { redirect_to jobs_url, status: :see_other, notice: "Job was successfully destroyed." }
+      format.html { redirect_to jobs_url, status: :see_other, notice: 'Job was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -145,11 +145,11 @@ class JobsController < ApplicationController
   end
 
   def job_required_staff_list
-    Employee.joins(:employee_template).where(employee_templates: {title: @job.job_template.required_resources})
+    Employee.joins(:employee_template).where(employee_templates: { title: @job.job_template.required_resources })
   end
 
   def job_not_required_staff_list
-    Employee.joins(:employee_template).where.not(employee_templates: {title: @job.job_template.required_resources})
+    Employee.joins(:employee_template).where.not(employee_templates: { title: @job.job_template.required_resources })
   end
 
   def job_params

@@ -33,14 +33,14 @@ class JobAttribute < ApplicationRecord
 
   def input_field
     case data_type
-    when "text"
-      "text_field"
-    when "boolean"
-      "checkbox"
-    when "integer"
-      "number"
+    when 'text'
+      'text_field'
+    when 'boolean'
+      'checkbox'
+    when 'integer'
+      'number'
     else
-      "text_field"
+      'text_field'
     end
   end
 end

@@ -52,7 +52,7 @@ module ActionText
     end
 
     def to_trix_content_attachment_partial_path
-      "action_text/embeds/trix_embed"
+      'action_text/embeds/trix_embed'
     end
 
     def attachable_plain_text_representation(caption = nil)
@@ -60,32 +60,32 @@ module ActionText
     end
 
     PATTERNS = [
-      {source: '^http:\\/\\/([^\\.]+\\.)?flickr\\.com\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/([^\\.]+\\.)?flickr\\.com\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/flic\\.kr\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/flic\\.kr\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/([^\\.]+\\.)?imgur\\.com\\/gallery\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/([^\\.]+\\.)?imgur\\.com\\/gallery\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/instagr\\.am\\/p\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/instagram\\.com\\/p\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/www\\.instagram\\.com\\/p\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/instagr\\.am\\/p\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/instagram\\.com\\/p\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/www\\.instagram\\.com\\/p\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/([^\\.]+\\.)?soundcloud\\.com\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/([^\\.]+\\.)?soundcloud\\.com\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/open\\.spotify\\.com\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/open\\.spotify\\.com\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/play\\.spotify\\.com\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/play\\.spotify\\.com\\/(.*?)', options: ""},
-      {source: '^spotify\\:(.*?)', options: ""},
-      {source: '^https:\\/\\/([^\\.]+\\.)?twitter\\.com\\/(.*?)\\/status\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/([^\\.]+\\.)?vimeo\\.com\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/([^\\.]+\\.)?vimeo\\.com\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/([^\\.]+\\.)?youtube\\.com\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/([^\\.]+\\.)?youtube\\.com\\/(.*?)', options: ""},
-      {source: '^http:\\/\\/([^\\.]+\\.)?youtu\\.be\\/(.*?)', options: ""},
-      {source: '^https:\\/\\/([^\\.]+\\.)?youtu\\.be\\/(.*?)', options: ""}
+      { source: '^http:\\/\\/([^\\.]+\\.)?flickr\\.com\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/([^\\.]+\\.)?flickr\\.com\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/flic\\.kr\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/flic\\.kr\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/([^\\.]+\\.)?imgur\\.com\\/gallery\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/([^\\.]+\\.)?imgur\\.com\\/gallery\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/instagr\\.am\\/p\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/instagram\\.com\\/p\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/www\\.instagram\\.com\\/p\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/instagr\\.am\\/p\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/instagram\\.com\\/p\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/www\\.instagram\\.com\\/p\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/([^\\.]+\\.)?soundcloud\\.com\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/([^\\.]+\\.)?soundcloud\\.com\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/open\\.spotify\\.com\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/open\\.spotify\\.com\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/play\\.spotify\\.com\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/play\\.spotify\\.com\\/(.*?)', options: '' },
+      { source: '^spotify\\:(.*?)', options: '' },
+      { source: '^https:\\/\\/([^\\.]+\\.)?twitter\\.com\\/(.*?)\\/status\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/([^\\.]+\\.)?vimeo\\.com\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/([^\\.]+\\.)?vimeo\\.com\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/([^\\.]+\\.)?youtube\\.com\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/([^\\.]+\\.)?youtube\\.com\\/(.*?)', options: '' },
+      { source: '^http:\\/\\/([^\\.]+\\.)?youtu\\.be\\/(.*?)', options: '' },
+      { source: '^https:\\/\\/([^\\.]+\\.)?youtu\\.be\\/(.*?)', options: '' }
     ].freeze
   end
 end

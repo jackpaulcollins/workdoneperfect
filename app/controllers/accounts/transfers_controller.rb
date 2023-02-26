@@ -7,9 +7,9 @@ module Accounts
 
     def update
       if @account.transfer_ownership(params[:user_id])
-        redirect_to @account, notice: t(".success")
+        redirect_to @account, notice: t('.success')
       else
-        redirect_to edit_account_path(@account), alert: t(".invalid")
+        redirect_to edit_account_path(@account), alert: t('.invalid')
       end
     end
 
@@ -23,7 +23,7 @@ module Accounts
     end
 
     def require_account_owner!
-      redirect_to @account, alert: t(".not_allowed") unless @account.owner?(current_user)
+      redirect_to @account, alert: t('.not_allowed') unless @account.owner?(current_user)
     end
   end
 end
