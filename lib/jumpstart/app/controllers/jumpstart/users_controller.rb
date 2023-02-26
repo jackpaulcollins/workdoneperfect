@@ -13,15 +13,15 @@ module Jumpstart
         account.set_payment_processor :fake_processor, allow_fake: true
         account.payment_processor.subscribe plan: Plan.free.fake_processor_id
 
-        @notice = "#{@user.name} (#{@user.email}) has been added as an admin. #{view_context.link_to('Login',
-                                                                                                     main_app.new_user_session_path)}"
+        @notice = "#{@user.name} (#{@user.email}) has been added as an admin. #{view_context.link_to("Login",
+          main_app.new_user_session_path)}"
 
         respond_to do |format|
           format.turbo_stream
           format.html { redirect_to root_path(anchor: :users), notice: @notice }
         end
       else
-        render partial: "jumpstart/admin/admin_user_modal", locals: { user: @user }
+        render partial: "jumpstart/admin/admin_user_modal", locals: {user: @user}
       end
     end
 
@@ -29,7 +29,7 @@ module Jumpstart
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :time_zone).merge(admin: true,
-                                                                                                       terms_of_service: true)
+        terms_of_service: true)
     end
   end
 end

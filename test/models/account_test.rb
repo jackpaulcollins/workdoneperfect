@@ -22,41 +22,41 @@
 #
 #  fk_rails_...  (owner_id => users.id)
 #
-require 'test_helper'
+require "test_helper"
 
 class AccountTest < ActiveSupport::TestCase
-  test 'validates against reserved domains' do
+  test "validates against reserved domains" do
     account = Account.new(domain: Jumpstart.config.domain)
     assert_not account.valid?
     assert_not_empty account.errors[:domain]
   end
 
-  test 'validates against reserved subdomains' do
+  test "validates against reserved subdomains" do
     subdomain = Account::RESERVED_SUBDOMAINS.first
     account = Account.new(subdomain:)
     assert_not account.valid?
     assert_not_empty account.errors[:subdomain]
   end
 
-  test 'subdomain format must start with alphanumeric char' do
-    account = Account.new(subdomain: '-abcd')
+  test "subdomain format must start with alphanumeric char" do
+    account = Account.new(subdomain: "-abcd")
     assert_not account.valid?
     assert_not_empty account.errors[:subdomain]
   end
 
-  test 'subdomain format must end with alphanumeric char' do
-    account = Account.new(subdomain: 'abcd-')
+  test "subdomain format must end with alphanumeric char" do
+    account = Account.new(subdomain: "abcd-")
     assert_not account.valid?
     assert_not_empty account.errors[:subdomain]
   end
 
-  test 'must be at least two characters' do
-    account = Account.new(subdomain: 'a')
+  test "must be at least two characters" do
+    account = Account.new(subdomain: "a")
     assert_not account.valid?
     assert_not_empty account.errors[:subdomain]
   end
 
-  test 'can use a mixture of alphanumeric, hyphen, and underscore' do
+  test "can use a mixture of alphanumeric, hyphen, and underscore" do
     %w[
       ab
       12
@@ -72,49 +72,49 @@ class AccountTest < ActiveSupport::TestCase
     end
   end
 
-  test 'personal accounts enabled' do
+  test "personal accounts enabled" do
     Jumpstart.config.stub(:personal_accounts, true) do
-      user = User.create! name: 'Test', email: 'personalaccounts@example.com', password: 'password',
-                          password_confirmation: 'password', terms_of_service: true
+      user = User.create! name: "Test", email: "personalaccounts@example.com", password: "password",
+        password_confirmation: "password", terms_of_service: true
       assert user.accounts.first.personal?
     end
   end
 
-  test 'personal accounts disabled' do
+  test "personal accounts disabled" do
     Jumpstart.config.stub(:personal_accounts, false) do
-      user = User.create! name: 'Test', email: 'nonpersonalaccounts@example.com', password: 'password',
-                          password_confirmation: 'password', terms_of_service: true
+      user = User.create! name: "Test", email: "nonpersonalaccounts@example.com", password: "password",
+        password_confirmation: "password", terms_of_service: true
       assert_not user.accounts.first.personal?
     end
   end
 
-  test 'owner?' do
+  test "owner?" do
     account = accounts(:one)
     assert account.owner?(users(:one))
     refute account.owner?(users(:two))
   end
 
-  test 'can_transfer? false for personal accounts' do
+  test "can_transfer? false for personal accounts" do
     refute accounts(:one).can_transfer?(users(:one))
   end
 
-  test 'can_transfer? true for owner' do
+  test "can_transfer? true for owner" do
     account = accounts(:company)
     assert account.can_transfer?(account.owner)
   end
 
-  test 'can_transfer? false for non-owner' do
+  test "can_transfer? false for non-owner" do
     refute accounts(:company).can_transfer?(users(:two))
   end
 
-  test 'transfer ownership to a new owner' do
+  test "transfer ownership to a new owner" do
     account = accounts(:company)
     new_owner = users(:two)
     assert accounts(:company).transfer_ownership(new_owner.id)
     assert_equal new_owner, account.reload.owner
   end
 
-  test 'transfer ownership fails transferring to a user outside the account' do
+  test "transfer ownership fails transferring to a user outside the account" do
     account = accounts(:company)
     owner = account.owner
     refute account.transfer_ownership(users(:invited).id)

@@ -27,7 +27,7 @@ class Account < ApplicationRecord
   RESERVED_DOMAINS = [Jumpstart.config.domain].freeze
   RESERVED_SUBDOMAINS = %w[app help support].freeze
 
-  belongs_to :owner, class_name: 'User'
+  belongs_to :owner, class_name: "User"
   has_many :account_invitations, dependent: :destroy
   has_many :account_users, dependent: :destroy
   has_many :notifications, dependent: :destroy
@@ -39,8 +39,8 @@ class Account < ApplicationRecord
   has_many :company_resources, dependent: :destroy
   has_many :jobs, dependent: :destroy
   has_many :job_templates, dependent: :destroy
-  has_one :billing_address, -> { where(address_type: :billing) }, class_name: 'Address', as: :addressable
-  has_one :shipping_address, -> { where(address_type: :shipping) }, class_name: 'Address', as: :addressable
+  has_one :billing_address, -> { where(address_type: :billing) }, class_name: "Address", as: :addressable
+  has_one :shipping_address, -> { where(address_type: :shipping) }, class_name: "Address", as: :addressable
 
   scope :personal, -> { where(personal: true) }
   scope :impersonal, -> { where(personal: false) }
@@ -51,9 +51,9 @@ class Account < ApplicationRecord
   pay_customer stripe_attributes: :stripe_attributes
 
   validates :name, presence: true
-  validates :domain, exclusion: { in: RESERVED_DOMAINS, message: :reserved }
-  validates :subdomain, exclusion: { in: RESERVED_SUBDOMAINS, message: :reserved },
-                        format: { with: /\A[a-zA-Z0-9]+[a-zA-Z0-9\-_]*[a-zA-Z0-9]+\Z/, message: :format, allow_blank: true }
+  validates :domain, exclusion: {in: RESERVED_DOMAINS, message: :reserved}
+  validates :subdomain, exclusion: {in: RESERVED_SUBDOMAINS, message: :reserved},
+    format: {with: /\A[a-zA-Z0-9]+[a-zA-Z0-9\-_]*[a-zA-Z0-9]+\Z/, message: :format, allow_blank: true}
   validates :avatar, resizable_image: true
 
   def find_or_build_billing_address
@@ -100,7 +100,7 @@ class Account < ApplicationRecord
 
     # Notify the new owner of the change
     Account::OwnershipNotification.with(account: self, previous_owner: previous_owner.name).deliver_later(user)
-  rescue StandardError
+  rescue
     false
   end
 
@@ -127,6 +127,6 @@ class Account < ApplicationRecord
 
   # Attributes to sync to the Stripe Customer
   def stripe_attributes(*_args)
-    { address: billing_address&.to_stripe }.compact
+    {address: billing_address&.to_stripe}.compact
   end
 end

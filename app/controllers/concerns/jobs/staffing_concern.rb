@@ -11,7 +11,7 @@ module Jobs
       # no value, so we check to see if there's anything other than
       # an empty string to determine if we have any changes to send to the db
 
-      changes = employee_ids.any? { |value| value != '' }
+      changes = employee_ids.any? { |value| value != "" }
 
       if changes && @job.staffed?
         update_job
@@ -32,7 +32,7 @@ module Jobs
     def update_job
       respond_to do |format|
         if @job.update(job_params)
-          format.html { redirect_to @job, notice: 'Job was successfully unstaffed.' }
+          format.html { redirect_to @job, notice: "Job was successfully unstaffed." }
           format.json { render :show, status: :ok, location: @job }
         else
           format.html { render :edit, status: :unprocessable_entity }

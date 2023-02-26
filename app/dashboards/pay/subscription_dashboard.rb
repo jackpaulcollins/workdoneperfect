@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'administrate/base_dashboard'
+require "administrate/base_dashboard"
 
 module Pay
   class SubscriptionDashboard < Administrate::BaseDashboard
@@ -12,7 +12,7 @@ module Pay
     # on pages throughout the dashboard.
     ATTRIBUTE_TYPES = {
       id: Field::Number,
-      customer: Field::BelongsTo.with_options(class_name: 'Pay::Customer'),
+      customer: Field::BelongsTo.with_options(class_name: "Pay::Customer"),
       name: Field::String,
       processor_id: Field::String,
       processor_plan: Field::String,

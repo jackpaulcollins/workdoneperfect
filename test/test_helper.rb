@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-ENV['RAILS_ENV'] ||= 'test'
-require_relative '../config/environment'
-require 'rails/test_help'
-require 'minitest/mock'
+ENV["RAILS_ENV"] ||= "test"
+require_relative "../config/environment"
+require "rails/test_help"
+require "minitest/mock"
 
 # Uncomment to view full stack trace in tests
 # Rails.backtrace_cleaner.remove_silencers!
 
-require 'sidekiq/testing' if defined?(Sidekiq)
+require "sidekiq/testing" if defined?(Sidekiq)
 
 module ActiveSupport
   class TestCase
@@ -38,7 +38,7 @@ module ActiveSupport
     end
 
     def permit(user, record, action)
-      cls = self.class.to_s.gsub(/Test/, '')
+      cls = self.class.to_s.gsub(/Test/, "")
       cls.constantize.new(user, record).public_send("#{action}?")
     end
   end

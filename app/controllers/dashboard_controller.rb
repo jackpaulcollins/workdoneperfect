@@ -2,6 +2,6 @@
 
 class DashboardController < ApplicationController
   def show
-    render controller: 'CalendarsController', action: 'show'
+    render controller: "CalendarsController", action: "show"
   end
 end

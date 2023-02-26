@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 class BillingAddressControllerTest < ActionDispatch::IntegrationTest
-  test 'should get new if authenticated' do
+  test "should get new if authenticated" do
     Jumpstart.config.stub(:payments_enabled?, true) do
       @user_two = users(:two)
       sign_in @user_two
@@ -14,7 +14,7 @@ class BillingAddressControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'should get edit if authenticated' do
+  test "should get edit if authenticated" do
     Jumpstart.config.stub(:payments_enabled?, true) do
       Jumpstart::Multitenancy.stub :selected, [] do
         @user_one = users(:one)

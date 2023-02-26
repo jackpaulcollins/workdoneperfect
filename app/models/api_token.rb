@@ -26,19 +26,19 @@
 #
 
 class ApiToken < ApplicationRecord
-  DEFAULT_NAME = I18n.t('api_tokens.default')
-  APP_NAME = I18n.t('api_tokens.app')
+  DEFAULT_NAME = I18n.t("api_tokens.default")
+  APP_NAME = I18n.t("api_tokens.app")
 
   belongs_to :user
 
-  scope :sorted, -> { order('last_used_at DESC NULLS LAST, created_at DESC') }
+  scope :sorted, -> { order("last_used_at DESC NULLS LAST, created_at DESC") }
 
   has_secure_token :token
 
   validates :name, presence: true
 
   def can?(permission)
-    Array.wrap(data('permissions')).include?(permission)
+    Array.wrap(data("permissions")).include?(permission)
   end
 
   def cant?(permission)

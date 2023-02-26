@@ -86,11 +86,11 @@ module Jumpstart
 
     def sendinblue_settings
       shared_settings.merge({
-                              address: "smtp-relay.sendinblue.com",
-                              authentication: "login",
-                              user_name: get_credential(:sendinblue, :username),
-                              password: get_credential(:sendinblue, :password)
-                            })
+        address: "smtp-relay.sendinblue.com",
+        authentication: "login",
+        user_name: get_credential(:sendinblue, :username),
+        password: get_credential(:sendinblue, :password)
+      })
     end
 
     def sendgrid_settings

@@ -11,7 +11,7 @@ module Users
         if (@employee = Employee.pending.find_by(email: params[:user][:email]))
           super
         else
-          flash[:alert] = 'Email address not found. Try again or contact your employer'
+          flash[:alert] = "Email address not found. Try again or contact your employer"
           redirect_to "/users/sign_up?invite=#{params[:invite]}"
         end
 

@@ -22,7 +22,7 @@ module Rolified
   included do
     # Cast roles to/from booleans
     self::ROLES.each do |role|
-      scope role, -> { where('roles @> ?', { role => true }.to_json) }
+      scope role, -> { where("roles @> ?", {role => true}.to_json) }
 
       define_method(:"#{role}=") { |value| super ActiveRecord::Type::Boolean.new.cast(value) }
       define_method(:"#{role}?") { send(role) }

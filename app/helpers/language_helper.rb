@@ -2,10 +2,10 @@
 
 module LanguageHelper
   LANGUAGES = {
-    "es-co": 'Spanish (Columbia)',
-    en: 'English',
-    fr: 'French',
-    nl: 'Dutch'
+    "es-co": "Spanish (Columbia)",
+    en: "English",
+    fr: "French",
+    nl: "Dutch"
   }.freeze
 
   def language_options

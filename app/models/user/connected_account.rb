@@ -68,15 +68,15 @@ class User
     end
 
     def name
-      auth&.dig('info', 'name')
+      auth&.dig("info", "name")
     end
 
     def email
-      auth&.dig('info', 'email')
+      auth&.dig("info", "email")
     end
 
     def image_url
-      auth&.dig('info', 'image') || GravatarHelper.gravatar_url_for(email)
+      auth&.dig("info", "image") || GravatarHelper.gravatar_url_for(email)
     end
 
     private

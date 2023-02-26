@@ -16,7 +16,7 @@ module Users
     def sudo(**_options)
       return if valid_sudo?
 
-      render 'users/sudo/new'
+      render "users/sudo/new"
     end
 
     def valid_sudo?
