@@ -18,6 +18,9 @@ class CalendarsController < ApplicationController
   private
 
   def date_range
-    Date.parse(params[:start])..Date.parse(params[:end])
+    start_date = Date.parse(params[:start]).beginning_of_day
+    end_date = Date.parse(params[:end]).end_of_day
+
+    start_date..end_date
   end
 end
