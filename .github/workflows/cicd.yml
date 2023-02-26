@@ -26,9 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Clear bundler cache
-        run: bundle exec gem cleanup
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
