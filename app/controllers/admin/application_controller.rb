@@ -11,7 +11,7 @@ module Admin
     before_action :authenticate_admin
     around_action :without_tenant
 
-    helper all_helpers_from_path "app/helpers"
+    helper all_helpers_from_path 'app/helpers'
 
     impersonates :user
 
@@ -19,13 +19,13 @@ module Admin
     # include SetCurrentRequestDetails
 
     def authenticate_admin
-      redirect_to "/", alert: "Not authorized." unless user_signed_in? && true_user.admin?
+      redirect_to '/', alert: 'Not authorized.' unless user_signed_in? && true_user.admin?
     end
 
     def order
       @order ||= Administrate::Order.new(
-        params.fetch(resource_name, {}).fetch(:order, "created_at"),
-        params.fetch(resource_name, {}).fetch(:direction, "desc")
+        params.fetch(resource_name, {}).fetch(:order, 'created_at'),
+        params.fetch(resource_name, {}).fetch(:direction, 'desc')
       )
     end
 

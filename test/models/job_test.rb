@@ -28,7 +28,7 @@
 #  fk_rails_...  (account_id => accounts.id)
 #  fk_rails_...  (customer_id => customers.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class JobTest < ActiveSupport::TestCase
   # test "the truth" do

@@ -32,7 +32,7 @@ class AccountUser < ApplicationRecord
   belongs_to :account
   belongs_to :user
 
-  validates :user_id, uniqueness: {scope: :account_id}
+  validates :user_id, uniqueness: { scope: :account_id }
   validate :owner_must_be_admin, on: :update, if: -> { admin_changed? && account_owner? }
 
   def account_owner?

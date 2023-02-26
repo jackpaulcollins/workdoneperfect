@@ -17,10 +17,10 @@ module Users
 
         respond_to do |format|
           format.html do
-            store_location_for(:user, request.fullpath) unless request.fullpath.start_with?("/agreements/")
+            store_location_for(:user, request.fullpath) unless request.fullpath.start_with?('/agreements/')
             redirect_to agreement_path(agreement)
           end
-          format.json { render json: {error: t("users.agreements.show.description", agreement: agreement.title)} }
+          format.json { render json: { error: t('users.agreements.show.description', agreement: agreement.title) } }
         end
 
         break

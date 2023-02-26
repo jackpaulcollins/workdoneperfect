@@ -2,4 +2,4 @@
 
 // Administrate already includes application.js
 // This includes additional features for Administrate only
-import "./administrate/components/**/*"
+import './administrate/components/**/*';

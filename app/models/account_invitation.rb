@@ -31,11 +31,11 @@ class AccountInvitation < ApplicationRecord
   include Rolified
 
   belongs_to :account
-  belongs_to :invited_by, class_name: "User", optional: true
+  belongs_to :invited_by, class_name: 'User', optional: true
   has_secure_token
 
   validates :name, :email, presence: true
-  validates :email, uniqueness: {scope: :account_id, message: :invited}
+  validates :email, uniqueness: { scope: :account_id, message: :invited }
 
   def save_and_send_invite
     return unless save

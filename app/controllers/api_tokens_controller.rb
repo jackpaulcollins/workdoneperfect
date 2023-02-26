@@ -15,18 +15,17 @@ class ApiTokensController < ApplicationController
   def create
     @api_token = current_user.api_tokens.new(api_token_params)
     if @api_token.save
-      redirect_to @api_token, notice: t(".created")
+      redirect_to @api_token, notice: t('.created')
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @api_token.update(api_token_params)
-      redirect_to api_token_path(@api_token), notice: t(".updated")
+      redirect_to api_token_path(@api_token), notice: t('.updated')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -34,7 +33,7 @@ class ApiTokensController < ApplicationController
 
   def destroy
     @api_token.destroy
-    redirect_to api_tokens_path, status: :see_other, notice: t(".destroyed")
+    redirect_to api_tokens_path, status: :see_other, notice: t('.destroyed')
   end
 
   private

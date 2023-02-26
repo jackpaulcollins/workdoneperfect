@@ -6,10 +6,9 @@ module Subscriptions
     before_action :require_current_account_admin
     before_action :set_plan
 
-    layout "checkout"
+    layout 'checkout'
 
-    def show
-    end
+    def show; end
 
     def update
       @billing_address = current_account.billing_address || current_account.build_billing_address

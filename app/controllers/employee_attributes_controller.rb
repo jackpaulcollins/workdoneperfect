@@ -17,8 +17,7 @@ class EmployeeAttributesController < ApplicationController
   end
 
   # GET /employee_attributes/1 or /employee_attributes/1.json
-  def show
-  end
+  def show; end
 
   # GET /employee_attributes/new
   def new
@@ -29,8 +28,7 @@ class EmployeeAttributesController < ApplicationController
   end
 
   # GET /employee_attributes/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /employee_attributes or /employee_attributes.json
   def create
@@ -41,7 +39,7 @@ class EmployeeAttributesController < ApplicationController
 
     respond_to do |format|
       if @employee_attribute.save
-        format.html { redirect_to @employee_attribute, notice: "Employee attribute was successfully created." }
+        format.html { redirect_to @employee_attribute, notice: 'Employee attribute was successfully created.' }
         format.json { render :show, status: :created, location: @employee_attribute }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,7 +52,7 @@ class EmployeeAttributesController < ApplicationController
   def update
     respond_to do |format|
       if @employee_attribute.update(employee_attribute_params)
-        format.html { redirect_to @employee_attribute, notice: "Employee attribute was successfully updated." }
+        format.html { redirect_to @employee_attribute, notice: 'Employee attribute was successfully updated.' }
         format.json { render :show, status: :ok, location: @employee_attribute }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -69,7 +67,7 @@ class EmployeeAttributesController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to employee_attributes_url, status: :see_other,
-          notice: "Employee attribute was successfully destroyed."
+                                             notice: 'Employee attribute was successfully destroyed.'
       end
       format.json { head :no_content }
     end

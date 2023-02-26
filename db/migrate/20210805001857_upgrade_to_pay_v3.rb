@@ -5,16 +5,16 @@ class UpgradeToPayV3 < ActiveRecord::Migration[6.0]
   MODELS = [Account].freeze
 
   def self.up
-    Pay::Subscription.where(processor: "jumpstart").update_all(processor: "fake_processor")
+    Pay::Subscription.where(processor: 'jumpstart').update_all(processor: 'fake_processor')
 
     MODELS.each do |klass|
       klass.where.not(processor: nil).find_each do |record|
         # Use the fake processor from Pay instead of the jumpstart placeholder
-        record.update(processor: "fake_processor") if record.processor == "jumpstart"
+        record.update(processor: 'fake_processor') if record.processor == 'jumpstart'
 
         # Migrate to Pay::Customer
         pay_customer = Pay::Customer.where(owner: record, processor: record.processor,
-          processor_id: record.processor_id).first_or_initialize
+                                           processor_id: record.processor_id).first_or_initialize
         pay_customer.update!(
           default: true,
           data: {
@@ -26,7 +26,7 @@ class UpgradeToPayV3 < ActiveRecord::Migration[6.0]
 
       # Migrate generic trials
       # Anyone on a generic trial gets a fake processor subscription with the same end timestamp
-      klass.where("trial_ends_at >= ?", Time.current).find_each do |record|
+      klass.where('trial_ends_at >= ?', Time.current).find_each do |record|
         # Make sure we don't have any conflicts when setting fake processor as the default
         Pay::Customer.where(owner: record, default: true).update_all(default: false)
 
@@ -56,11 +56,11 @@ class UpgradeToPayV3 < ActiveRecord::Migration[6.0]
       charge.data = {} if charge.data.is_a?(String)
 
       case charge.card_type.downcase
-      when "paypal"
-        charge.update!(customer:, payment_method_type: :paypal, brand: "PayPal", email: charge.card_last4)
+      when 'paypal'
+        charge.update!(customer:, payment_method_type: :paypal, brand: 'PayPal', email: charge.card_last4)
       else
         charge.update!(customer:, payment_method_type: :card, brand: charge.card_type,
-          last4: charge.card_last4, exp_month: charge.card_exp_month, exp_year: charge.card_exp_year)
+                       last4: charge.card_last4, exp_month: charge.card_exp_month, exp_year: charge.card_exp_year)
       end
     end
 
@@ -74,7 +74,7 @@ class UpgradeToPayV3 < ActiveRecord::Migration[6.0]
       end
 
       # Use the fake processor from Pay instead of the jumpstart placeholder
-      subscription.processor = "fake_processor" if subscription.processor == "jumpstart"
+      subscription.processor = 'fake_processor' if subscription.processor == 'jumpstart'
       customer = Pay::Customer.where(owner:, processor: subscription.processor).first_or_create!
 
       # Data column should be a hash. If we find a string instead, replace it

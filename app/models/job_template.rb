@@ -31,7 +31,7 @@ class JobTemplate < ApplicationRecord
   has_many :jobs
   has_many :job_attributes, index_errors: true, dependent: :destroy
 
-  validates :title, presence: true, uniqueness: {scope: :account_id}
+  validates :title, presence: true, uniqueness: { scope: :account_id }
   accepts_nested_attributes_for :job_attributes, allow_destroy: true
 
   before_validation :maybe_unset_default

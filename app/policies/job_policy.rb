@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class JobPolicy < ApplicationPolicy
   # https://github.com/varvet/pundit
   # See ApplicationPolicy for defaults
@@ -58,7 +60,7 @@ class JobPolicy < ApplicationPolicy
   # https://github.com/varvet/pundit#strong-parameters
   def permitted_attributes
     if account_user.admin?
-      [:title, :body, :tag_list]
+      %i[title body tag_list]
     else
       [:tag_list]
     end

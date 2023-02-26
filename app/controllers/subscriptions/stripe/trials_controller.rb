@@ -16,7 +16,7 @@ module Subscriptions
           },
           promotion_code: params[:promo_code]
         )
-        redirect_to root_path, notice: t("subscriptions.created")
+        redirect_to root_path, notice: t('subscriptions.created')
       end
 
       private

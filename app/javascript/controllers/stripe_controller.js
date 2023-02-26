@@ -1,49 +1,50 @@
-import { Controller } from "@hotwired/stimulus"
+import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-  static targets = [ "paymentElement", "error", "form" ]
+  static targets = ['paymentElement', 'error', 'form'];
+
   static values = {
     clientSecret: String,
-    returnUrl: String
-  }
+    returnUrl: String,
+  };
 
   connect() {
-    this.stripe = Stripe(this.stripeKey)
+    this.stripe = Stripe(this.stripeKey);
     this.elements = this.stripe.elements({
       appearance: {
-        theme: "stripe",
+        theme: 'stripe',
         variables: {
-          fontSizeBase: "14px"
-        }
+          fontSizeBase: '14px',
+        },
       },
-      clientSecret: this.clientSecretValue
-    })
+      clientSecret: this.clientSecretValue,
+    });
 
-    this.paymentElement = this.elements.create("payment")
-    this.paymentElement.mount(this.paymentElementTarget)
+    this.paymentElement = this.elements.create('payment');
+    this.paymentElement.mount(this.paymentElementTarget);
   }
 
   changed(event) {
     if (event.error) {
-      this.errorTarget.textContent = event.error.message
+      this.errorTarget.textContent = event.error.message;
     } else {
-      this.errorTarget.textContent = ""
+      this.errorTarget.textContent = '';
     }
   }
 
   async submit(event) {
-    event.preventDefault()
-    Rails.disableElement(this.formTarget)
+    event.preventDefault();
+    Rails.disableElement(this.formTarget);
 
     // Payment Intents
-    if (this.clientSecretValue.startsWith("pi_")) {
+    if (this.clientSecretValue.startsWith('pi_')) {
       const { error } = await this.stripe.confirmPayment({
         elements: this.elements,
         confirmParams: {
           return_url: this.returnUrlValue,
         },
       });
-      this.showError(error)
+      this.showError(error);
 
     // Setup Intents
     } else {
@@ -53,18 +54,18 @@ export default class extends Controller {
           return_url: this.returnUrlValue,
         },
       });
-      this.showError(error)
+      this.showError(error);
     }
   }
 
   showError(error) {
-    this.errorTarget.textContent = error.message
+    this.errorTarget.textContent = error.message;
     setTimeout(() => {
-      Rails.enableElement(this.formTarget)
-    }, 100)
+      Rails.enableElement(this.formTarget);
+    }, 100);
   }
 
   get stripeKey() {
-    return document.querySelector('meta[name="stripe-key"]').getAttribute("content")
+    return document.querySelector('meta[name="stripe-key"]').getAttribute('content');
   }
 }

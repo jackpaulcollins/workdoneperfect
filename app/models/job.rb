@@ -39,7 +39,7 @@ class Job < ApplicationRecord
   has_many :job_attribute_answers, dependent: :destroy
   has_many :resource_schedules, dependent: :delete_all
   has_many :company_resources, through: :resource_schedules
-  validates :date_and_time, presence: true
+  validates :date_and_time, :estimated_hours, presence: true
   accepts_nested_attributes_for :job_attribute_answers, allow_destroy: true
 
   # since we index on answer_job, we need to destroy outgoing answers
@@ -49,11 +49,14 @@ class Job < ApplicationRecord
   validates :total_hours, :revenue, presence: true, if: :complete?
 
   # Broadcast changes in realtime with Hotwire
-  after_create_commit -> { broadcast_prepend_later_to :jobs, partial: "jobs/index", locals: {job: self} }
+  after_create_commit -> { broadcast_prepend_later_to :jobs, partial: 'jobs/index', locals: { job: self } }
   after_destroy_commit -> { broadcast_remove_to :jobs, target: dom_id(self, :index) }
 
-  scope :completed, ->(completed = true) { where("completed_at IS NOT NULL") if completed }
-  scope :by_employee, ->(employee_id) { joins(:employee_jobs).where(employee_jobs: {employee_id: employee_id}) }
+  scope :completed, ->(completed = true) { where('completed_at IS NOT NULL') if completed }
+  scope :by_employee, ->(employee_id) { joins(:employee_jobs).where(employee_jobs: { employee_id: }) }
+  scope :by_date_range, lambda { |date_range|
+                          where('date(date_and_time) >= ? AND date(date_and_time) <= ?', date_range.first, date_range.last)
+                        }
 
   # :draft, :scheduled, :staffed (employees added), :canceled or :completed
 
@@ -124,15 +127,14 @@ class Job < ApplicationRecord
   end
 
   def state_display
-    if state == "staffed"
-      "Scheduled & Staffed"
+    if state == 'staffed'
+      'Scheduled & Staffed'
     else
       state.capitalize
     end
   end
 
-  # for simple_calendar
-  def start_time
-    date_and_time
+  def end_hour
+    date_and_time + estimated_hours.hours
   end
 end

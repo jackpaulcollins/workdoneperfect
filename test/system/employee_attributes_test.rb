@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "application_system_test_case"
+require 'application_system_test_case'
 
 class EmployeeAttributesTest < ApplicationSystemTestCase
   setup do
@@ -9,40 +9,40 @@ class EmployeeAttributesTest < ApplicationSystemTestCase
     login_as(@user)
   end
 
-  test "visiting the index" do
+  test 'visiting the index' do
     visit employee_attributes_url
-    assert_selector "h1", text: "Employee Attributes"
+    assert_selector 'h1', text: 'Employee Attributes'
   end
 
-  test "creating a Employee attribute" do
+  test 'creating a Employee attribute' do
     visit employee_attributes_url
-    click_on "New Employee Attribute"
+    click_on 'New Employee Attribute'
 
-    fill_in "Employee template", with: @employee_attribute.employee_template_id
-    fill_in "Name", with: @employee_attribute.name
-    click_on "Create Employee attribute"
+    fill_in 'Employee template', with: @employee_attribute.employee_template_id
+    fill_in 'Name', with: @employee_attribute.name
+    click_on 'Create Employee attribute'
 
-    assert_text "Employee attribute was successfully created"
-    assert_selector "h1", text: "Employee Attributes"
+    assert_text 'Employee attribute was successfully created'
+    assert_selector 'h1', text: 'Employee Attributes'
   end
 
-  test "updating a Employee attribute" do
+  test 'updating a Employee attribute' do
     visit employee_attribute_url(@employee_attribute)
-    click_on "Edit", match: :first
+    click_on 'Edit', match: :first
 
-    fill_in "Employee template", with: @employee_attribute.employee_template_id
-    fill_in "Name", with: @employee_attribute.name
-    click_on "Update Employee attribute"
+    fill_in 'Employee template', with: @employee_attribute.employee_template_id
+    fill_in 'Name', with: @employee_attribute.name
+    click_on 'Update Employee attribute'
 
-    assert_text "Employee attribute was successfully updated"
-    assert_selector "h1", text: "Employee Attributes"
+    assert_text 'Employee attribute was successfully updated'
+    assert_selector 'h1', text: 'Employee Attributes'
   end
 
-  test "destroying a Employee attribute" do
+  test 'destroying a Employee attribute' do
     visit edit_employee_attribute_url(@employee_attribute)
-    click_on "Delete", match: :first
-    click_on "Confirm"
+    click_on 'Delete', match: :first
+    click_on 'Confirm'
 
-    assert_text "Employee attribute was successfully destroyed"
+    assert_text 'Employee attribute was successfully destroyed'
   end
 end

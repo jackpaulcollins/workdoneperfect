@@ -1,7 +1,7 @@
 // See the Tailwind default theme values here:
 // https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
-const colors = require('tailwindcss/colors')
-const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 /** @type {import('tailwindcss').Config */
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
     './app/views/**/*.slim',
     './lib/jumpstart/app/views/**/*.erb',
     './lib/jumpstart/app/helpers/**/*.rb',
-    './app/components/**'
+    './app/components/**',
   ],
 
   // All the default values will be compiled unless they are overridden below
@@ -33,12 +33,12 @@ module.exports = {
         secondary: colors.emerald,
         tertiary: colors.gray,
         danger: colors.red,
-        "code-400": "#fefcf9",
-        "code-600": "#3c455b",
+        'code-400': '#fefcf9',
+        'code-600': '#3c455b',
       },
       screens: {
-        xs: "450px",
-        hform: "1150px"
+        xs: '450px',
+        hform: '1150px',
       },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
@@ -49,4 +49,4 @@ module.exports = {
   // Opt-in to TailwindCSS future changes
   future: {
   },
-}
+};

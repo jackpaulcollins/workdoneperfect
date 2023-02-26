@@ -22,7 +22,7 @@
 #  fk_rails_...  (employee_attribute_id => employee_attributes.id)
 #  fk_rails_...  (employee_id => employees.id)
 #
-require "test_helper"
+require 'test_helper'
 
 class AttributeAnswerTest < ActiveSupport::TestCase
   # test "the truth" do

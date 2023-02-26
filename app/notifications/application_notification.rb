@@ -25,6 +25,6 @@ class ApplicationNotification < Noticed::Base
 
   # Remove notification token when a user removes the app from their device
   def cleanup_device_token(token:, platform:)
-    NotificationToken.where(token:, platform: (platform == "fcm" ? "Android" : platform)).destroy_all
+    NotificationToken.where(token:, platform: (platform == 'fcm' ? 'Android' : platform)).destroy_all
   end
 end
