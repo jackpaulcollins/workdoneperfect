@@ -1,4 +1,18 @@
 GIT
+  remote: https://github.com/excid3/administrate.git
+  revision: 482b455a0bc653dd7af0bdd3683da39b1f1a338b
+  branch: jumpstart
+  specs:
+    administrate (0.18.0)
+      actionpack (>= 5.0)
+      actionview (>= 5.0)
+      activerecord (>= 5.0)
+      jquery-rails (>= 4.0)
+      kaminari (>= 1.0)
+      sassc-rails (~> 2.1)
+      selectize-rails (~> 0.6)
+
+GIT
   remote: https://github.com/excid3/annotate_models.git
   revision: 34ab955c72c414b83e0b4aacae419003a52a151d
   branch: rails7
@@ -113,14 +127,6 @@ GEM
       request_store (>= 1.0.5)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
-    administrate (0.18.0)
-      actionpack (>= 5.0)
-      actionview (>= 5.0)
-      activerecord (>= 5.0)
-      jquery-rails (>= 4.0)
-      kaminari (>= 1.0)
-      sassc-rails (~> 2.1)
-      selectize-rails (~> 0.6)
     administrate-field-active_storage (0.4.1)
       administrate (>= 0.2.2)
       rails (>= 7.0)
@@ -529,7 +535,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts_as_tenant (~> 0.5.1)
-  administrate
+  administrate!
   administrate-field-active_storage (~> 0.4.1)
   annotate!
   bootsnap (>= 1.4.2)
