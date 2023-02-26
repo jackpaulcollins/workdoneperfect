@@ -60,7 +60,7 @@ class JobsTest < ApplicationSystemTestCase
   end
 
   test "Can complete a job after filling in missing details" do
-    @job.update_columns(estimated_hours: nil, revenue: nil, total_hours: nil)
+    @job.update_columns(revenue: nil, total_hours: nil)
     visit job_url(@job)
     assert has_button?("Mark Complete")
     click_on "Mark Complete"

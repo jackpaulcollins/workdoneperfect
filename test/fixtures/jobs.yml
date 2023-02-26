@@ -61,7 +61,7 @@ incomplete:
   account: one
   customer: one
   date_and_time: 2022-10-12 22:48:39
-  estimated_hours: nil
+  estimated_hours: 8
   total_hours: nil
   revenue: nil
   job_template: one
