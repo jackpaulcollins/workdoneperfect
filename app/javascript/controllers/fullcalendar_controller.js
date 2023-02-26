@@ -62,6 +62,8 @@ export default class extends Controller {
 
   subscribeToDateChange() {
     this.calendar.on('datesSet', () => {
+      // TODO: dynamically build the date range based on the view
+      // console.log(this.calendar.view.type);
       const currentDate = this.calendar.getDate();
       const oneMonthFromNow = new Date(currentDate.getTime());
       oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
