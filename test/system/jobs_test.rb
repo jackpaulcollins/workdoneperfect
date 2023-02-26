@@ -18,7 +18,7 @@ class JobsTest < ApplicationSystemTestCase
   # test "creating a Job" do
   #   visit jobs_url
   #   find("#new-job-button").click
-  #   find(".choices__item--selectable").click
+  #   find("#customer-select").click
   #   find("#choices--customer-select-item-choice-1").click
   #   find("#job_job_template_id").click
   #   find("option[value='#{@job_template.id}']").click

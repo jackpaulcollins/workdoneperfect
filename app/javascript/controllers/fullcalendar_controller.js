@@ -4,7 +4,6 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
-import '../../assets/stylesheets/calendars/index.css';
 
 export default class extends Controller {
   static targets = ['calendar'];

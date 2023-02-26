@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <%= link_to t("shared.scaffold.new.title", model: "Customer"), new_customer_path, class: "btn btn-white" %>
+    <%= link_to t("shared.scaffold.new.title", model: "Customer"), new_customer_path, id: "new-customer-button", class: "btn btn-white" %>
   </div>
 
   <%= tag.div id: ("customers" if first_page?), class: "bg-white rounded-md shadow space-y-8" do %>
