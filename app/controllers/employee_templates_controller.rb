@@ -17,7 +17,8 @@ class EmployeeTemplatesController < ApplicationController
   end
 
   # GET /employee_templates/1 or /employee_templates/1.json
-  def show; end
+  def show
+  end
 
   # GET /employee_templates/new
   def new
@@ -28,9 +29,11 @@ class EmployeeTemplatesController < ApplicationController
   end
 
   # GET /employee_templates/1/edit
-  def edit; end
+  def edit
+  end
 
-  def bulk_upload; end
+  def bulk_upload
+  end
 
   def process_bulk_upload
     op = ::EmployeeTemplateBulkUploadOp.submit!(account_id: current_account.id, data: params[:csv].tempfile)
@@ -54,7 +57,7 @@ class EmployeeTemplatesController < ApplicationController
 
     respond_to do |format|
       if @employee_template.save
-        format.html { redirect_to @employee_template, notice: 'Employee template was successfully created.' }
+        format.html { redirect_to @employee_template, notice: "Employee template was successfully created." }
         format.json { render :show, status: :created, location: @employee_template }
       else
         format.html do
@@ -69,7 +72,7 @@ class EmployeeTemplatesController < ApplicationController
   def update
     respond_to do |format|
       if @employee_template.update(employee_template_params)
-        format.html { redirect_to @employee_template, notice: 'Employee template was successfully updated.' }
+        format.html { redirect_to @employee_template, notice: "Employee template was successfully updated." }
         format.json { render :show, status: :ok, location: @employee_template }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -83,7 +86,7 @@ class EmployeeTemplatesController < ApplicationController
     @employee_template.destroy
     respond_to do |format|
       format.html do
-        redirect_to employee_templates_url, status: :see_other, notice: 'Employee template was successfully destroyed.'
+        redirect_to employee_templates_url, status: :see_other, notice: "Employee template was successfully destroyed."
       end
       format.json { head :no_content }
     end
@@ -111,7 +114,7 @@ class EmployeeTemplatesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def employee_template_params
     params.require(:employee_template).permit(:account_id, :title, :csv,
-                                              employee_attributes_attributes: %i[id name data_type required _destroy])
+      employee_attributes_attributes: %i[id name data_type required _destroy])
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:employee_template).permit(policy(@employee_template).permitted_attributes)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'subroutine/association_fields'
-require 'smarter_csv'
+require "subroutine/association_fields"
+require "smarter_csv"
 
 class EmployeeTemplateBulkUploadOp < ::Subroutine::Op
   include ::Subroutine::AssociationFields
@@ -21,7 +21,7 @@ class EmployeeTemplateBulkUploadOp < ::Subroutine::Op
   end
 
   def extract_csv
-    File.open(data, 'r:bom|utf-8') do |f|
+    File.open(data, "r:bom|utf-8") do |f|
       SmarterCSV.process(f)
     end
   end

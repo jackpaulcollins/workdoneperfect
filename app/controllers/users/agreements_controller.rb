@@ -6,12 +6,12 @@ module Users
     before_action :authenticate_user!
     before_action :set_agreement
 
-    layout 'minimal'
+    layout "minimal"
 
     def show
       respond_to do |format|
         format.html
-        format.json { render json: { error: t('.description', agreement: @agreement.title) } }
+        format.json { render json: {error: t(".description", agreement: @agreement.title)} }
       end
     end
 
@@ -22,7 +22,7 @@ module Users
 
     def destroy
       Devise.sign_out_all_scopes ? sign_out : sign_out(current_user)
-      redirect_to after_sign_out_path_for(:user), alert: t('.declined', agreement: @agreement.title)
+      redirect_to after_sign_out_path_for(:user), alert: t(".declined", agreement: @agreement.title)
     end
 
     private

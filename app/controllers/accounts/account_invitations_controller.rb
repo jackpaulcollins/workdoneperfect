@@ -17,7 +17,7 @@ module Accounts
 
         if @employee
           @employee.mark_pending_invite!
-          flash[:notice] = 'Employee was successfully invited'
+          flash[:notice] = "Employee was successfully invited"
           redirect_to @employee
         else
           redirect_to @account
@@ -27,11 +27,12 @@ module Accounts
       end
     end
 
-    def edit; end
+    def edit
+    end
 
     def update
       if @account_invitation.update(invitation_params)
-        redirect_to @account, notice: t('.updated')
+        redirect_to @account, notice: t(".updated")
       else
         render :edit, status: :unprocessable_entity
       end
@@ -39,7 +40,7 @@ module Accounts
 
     def destroy
       @account_invitation.destroy
-      redirect_to @account, status: :see_other, notice: t('.destroyed')
+      redirect_to @account, status: :see_other, notice: t(".destroyed")
     end
 
     private

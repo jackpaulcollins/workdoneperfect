@@ -14,67 +14,67 @@ module Turbo
             # Tabs are hidden while we sort this out: https://github.com/hotwired/turbo-android/issues/209
             tabs: [
               {
-                title: 'Home',
+                title: "Home",
                 path: root_path,
-                icon: 'home'
+                icon: "home"
               },
               {
                 title: "What's New",
                 path: announcements_path,
-                icon: 'announcement'
+                icon: "announcement"
               },
               {
-                title: 'Notifications',
+                title: "Notifications",
                 path: notifications_path,
-                icon: 'notifications',
+                icon: "notifications",
                 show_notification_badge: true
               }
             ].to_json
           },
           rules: [
             {
-              patterns: ['.*'],
+              patterns: [".*"],
               properties: {
-                context: 'default',
-                uri: 'turbo://fragment/web',
-                fallback_uri: 'turbo://fragment/web',
+                context: "default",
+                uri: "turbo://fragment/web",
+                fallback_uri: "turbo://fragment/web",
                 pull_to_refresh_enabled: true
               }
             },
             {
-              patterns: ['^$', '^/$'],
+              patterns: ["^$", "^/$"],
               properties: {
-                uri: 'turbo://fragment/web/home',
-                presentation: 'replace_root'
+                uri: "turbo://fragment/web/home",
+                presentation: "replace_root"
               }
             },
             {
-              patterns: ['/new$', '/edit$'],
+              patterns: ["/new$", "/edit$"],
               properties: {
-                context: 'modal',
-                uri: 'turbo://fragment/web/modal/sheet',
+                context: "modal",
+                uri: "turbo://fragment/web/modal/sheet",
                 pull_to_refresh_enabled: false
               }
             },
             {
-              patterns: ['/users/sign_in'],
+              patterns: ["/users/sign_in"],
               properties: {
-                uri: 'turbo://fragment/users/sign_in',
-                context: 'modal'
+                uri: "turbo://fragment/users/sign_in",
+                context: "modal"
               }
             },
             {
-              patterns: ['/users/sign_up'],
+              patterns: ["/users/sign_up"],
               properties: {
-                uri: 'turbo://fragment/users/sign_up',
-                context: 'modal'
+                uri: "turbo://fragment/users/sign_up",
+                context: "modal"
               }
             },
             {
-              patterns: ['/account/password/edit'],
+              patterns: ["/account/password/edit"],
               properties: {
-                uri: 'turbo://fragment/account/password/edit',
-                context: 'modal'
+                uri: "turbo://fragment/account/password/edit",
+                context: "modal"
               }
             }
           ]

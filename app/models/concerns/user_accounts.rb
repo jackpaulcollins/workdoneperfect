@@ -7,10 +7,10 @@ module UserAccounts
     has_many :account_invitations, dependent: :nullify, foreign_key: :invited_by_id
     has_many :account_users, dependent: :destroy
     has_many :accounts, through: :account_users
-    has_many :owned_accounts, class_name: 'Account', foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
+    has_many :owned_accounts, class_name: "Account", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
     has_one :personal_account, lambda {
                                  where(personal: true)
-                               }, class_name: 'Account', foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
+                               }, class_name: "Account", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
 
     # Regular users should get their account created immediately
     after_create :create_default_account, unless: :skip_default_account?

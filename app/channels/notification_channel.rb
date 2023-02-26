@@ -8,6 +8,6 @@ class NotificationChannel < Noticed::NotificationChannel
   # * Accepts { ids: [1,2,3, ...]
 
   def mark_as_interacted(data)
-    current_user.notifications.where(id: data['ids']).mark_as_interacted!
+    current_user.notifications.where(id: data["ids"]).mark_as_interacted!
   end
 end

@@ -8,12 +8,12 @@ EmployeeTemplate.all.each do |employee_template|
     last_name = Faker::Name.last_name
 
     employee = employee_template.employees.create({
-                                                    account: employee_template.account,
-                                                    email: Faker::Internet.email(name: "#{first_name} #{last_name}"),
-                                                    first_name:,
-                                                    last_name:,
-                                                    start_date: Faker::Date.between(from: 5.years.ago, to: Date.today)
-                                                  })
+      account: employee_template.account,
+      email: Faker::Internet.email(name: "#{first_name} #{last_name}"),
+      first_name:,
+      last_name:,
+      start_date: Faker::Date.between(from: 5.years.ago, to: Date.today)
+    })
 
     # 25% chance the employee is no longer with the company
     employee.update(final_date: Faker::Date.between(from: employee.start_date, to: Date.today)) if rand(1..4) == 1

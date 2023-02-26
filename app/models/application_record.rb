@@ -7,7 +7,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   # Orders results by column and direction
   def self.sort_by_params(column, direction)
-    sortable_column = column.presence_in(sortable_columns) || 'created_at'
+    sortable_column = column.presence_in(sortable_columns) || "created_at"
     order(sortable_column => direction)
   end
 

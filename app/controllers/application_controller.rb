@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   # To add extra fields to Devise registration, add the attribute names to `extra_keys`
   def configure_permitted_parameters
     extra_keys = %i[avatar name time_zone preferred_language]
-    signup_keys = extra_keys + [:terms_of_service, :invite, { owned_accounts_attributes: [:name] }]
+    signup_keys = extra_keys + [:terms_of_service, :invite, {owned_accounts_attributes: [:name]}]
     devise_parameter_sanitizer.permit(:sign_up, keys: signup_keys)
     devise_parameter_sanitizer.permit(:account_update, keys: extra_keys)
     devise_parameter_sanitizer.permit(:accept_invitation, keys: extra_keys)
@@ -46,13 +46,13 @@ class ApplicationController < ActionController::Base
     return if user_signed_in?
 
     store_location_for(:user, request.fullpath)
-    redirect_to new_user_registration_path, alert: t('create_an_account_first')
+    redirect_to new_user_registration_path, alert: t("create_an_account_first")
   end
 
   def require_current_account_admin
     return if current_account_admin?
 
-    redirect_to root_path, alert: t('must_be_an_admin')
+    redirect_to root_path, alert: t("must_be_an_admin")
   end
 
   private

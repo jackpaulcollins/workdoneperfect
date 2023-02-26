@@ -19,7 +19,7 @@ module Jumpstart
     # Attributes
     attr_accessor :application_name
     attr_accessor :business_name, :business_address, :domain, :background_job_processor, :email_provider,
-                  :default_from_email, :support_email, :multitenancy
+      :default_from_email, :support_email, :multitenancy
     attr_writer :omniauth_providers
 
     def self.load!
@@ -177,7 +177,7 @@ module Jumpstart
         Rails::Generators::EncryptionKeyFileGenerator.new.add_key_file_silently(key_path)
         Rails::Generators::EncryptionKeyFileGenerator.new.ignore_key_file_silently(key_path)
         Rails::Generators::EncryptedFileGenerator.new.add_encrypted_file_silently(credentials_path, key_path,
-                                                                                  Jumpstart::Credentials.template)
+          Jumpstart::Credentials.template)
 
         # Add the credentials if we're in a git repo
         system("git add #{credentials_path}") if File.directory?(".git")
@@ -187,7 +187,7 @@ module Jumpstart
     private
 
     def procfile_content(dev: false)
-      content = { web: "bundle exec rails s" }
+      content = {web: "bundle exec rails s"}
 
       # Background workers
       if (worker_command = Jumpstart::JobProcessor.command(job_processor))

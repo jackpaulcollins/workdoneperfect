@@ -8,12 +8,13 @@ class Account
       redirect_to edit_account_password_path
     end
 
-    def edit; end
+    def edit
+    end
 
     def update
       if current_user.update_with_password(password_params)
         bypass_sign_in current_user
-        redirect_to account_password_path, notice: t('.updated')
+        redirect_to account_password_path, notice: t(".updated")
       else
         render :edit, status: :unprocessable_entity
       end

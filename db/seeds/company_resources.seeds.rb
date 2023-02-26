@@ -5,8 +5,8 @@ Account.all.each do |account|
     name = Faker::Name.first_name
     description = Faker::Name.first_name
     account.company_resources.create({
-                                       name:,
-                                       description:
-                                     })
+      name:,
+      description:
+    })
   end
 end

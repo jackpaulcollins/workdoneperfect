@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'administrate/base_dashboard'
+require "administrate/base_dashboard"
 
 module Pay
   class CustomerDashboard < Administrate::BaseDashboard
@@ -12,7 +12,7 @@ module Pay
     # on pages throughout the dashboard.
     ATTRIBUTE_TYPES = {
       id: Field::Number,
-      owner: Field::BelongsTo.with_options(class_name: 'Account'),
+      owner: Field::BelongsTo.with_options(class_name: "Account"),
       processor: Field::String,
       processor_id: Field::String,
       default: Field::Boolean,
@@ -20,8 +20,8 @@ module Pay
       created_at: Field::DateTime,
       updated_at: Field::DateTime,
       deleted_at: Field::DateTime,
-      charges: Field::HasMany.with_options(class_name: 'Pay::Charge'),
-      subscriptions: Field::HasMany.with_options(class_name: 'Pay::Subscription')
+      charges: Field::HasMany.with_options(class_name: "Pay::Charge"),
+      subscriptions: Field::HasMany.with_options(class_name: "Pay::Subscription")
     }.freeze
 
     # COLLECTION_ATTRIBUTES

@@ -20,7 +20,7 @@
 #
 #  fk_rails_...  (employee_template_id => employee_templates.id)
 #
-require 'test_helper'
+require "test_helper"
 
 class EmployeeAttributeTest < ActiveSupport::TestCase
   # test "the truth" do
