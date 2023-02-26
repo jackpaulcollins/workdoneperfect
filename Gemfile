@@ -89,7 +89,7 @@ end
 gem "jumpstart", path: "lib/jumpstart", group: :omit
 
 gem "acts_as_tenant", "~> 0.5.1"
-gem "administrate", github: "excid3/administrate", branch: "jumpstart" # '~> 0.10.0'
+gem "administrate"
 gem "administrate-field-active_storage", "~> 0.4.1"
 gem "country_select", "~> 8.0"
 gem "cssbundling-rails", "~> 1.1.0"
