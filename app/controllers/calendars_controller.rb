@@ -1,6 +1,7 @@
 class CalendarsController < ApplicationController
   def show
-    jobs = Job.includes(:company_resources).all.map do |job|
+    puts date_range.to_s * 10
+    jobs = Job.by_date_range(date_range).includes(:company_resources).map do |job|
       resource = job.company_resources.last if job.company_resources.present?
       {
         id: job.id,
@@ -11,5 +12,11 @@ class CalendarsController < ApplicationController
       }
     end
     render json: jobs
+  end
+
+  private
+
+  def date_range
+    Date.parse(params[:start])..Date.parse(params[:end])
   end
 end

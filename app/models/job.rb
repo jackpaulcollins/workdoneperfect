@@ -56,8 +56,6 @@ class Job < ApplicationRecord
   scope :by_employee, ->(employee_id) { joins(:employee_jobs).where(employee_jobs: {employee_id: employee_id}) }
   scope :by_date_range, ->(date_range) { where("date(date_and_time) >= ? AND date(date_and_time) <= ?", date_range.first, date_range.last) }
 
-  SIX_AM_MINUTE = 360
-
   # :draft, :scheduled, :staffed (employees added), :canceled or :completed
 
   state_machine initial: :draft do

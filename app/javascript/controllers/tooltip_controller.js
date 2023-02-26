@@ -1,18 +1,18 @@
 // Example usage:
 // <div data-controller="tooltip" data-tippy-content="Hello world"></div>
 
-import { Controller } from "@hotwired/stimulus"
-import tippy from "tippy.js";
+import { Controller } from '@hotwired/stimulus';
+import tippy from 'tippy.js';
 
 export default class extends Controller {
   static values = {
-    content: String
-  }
+    content: String,
+  };
 
   connect() {
-    let options = {}
+    const options = {};
     if (this.hasContentValue) {
-      options['content'] = this.contentValue
+      options.content = this.contentValue;
     }
     this.tippy = tippy(this.element, options);
   }

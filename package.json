@@ -32,6 +32,7 @@
     "js-cookie": "^3.0.1",
     "jstz": "^2.1.1",
     "local-time": "^2.1.0",
+    "moment": "^2.29.4",
     "postcss": "^8.4.8",
     "postcss-import": "^15.0.0",
     "slim-select": "^1.27.0",
@@ -45,5 +46,10 @@
   "scripts": {
     "build:css": "tailwindcss --postcss --minify -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css",
     "build": "node esbuild.config.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.34.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
   }
 }

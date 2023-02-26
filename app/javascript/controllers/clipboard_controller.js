@@ -1,17 +1,17 @@
-import { Controller } from "@hotwired/stimulus"
-import ClipboardJS from "clipboard"
-import tippy from "tippy.js";
+import { Controller } from '@hotwired/stimulus';
+import ClipboardJS from 'clipboard';
+import tippy from 'tippy.js';
 
 export default class extends Controller {
   static values = {
     successMessage: String,
-    errorMessage: String
-  }
+    errorMessage: String,
+  };
 
   connect() {
-    this.clipboard = new ClipboardJS(this.element)
-    this.clipboard.on("success", (e) => this.tooltip(this.successMessage))
-    this.clipboard.on("error",   (e) => this.tooltip(this.errorMessage))
+    this.clipboard = new ClipboardJS(this.element);
+    this.clipboard.on('success', (e) => this.tooltip(this.successMessage));
+    this.clipboard.on('error', (e) => this.tooltip(this.errorMessage));
   }
 
   tooltip(message) {
@@ -19,16 +19,16 @@ export default class extends Controller {
       content: message,
       showOnCreate: true,
       onHidden: (instance) => {
-        instance.destroy()
-      }
-    })
+        instance.destroy();
+      },
+    });
   }
 
   get successMessage() {
-    return this.successMessageValue || "Copied!"
+    return this.successMessageValue || 'Copied!';
   }
 
   get errorMessage() {
-    return this.errorMessageValue || "Failed!"
+    return this.errorMessageValue || 'Failed!';
   }
 }
