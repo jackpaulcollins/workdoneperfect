@@ -16,7 +16,7 @@ class EmployeeTemplatesTest < ApplicationSystemTestCase
 
   test "creating an EmployeeTemplate" do
     visit employee_templates_url
-    click_on "New Employee Template"
+    find("#new-employee-template-button").click
 
     fill_in "employee_template[title]", with: "New Cool Template"
     click_on "Create Employee template"

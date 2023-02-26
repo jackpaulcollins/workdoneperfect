@@ -16,7 +16,7 @@ class EmployeesTest < ApplicationSystemTestCase
 
   test "creating an Employee" do
     visit employees_url
-    click_on "New Employee"
+    find("#new-employee-button").click
 
     select "MyString", from: "employee[employee_template_id]"
     fill_in "Final date", with: @employee.final_date

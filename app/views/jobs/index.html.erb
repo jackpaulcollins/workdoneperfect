@@ -19,7 +19,7 @@
     <div>
       <% if current_account_user.admin? %>
         <%= link_to t("shared.scaffold.new.title", model: "Job Type"), new_job_template_path, class: "btn btn-white" %>
-        <%= link_to t("shared.scaffold.new.title", model: "Job"), new_job_path, class: "btn btn-white" %>
+        <%= link_to t("shared.scaffold.new.title", model: "Job"), new_job_path, id: "new-job-button", class: "btn btn-white" %>
       <% end %>
     </div>
   </div>

@@ -16,7 +16,7 @@ class EmployeeAttributesTest < ApplicationSystemTestCase
 
   test "creating a Employee attribute" do
     visit employee_attributes_url
-    click_on "New Employee Attribute"
+    find("#new-employee-attribute-button").click
 
     fill_in "Employee template", with: @employee_attribute.employee_template_id
     fill_in "Name", with: @employee_attribute.name

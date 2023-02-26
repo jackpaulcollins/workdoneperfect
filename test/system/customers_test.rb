@@ -16,7 +16,7 @@ class CustomersTest < ApplicationSystemTestCase
 
   test "creating a Customer" do
     visit customers_url
-    click_on "New Customer"
+    find("#new-customer-button").click
 
     fill_in "Email", with: "exampleemail@workdoneperfect.com"
     fill_in "First name", with: @customer.first_name

@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <%= link_to t("shared.scaffold.new.title", model: "Employee Attribute"), new_employee_attribute_path, class: "btn btn-white" %>
+    <%= link_to t("shared.scaffold.new.title", model: "Employee Attribute"), new_employee_attribute_path, id: "new-employee-attribute-button", class: "btn btn-white" %>
   </div>
 
   <%= tag.div id: ("employee_attributes" if first_page?), class: "bg-white rounded-md shadow p-6 space-y-8" do %>
