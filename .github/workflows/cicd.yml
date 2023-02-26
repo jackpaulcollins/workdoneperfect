@@ -26,6 +26,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Clear bundler cache
+        run: |
+          bundle clean --force
+          rm -rf $HOME/.bundle/cache/
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
