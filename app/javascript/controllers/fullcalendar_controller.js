@@ -46,7 +46,7 @@ export default class extends Controller {
     }, []);
     const events = data.map((job) => ({
       id: job.id,
-      resourceId: job.resource ? job.resource.id : null,
+      resourceId: job.resource,
       title: job.title,
       start: job.start,
       end: job.end,
