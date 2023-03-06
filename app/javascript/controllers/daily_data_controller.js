@@ -1,8 +1,19 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Connects to data-controller="daily-data"
 export default class extends Controller {
+  static outlets = ['fullcalendar'];
+
   connect() {
-    console.log("hi")
+    this.fullcalendarOutlet.calendar.on('datesSet', () => {
+      const dateString = this.fullcalendarOutlet.calendar.currentData.viewTitle;
+      this.fetchData(dateString);
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async fetchData(dateString) {
+    const response = await fetch(`/dashboard/daily_data.json?dates=${dateString}`);
+    const data = await response.json();
+    console.log(data);
   }
 }

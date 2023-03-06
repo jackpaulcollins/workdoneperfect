@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   get "/calendars/get_jobs", to: "calendars#show"
+  get "dashboard/daily_data", to: "dashboard#daily_data"
   resources :job_templates
   resources :customers
   resources :employee_attributes
