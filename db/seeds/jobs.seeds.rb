@@ -22,8 +22,6 @@ Account.all.each do |account|
 
     next unless job.date_and_time < Date.today
 
-    next unless job.date_and_time < Date.today
-
     completed_at = Faker::Time.between(from: job.date_and_time, to: (job.date_and_time + 12.hours))
     hours = ((completed_at - job.date_and_time) / 3600).round
     job.update(
