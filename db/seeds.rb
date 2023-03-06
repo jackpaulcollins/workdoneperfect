@@ -13,4 +13,3 @@ load_development_seeds("company_resources")
 load_development_seeds("job_templates")
 load_development_seeds("job_attributes")
 load_development_seeds("jobs")
-
