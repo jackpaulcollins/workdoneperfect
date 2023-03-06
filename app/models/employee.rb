@@ -82,18 +82,4 @@ class Employee < ApplicationRecord
       }
     end
   end
-
-  # Broadcast changes in realtime with Hotwire
-  after_create_commit do
-    broadcast_prepend_later_to :employees, partial: "employees/index", locals: {employee: self} # Append to index
-  end
-
-  after_update_commit do
-    broadcast_replace_later_to self # Update the show
-    broadcast_replace_later_to :employees, target: dom_id(self, :index), partial: "employees/index", locals: {employee: self} # Update the index
-  end
-
-  after_destroy_commit do
-    broadcast_remove_to :employees, target: dom_id(self, :index) # Remove from the index
-  end
 end

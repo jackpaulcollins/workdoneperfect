@@ -20,6 +20,7 @@ USERS.each do |user|
                 password: 'password',
                 password_confirmation: 'password',
                 admin: true,
+                time_zone: "Pacific Time (US & Canada)",
                 terms_of_service: true
               })
 end

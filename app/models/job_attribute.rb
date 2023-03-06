@@ -28,7 +28,7 @@ class JobAttribute < ApplicationRecord
   enum data_type: %i[text required integer]
 
   def fetch_answer(job_id)
-    job_attribute_answers.where(job_id:).first
+    job_attribute_answers.find_by(job_id: job_id)
   end
 
   def input_field
