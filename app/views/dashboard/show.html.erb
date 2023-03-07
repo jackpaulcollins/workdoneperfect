@@ -3,6 +3,6 @@
     <%= render "calendars/calendar" %>
   </div>
   <div class="mr-20">
-    <h1><%= render "dashboard/daily_data" %></h1>
+    <h1><%= render "dashboard/daily_data", locals: { date_range: date_range } %></h1>
   <div>
 </div>
