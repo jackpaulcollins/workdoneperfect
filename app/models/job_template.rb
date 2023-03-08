@@ -6,6 +6,7 @@
 #
 #  id                 :bigint           not null, primary key
 #  default_template   :boolean          default(FALSE)
+#  hourly_rate        :float
 #  required_resources :string           default([]), is an Array
 #  title              :string           not null
 #  created_at         :datetime         not null

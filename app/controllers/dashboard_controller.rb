@@ -19,7 +19,7 @@ class DashboardController < ApplicationController
   end
 
   def projected_revenue
-    jobs = Job.by_date_range([date_range..date_range])
-    jobs.sum(&:estimated_hours) * 100
+    jobs = Job.includes(:job_template).by_date_range([date_range..date_range])
+    jobs.sum { |job| job.estimated_hours * job.job_template.hourly_rate }.round
   end
 end
