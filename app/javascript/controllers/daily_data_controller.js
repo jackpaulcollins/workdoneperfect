@@ -3,19 +3,13 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
   static outlets = ['fullcalendar'];
 
-  static targets = ['dateDisplay'];
+  static targets = ['dateDisplay', 'dollarDisplay'];
 
   connect() {
     this.fullcalendarOutlet.calendar.on('datesSet', () => {
-      const dateString = this.fullcalendarOutlet.calendar.currentData.viewTitle;
-      const dateObj = new Date(dateString);
-      const month = dateObj.toLocaleString('default', { month: 'long' });
-      const day = dateObj.getDate();
-      const ordinal = this.getOrdinal(day);
-      const dayStr = `${day}${ordinal}'s`;
-      const formattedDate = `${month} ${dayStr} revenue`;
-      this.dateDisplayTarget.innerHTML = formattedDate;
-      this.fetchData(dateString);
+      const displayDate = this.fullcalendarOutlet.calendar.currentData.viewTitle;
+      this.dateDisplayTarget.innerHTML = this.formatDate(displayDate);
+      this.fetchData(displayDate);
     });
   }
 
@@ -23,7 +17,16 @@ export default class extends Controller {
   async fetchData(dateString) {
     const response = await fetch(`/dashboard/daily_data.json?dates=${dateString}`);
     const data = await response.json();
-    console.log(data);
+    this.dollarDisplayTarget.innerHTML = `$ ${data.projected_revenue}`;
+  }
+
+  formatDate(date) {
+    const dateObj = new Date(date);
+    const month = dateObj.toLocaleString('default', { month: 'long' });
+    const day = dateObj.getDate();
+    const ordinal = this.getOrdinal(day);
+    const dayStr = `${day}${ordinal}'s`;
+    return `${month} ${dayStr} revenue`;
   }
 
   // eslint-disable-next-line class-methods-use-this
