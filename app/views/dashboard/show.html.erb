@@ -1,8 +1,11 @@
-<div class="container p-4 mx-auto w-full flex flex-row justify-between">
+<div class="container p-4 mx-auto w-full flex flex-row justify-evenly">
   <div>
+  <%= render partial: "shared/sidebar" %>
+  </div>
+  <div class="ml-2 w-30%">
     <%= render "calendars/calendar" %>
   </div>
   <div class="mr-20">
-    <h1><%= render "dashboard/daily_data" %></h1>
+    <h1><%= render "dashboard/daily_data", locals: { date_range: date_range, projected_revenue: projected_revenue } %></h1>
   <div>
 </div>
