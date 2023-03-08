@@ -99,7 +99,7 @@ class JobTemplatesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def job_template_params
-    params.require(:job_template).permit(:account_id, :title, :default_template, required_resources: [],
+    params.require(:job_template).permit(:account_id, :title, :hourly_rate, :default_template, required_resources: [],
       job_attributes_attributes: %i[id name data_type required _destroy])
 
     # Uncomment to use Pundit permitted attributes

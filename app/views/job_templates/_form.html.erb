@@ -17,6 +17,10 @@
                                   {prompt: true, include_hidden: false},
                                   {:multiple => true, id: "employee-template-select", class: "form-control", data: {controller: "choices"}} %>
     </div>
+    <div>
+      <%= form.label :hourly_rate, class: "w-full text-sm font-medium text-gray-700" %>
+      <%= form.number_field :hourly_rate, class: "mt-1 mb-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-500 focus:ring-opacity-50 text-right", step: "0.01", min: "0" %>
+    </div>
   <div class="flex flex-row items-center py-2 border-b">
     <h6>Job Attributes</h6>
     <div data-controller="tooltip" data-tippy-content="<%= t("job_templates.tooltips.job_template_attribute_info") %>">

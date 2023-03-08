@@ -25,7 +25,7 @@ class JobAttribute < ApplicationRecord
 
   validates :name, presence: true
   validates :job_template, presence: true
-  enum data_type: %i[text required integer]
+  enum data_type: %i[text required integer boolean]
 
   def fetch_answer(job_id)
     job_attribute_answers.find_by(job_id:)
