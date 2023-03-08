@@ -25,8 +25,8 @@ export default class extends Controller {
     const month = dateObj.toLocaleString('default', { month: 'long' });
     const day = dateObj.getDate();
     const ordinal = this.getOrdinal(day);
-    const dayStr = `${day}${ordinal}'s`;
-    return `${month} ${dayStr} revenue`;
+    const dayStr = `${day}${ordinal}`;
+    return `${month} ${dayStr}`;
   }
 
   // eslint-disable-next-line class-methods-use-this
