@@ -8,6 +8,8 @@ export default class extends Controller {
   connect() {
     this.fullcalendarOutlet.calendar.on('datesSet', () => {
       const displayDate = this.fullcalendarOutlet.calendar.currentData.viewTitle;
+
+      console.log(displayDate)
       this.dateDisplayTarget.innerHTML = this.formatDate(displayDate);
       this.fetchData(displayDate);
     });

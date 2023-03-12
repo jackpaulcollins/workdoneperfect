@@ -33,8 +33,8 @@ export default class extends Controller {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async fetchEvents(start, end) {
-    const response = await fetch(`/calendars/get_jobs.json?start=${start}&end=${end}`);
+  async fetchEvents(dates) {
+    const response = await fetch(`/calendars/get_jobs.json?dates=${dates}`);
     const data = await response.json();
     const resources = data.reduce((acc, job) => {
       if (job.resource.id > 0) {
@@ -77,14 +77,9 @@ export default class extends Controller {
   }
 
   renderInitialLoad() {
-    const currentDate = new Date();
-    const oneMonthFromNow = new Date(currentDate.getTime());
-    oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
+    const currentMonth = (new Date().getMonth() + 1);
 
-    const start = currentDate.toISOString();
-    const end = oneMonthFromNow.toISOString();
-
-    this.fetchEvents(start, end).then(({ events, resources }) => {
+    this.fetchEvents(currentMonth).then(({ events, resources }) => {
       this.calendar.setOption('events', events);
       this.calendar.setOption('resources', resources);
       this.calendar.render();

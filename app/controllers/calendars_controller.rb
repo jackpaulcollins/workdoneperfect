@@ -17,10 +17,11 @@ class CalendarsController < ApplicationController
 
   private
 
-  def date_range
-    start_date = Date.parse(params[:start]).beginning_of_day
-    end_date = Date.parse(params[:end]).end_of_day
+  def parse_range
+  end
 
-    start_date..end_date
+  def date_range
+    puts params[:dates]
+    puts "*" * 100
   end
 end
