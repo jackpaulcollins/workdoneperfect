@@ -1902,10 +1902,10 @@ side-channel@^1.0.4:
     get-intrinsic "^1.0.2"
     object-inspect "^1.9.0"
 
-slim-select@^1.27.0:
-  version "1.27.1"
-  resolved "https://registry.npmjs.org/slim-select/-/slim-select-1.27.1.tgz"
-  integrity sha512-LvJ02cKKk6/jSHIcQv7dZwkQSXHLCVQR3v3lo8RJUssUUcmKPkpBmTpQ8au8KSMkxwca9+yeg+dO0iHAaVr5Aw==
+slim-select@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.yarnpkg.com/slim-select/-/slim-select-2.4.3.tgz#6d6bc7d94cc239b245be210b6ee04effd13d143f"
+  integrity sha512-6BI2pC7ApGqfRgrMVi79IcJY8dZ1/AzWuSRS7oMhmcHGhKj/xpoa0b1VpGpRp8mpWFkQB/I/cpk/WvYREJCJ5A==
 
 source-map-js@^1.0.2:
   version "1.0.2"
