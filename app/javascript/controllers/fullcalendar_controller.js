@@ -8,6 +8,21 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 export default class extends Controller {
   static targets = ['calendar'];
 
+  static MONTHS = {
+    Jan: 0,
+    Feb: 1,
+    Mar: 2,
+    Apr: 3,
+    May: 4,
+    Jun: 5,
+    Jul: 6,
+    Aug: 7,
+    Sep: 8,
+    Oct: 9,
+    Nov: 10,
+    Dec: 11,
+  };
+
   connect() {
     this.calendar = new Calendar(this.element, {
       plugins: [dayGridPlugin, listPlugin, timeGridPlugin, resourceTimelinePlugin],
@@ -33,8 +48,8 @@ export default class extends Controller {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  async fetchEvents(dates) {
-    const response = await fetch(`/calendars/get_jobs.json?dates=${dates}`);
+  async fetchEvents(startDate, endDate) {
+    const response = await fetch(`/calendars/get_jobs.json?start_date=${startDate}&end_date=${endDate}`);
     const data = await response.json();
     const resources = data.reduce((acc, job) => {
       if (job.resource.id > 0) {
@@ -61,28 +76,95 @@ export default class extends Controller {
 
   subscribeToDateChange() {
     this.calendar.on('datesSet', () => {
-      // TODO: dynamically build the date range based on the view
-      // console.log(this.calendar.view.type);
-      const currentDate = this.calendar.getDate();
-      const oneMonthFromNow = new Date(currentDate.getTime());
-      oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
-      const end = oneMonthFromNow.toISOString();
+      const dateString = this.calendar.currentData.viewTitle;
+      const dates = this.parseDate(dateString);
 
-      this.fetchEvents(currentDate, end).then(({ events, resources }) => {
-        this.calendar.setOption('events', events);
-        this.calendar.setOption('resources', resources);
-        this.calendar.render();
-      });
+      if (dates) {
+        const startDate = dates[0];
+        const endDate = dates[1];
+
+        this.fetchEvents(startDate, endDate).then(({ events, resources }) => {
+          this.calendar.setOption('events', events);
+          this.calendar.setOption('resources', resources);
+          this.calendar.render();
+        });
+      }
     });
   }
 
   renderInitialLoad() {
-    const currentMonth = (new Date().getMonth() + 1);
+    const startDate = new Date();
 
-    this.fetchEvents(currentMonth).then(({ events, resources }) => {
+    this.fetchEvents(startDate, startDate).then(({ events, resources }) => {
       this.calendar.setOption('events', events);
       this.calendar.setOption('resources', resources);
       this.calendar.render();
     });
+  }
+
+  parseDate(string) {
+    // week view
+    if (string.includes('–')) {
+      const parsedString = this.parseMultiDayString(string);
+      return parsedString;
+    }
+
+    // month view
+    const dateSchema = string.split(' ');
+    const month = dateSchema[0];
+    const year = dateSchema[1];
+
+    const startDate = new Date(
+      parseInt(year, 10),
+      this.constructor.MONTHS[month.substring(0, 3)],
+      parseInt(1, 10),
+    );
+
+    const endDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1, 0);
+
+    return [startDate, endDate];
+  }
+
+  parseMultiDayString(string) {
+    const [startStr, endStr] = string.split(' – ');
+
+    if (endStr.length > 10) {
+      return this.parseMonthStraddleString(startStr, endStr);
+    }
+    const [month, startDay] = startStr.split(' ');
+    const [endDay, year] = endStr.replace(',', '').split(' ');
+
+    const startDate = new Date(
+      parseInt(year, 10),
+      this.constructor.MONTHS[month],
+      parseInt(startDay, 10),
+    );
+
+    const endDate = new Date(
+      parseInt(year, 10),
+      this.constructor.MONTHS[month],
+      parseInt(endDay, 10),
+    );
+
+    return [startDate, endDate];
+  }
+
+  parseMonthStraddleString(startString, endString) {
+    const [month, startDay] = startString.split(' ');
+    const [endMonth, endDay, year] = endString.replace(',', '').split(' ');
+
+    const startDate = new Date(
+      parseInt(year, 10),
+      this.constructor.MONTHS[month],
+      parseInt(startDay, 10),
+    );
+
+    const endDate = new Date(
+      parseInt(year, 10),
+      this.constructor.MONTHS[endMonth],
+      parseInt(endDay, 10),
+    );
+
+    return [startDate, endDate];
   }
 }
