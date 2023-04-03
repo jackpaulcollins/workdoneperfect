@@ -2,20 +2,25 @@
 
 class CalendarsController < ApplicationController
   def show
-    jobs = Job.by_date_range(date_range).includes(:company_resources).map do |job|
+    jobs.map do |job|
       resource = job.company_resources.last if job.company_resources.present?
       {
         id: job.id,
         resource: resource.present? ? {id: resource.id, name: resource.name} : {id: 0},
         title: job.customer.email,
         start: job.date_and_time.iso8601,
-        end: job.end_hour.iso8601
+        end: job.end_hour.iso8601,
+        projected_revenue: jobs.sum { |job| job.estimated_hours * job.job_template.hourly_rate }.round
       }
     end
     render json: jobs
   end
 
   private
+
+  def jobs
+    Job.by_date_range(date_range).includes(:company_resources)
+  end
 
   def date_range
     (Date.parse(params[:start_date]).beginning_of_day..Date.parse(params[:end_date]).end_of_day)
