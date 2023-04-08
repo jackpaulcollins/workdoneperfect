@@ -15,7 +15,6 @@
 // 	"April 7, 2023" => ["Fri Apr 07 2023 00:00:00 GMT-0700 (Pacific Daylight Time)","Fri Apr 07 2023 00:00:00 GMT-0700 (Pacific Daylight Time"]
 // B.) two date objects:
 //     1.) "Apr 2 – 8, 2023"	=>
-// eslint-disable-next-line no-tabs
 // 				["Fri Apr 07 2023 00:00:00 GMT-0700 (Pacific Daylight Time)", "Fri Apr 08 2023 00:00:00 GMT-0700 (Pacific Daylight Time)"]
 // 		 1.) "April 2023" =>
 // 				["Fri Apr 01 2023 00:00:00 GMT-0700 (Pacific Daylight Time)", "Fri Apr 30 2023 00:00:00 GMT-0700 (Pacific Daylight Time)"]
