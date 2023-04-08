@@ -22,7 +22,7 @@ class DashboardController < ApplicationController
       start_date = Date.today
       end_date = Date.today
     end
-  
+
     [start_date, end_date]
   end
 
