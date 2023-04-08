@@ -4,6 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import { DateParser } from '../helpers/dateParser.js';
 
 export default class extends Controller {
   static targets = ['calendar'];
@@ -61,14 +62,10 @@ export default class extends Controller {
 
   subscribeToDateChange() {
     this.calendar.on('datesSet', () => {
-      // TODO: dynamically build the date range based on the view
-      // console.log(this.calendar.view.type);
-      const currentDate = this.calendar.getDate();
-      const oneMonthFromNow = new Date(currentDate.getTime());
-      oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
-      const end = oneMonthFromNow.toISOString();
+      const currentDate = this.calendar.currentData.viewTitle;
+      const [startDate, endDate] = DateParser.parse(currentDate);
 
-      this.fetchEvents(currentDate, end).then(({ events, resources }) => {
+      this.fetchEvents(startDate, endDate).then(({ events, resources }) => {
         this.calendar.setOption('events', events);
         this.calendar.setOption('resources', resources);
         this.calendar.render();
@@ -77,14 +74,10 @@ export default class extends Controller {
   }
 
   renderInitialLoad() {
-    const currentDate = new Date();
-    const oneMonthFromNow = new Date(currentDate.getTime());
-    oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
+    const currentDate = this.calendar.currentData.viewTitle;
+    const [startDate, endDate] = DateParser.parse(currentDate);
 
-    const start = currentDate.toISOString();
-    const end = oneMonthFromNow.toISOString();
-
-    this.fetchEvents(start, end).then(({ events, resources }) => {
+    this.fetchEvents(startDate, endDate).then(({ events, resources }) => {
       this.calendar.setOption('events', events);
       this.calendar.setOption('resources', resources);
       this.calendar.render();

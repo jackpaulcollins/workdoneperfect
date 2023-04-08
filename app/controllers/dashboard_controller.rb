@@ -15,11 +15,19 @@ class DashboardController < ApplicationController
   end
 
   def date_range
-    params[:dates].present? ? Date.parse(params[:dates]) : Date.today
+    if params[:start].present? && params[:end].present?
+      start_date = Date.parse(params[:start])
+      end_date = Date.parse(params[:end])
+    else
+      start_date = Date.today
+      end_date = Date.today
+    end
+  
+    [start_date, end_date]
   end
 
   def projected_revenue
-    jobs = Job.includes(:job_template).by_date_range([date_range..date_range])
+    jobs = Job.includes(:job_template).by_date_range(date_range)
     jobs.sum { |job| job.estimated_hours * job.job_template.hourly_rate }.round
   end
 end
