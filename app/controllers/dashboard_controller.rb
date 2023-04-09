@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class DashboardController < ApplicationController
-  helper_method :date_range
-  helper_method :projected_revenue
-
   def show
     render controller: "CalendarsController", action: "show"
   end
