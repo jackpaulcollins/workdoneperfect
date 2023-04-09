@@ -29,6 +29,7 @@
     "esbuild": "^0.15.0",
     "esbuild-rails": "^1.0.3",
     "flatpickr": "^4.6.10",
+    "fullcalendar_dateparser": "^1.0.5",
     "glob": "^8.0.1",
     "js-cookie": "^3.0.1",
     "jstz": "^2.1.1",

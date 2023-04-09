@@ -4,7 +4,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
-import { DateParser } from '../helpers/dateParser.js';
+import DateParser from 'fullcalendar_dateparser';
 
 export default class extends Controller {
   static targets = ['calendar'];

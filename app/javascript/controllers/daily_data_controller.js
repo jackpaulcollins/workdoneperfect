@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { DateParser } from '../helpers/dateParser.js';
+import DateParser from 'fullcalendar_dateparser';
 
 export default class extends Controller {
   static outlets = ['fullcalendar'];
