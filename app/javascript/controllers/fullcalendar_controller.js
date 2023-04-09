@@ -19,6 +19,7 @@ export default class extends Controller {
         right: 'resourceTimelineDay,timeGridWeek,dayGridMonth,listWeek',
       },
       initialView: 'resourceTimelineDay',
+      scrollTime: '8:00:00',
       views: {
         resourceTimelineThreeDays: {
           type: 'resourceTimeline',
