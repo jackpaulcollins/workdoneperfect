@@ -10,7 +10,7 @@ class DashboardController < ApplicationController
 
   def daily_data
     respond_to do |format|
-      format.json { render json: {projected_revenue: projected_revenue} }
+      format.json { render json: {projected_revenue: projected_revenue, job_count: job_count, captured_revenue: captured_revenue} }
     end
   end
 
@@ -27,7 +27,18 @@ class DashboardController < ApplicationController
   end
 
   def projected_revenue
-    jobs = Job.includes(:job_template).by_date_range(date_range)
-    jobs.sum { |job| job.estimated_hours * job.job_template.hourly_rate }.round
+    jobs_in_range.sum { |job| job.estimated_hours * job.job_template.hourly_rate }.round
+  end
+
+  def jobs_in_range
+    Job.includes(:job_template).by_date_range(date_range)
+  end
+
+  def job_count
+    jobs_in_range.count
+  end
+
+  def captured_revenue
+    jobs_in_range.sum(:revenue).round
   end
 end

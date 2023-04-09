@@ -4,7 +4,7 @@ import DateParser from 'fullcalendar_dateparser';
 export default class extends Controller {
   static outlets = ['fullcalendar'];
 
-  static targets = ['dateDisplay', 'dollarDisplay'];
+  static targets = ['dateDisplay', 'dollarDisplay', 'jobCountDisplay', 'capturedRevenueDisplay'];
 
   connect() {
     this.fullcalendarOutlet.calendar.on('datesSet', () => {
@@ -20,5 +20,7 @@ export default class extends Controller {
     const response = await fetch(`/dashboard/daily_data.json?start=${start}&end=${end}}`);
     const data = await response.json();
     this.dollarDisplayTarget.innerHTML = `$ ${data.projected_revenue}`;
+    this.jobCountDisplayTarget.innerHTML = `${data.job_count}`;
+    this.capturedRevenueDisplayTarget.innerHTML = `$ ${data.captured_revenue}`;
   }
 }
