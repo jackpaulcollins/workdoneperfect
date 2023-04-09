@@ -2,7 +2,7 @@
 
 class CalendarsController < ApplicationController
   def show
-    jobs = Job.by_date_range(date_range).includes(:company_resources).map do |job|
+    jobs = policy_scope(Job).by_date_range(date_range).includes(:company_resources).map do |job|
       resource = job.company_resources.last if job.company_resources.present?
       {
         id: job.id,
