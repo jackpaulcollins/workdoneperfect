@@ -2,7 +2,9 @@
   <div>
     <%= render "calendars/calendar" %>
   </div>
-  <div>
-    <h1><%= render "dashboard/daily_data" %></h1>
-  <div>
+  <% if account_admin?(current_account, current_user) %>
+    <div>
+      <h1><%= render "dashboard/daily_data" %></h1>
+    <div>
+  <% end %>
 </div>
