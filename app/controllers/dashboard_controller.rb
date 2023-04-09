@@ -27,7 +27,7 @@ class DashboardController < ApplicationController
   end
 
   def projected_revenue
-    jobs_in_range.sum { |job| job.estimated_hours * job.job_template.hourly_rate }.round
+    jobs_in_range.sum(&:projected_revenue).round
   end
 
   def jobs_in_range

@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import DateParser from 'fullcalendar_dateparser';
 
 export default class extends Controller {

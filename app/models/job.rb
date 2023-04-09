@@ -137,4 +137,8 @@ class Job < ApplicationRecord
   def end_hour
     date_and_time + estimated_hours.hours
   end
+
+  def projected_revenue
+    job_template.hourly_rate * estimated_hours
+  end
 end
