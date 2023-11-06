@@ -32,7 +32,7 @@
       <%= render "job_attribute_form", f: fields %>
     <% end %>
   </template>
-  <%= form.fields_for :job_attributes do |job_attribute_fields| %>
+  <%= form.fields_for :job_attributes, JobAttribute.new do |job_attribute_fields| %>
     <%= render "job_attribute_form", f: job_attribute_fields %>
   <% end %>
   <div class="flex flex-row" data-job-template-form-target="target"></div>

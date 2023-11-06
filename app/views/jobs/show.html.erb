@@ -5,7 +5,7 @@
     <h1 class="h3">
       <%= link_to "Jobs", jobs_path, class: "text-black" %>
       <span class="mx-2 font-light text-gray-400">\</span>
-      Job #<%= @job.id %>
+      Job <%= @job.id %>
     </h1>
     <div class="flex">
       <div class="mr-4">
@@ -18,9 +18,18 @@
       </div>
       <% if @job.can_complete? %>
         <div>
-          <%= form_with(model: @job, url: complete_job_path(@job), method: :patch) do %>
+          <%= form_with(model: @job, url: complete_job_path(@job), method: :patch, data: { controller: "job-form"}) do %>
             <button class="btn btn-secondary mr-2 p-2">
               <%= submit_tag "Mark Complete", id: "complete-submit" %>
+              <div data-contoller="job-form">
+                <div data-job-form-target="totalHoursHiddenField">
+                  <%= hidden_field_tag @job.total_hours %>       
+                </div>
+                <div data-job-form-target="revenueHiddenField">
+                <div>       
+                  <%= hidden_field_tag @job.revenue %> 
+                </div>
+              </div>
               <i class="fa-solid fa-check ml-2"></i>
             </button>
           <% end %>
