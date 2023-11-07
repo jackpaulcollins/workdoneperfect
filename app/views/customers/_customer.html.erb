@@ -24,7 +24,7 @@
             <dt class="text-sm font-medium text-gray-500">Jobs Booked</dt>
             <dd class="mt-1 text-sm text-gray-900"><%= customer.job_count %></dd>
           </div>
-          <% if customer.most_recent_job %>
+          <% if customer.most_recent_job.present? %>
             <div class="sm:col-span-1">
               <%= link_to "Most Recent Job", job_path(customer.most_recent_job) %>
             </div>
